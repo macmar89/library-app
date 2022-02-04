@@ -12,6 +12,7 @@
     "express": "^4.17.2",
     "mongoose": "^6.2.0",
     "nodemon": "^2.0.15",
+    "slug": "^5.2.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {

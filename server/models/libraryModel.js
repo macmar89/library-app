@@ -7,6 +7,7 @@ const librarySchema = mongoose.Schema(
       required: [true, "Please Enter library name"],
       trim: true,
     },
+    slug: {type: String, required: true},
     students: { type: Array, default: [] },
     books: { type: Array, default: [] },
   },

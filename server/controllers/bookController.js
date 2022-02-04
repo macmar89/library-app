@@ -1,5 +1,6 @@
 const Book = require("../models/bookModel");
 const ApiFeatures = require("../utils/ApiFeatures");
+const slug = require("slug");
 
 //  Get All Books
 exports.getAllBooks = async (req, res) => {
@@ -10,7 +11,7 @@ exports.getAllBooks = async (req, res) => {
 
 //  Create New Book
 exports.createBook = async (req, res) => {
-  const book = await Book.create(req.body);
+  const book = await Book.create({ ...req.body, slug: slug(req.body.title) });
 
   res.status(201).json({ success: true, book });
 };
@@ -43,7 +44,7 @@ exports.getAllBooksFromLibrary = async (req, res) => {
 
   // const bookCount = await Book.find({libraryId: id}).length
 
-  const bookCount = await Book.countDocuments({libraryId: id});
+  const bookCount = await Book.countDocuments({ libraryId: id });
   const apiFeature = new ApiFeatures(
     Book.find({ libraryId: id }),
     req.query
