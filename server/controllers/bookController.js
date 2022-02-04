@@ -42,8 +42,6 @@ exports.getAllBooksFromLibrary = async (req, res) => {
     return res.status(404).json({ success: false });
   }
 
-  // const bookCount = await Book.find({libraryId: id}).length
-
   const bookCount = await Book.countDocuments({ libraryId: id });
   const apiFeature = new ApiFeatures(
     Book.find({ libraryId: id }),

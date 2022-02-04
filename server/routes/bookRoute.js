@@ -5,7 +5,8 @@ router.route("/book").get(getAllBooks).post(createBook);
 
 router.route('/book/:id').put(updateBook)
 
-router.route('/book/:libraryId').get(getAllBooksFromLibrary)
+router.route('/:libraryId/books').get(getAllBooksFromLibrary)
+
 
 
 module.exports = router;
