@@ -18,7 +18,7 @@ const student = mongoose.Schema(
       required: [true, "Please Enter email"],
       validate: [validator.isEmail, "Please Enter a valid email"],
     },
-    libraries: { type: String , required: true},
+    libraryId: { type: String , required: true},
     // borrowedBooks : [
     //   {
     //     bookId: {

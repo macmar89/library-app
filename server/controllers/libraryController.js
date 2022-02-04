@@ -1,4 +1,6 @@
 const Library = require("../models/libraryModel");
+const Book = require("../models/bookModel");
+const Student = require("../models/studentModel");
 const slug = require("slug");
 
 //  Get All Libraries
@@ -54,4 +56,46 @@ exports.deleteLibrary = async (req, res) => {
   await library.remove();
 
   res.status(200).json({ success: true, message: "Library was deleted" });
+};
+
+//  Get Library By Slug
+exports.getLibraryDetail = async (req, res) => {
+  const { slug } = req.params;
+
+  const library = await Library.findOne({ slug: slug });
+
+  const id = library._id.toString();
+
+  try {
+    const newestBooks = await Book.find({ libraryId: id })
+      .sort({ yearOfRelease: -1 })
+      .limit(5);
+
+    const newestStudents = await Student.find({ libraryId: id })
+      .sort({ createdAt: -1 })
+      .limit(5);
+
+    res
+      .status(200)
+      .json({ success: true, library, newestBooks, newestStudents });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
+};
+
+//  Add New Student To Library
+// exports.createNewStudentToLibrary = async (req, res) => {};
+
+//  Get Library By Id
+exports.getLibraryDetailById = async (req, res) => {
+  const { slug } = req.params;
+
+  // const books = await Book.find({libraryId})
+
+  const library = await Library.findOne({ slug: slug });
+  try {
+    res.status(200).json({ success: true, library });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };

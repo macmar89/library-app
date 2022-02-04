@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply w-screen overflow-hidden;
+    @apply text-gray-900;
+  }
+
+  h1 {
+    @apply uppercase text-4xl text-center py-5 underline font-bold;
+  }
+
+  h2 {
+    @apply text-red-900 uppercase;
+  }
+
+  h4 {
+    @apply text-2xl uppercase ;
+  }
+
+  input, textarea {
+    @apply m-2 p-2;
+  }
+
+  button {
+    @apply bg-teal-500 hover:bg-teal-600 transition py-3 px-6 border rounded uppercase tracking-wider cursor-pointer;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply bg-teal-500 hover:bg-teal-600 transition py-3 px-6 border rounded uppercase tracking-wider cursor-pointer;
+  }
+}
