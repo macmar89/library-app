@@ -5,6 +5,7 @@ import { Library } from "../global/types/LibraryTypes";
 import AddNewBook from "../layout/LibraryLayout/AddNewBook";
 import { useRecoilState } from "recoil";
 import { LibraryAtom } from "../global/recoil/LibraryAtom";
+import AddNewUser from "../layout/LibraryLayout/AddNewUser";
 
 interface IData {
   library: Library;
@@ -16,7 +17,8 @@ const LibraryDashboard = () => {
   const [data, setData] = useState<IData | null>(null);
   const [library, setLibrary] = useRecoilState(LibraryAtom);
   const { slug }: { slug: string } = useParams();
-  const [addNewBook, setAddNewBook] = useState(false);
+  const [addNewBook, setAddNewBook] = useState<boolean>(false);
+  const [addNewUser, setAddNewUser] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchLibraryDetails = async () => {
@@ -24,6 +26,7 @@ const LibraryDashboard = () => {
         .get(`/api/library/${slug}`)
         .then((res) => {
           setData(res?.data);
+          setLibrary(res?.data);
           console.log(res?.data);
         })
         .catch((err) => console.log(err));
@@ -34,7 +37,10 @@ const LibraryDashboard = () => {
   return (
     <div className="min-h-screen relative">
       <h1>{data?.library?.name}</h1>
-      <span onClick={() => setAddNewBook(!addNewBook)}>pridaj novu knihu</span>
+      <button onClick={() => setAddNewBook(!addNewBook)}>
+        pridaj novu knihu
+      </button>
+      <button onClick={() => setAddNewUser(!addNewUser)}>user</button>
       <section className="flex my-5 gap-x-10">
         <div
           className={
@@ -57,8 +63,8 @@ const LibraryDashboard = () => {
           })}
         </div>
       </section>
-      <AddNewBook open={addNewBook} />
-      as
+      <AddNewBook open={addNewBook} setOpen={setAddNewBook} />
+      <AddNewUser open={addNewUser} setOpen={setAddNewUser} />
     </div>
   );
 };

@@ -3,34 +3,33 @@ import { useRecoilValue } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
 
-const AddNewBook = ({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<SetStateAction<boolean>> }) => {
+const AddNewUser = ({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<SetStateAction<boolean>> }) => {
   const library = useRecoilValue<any>(LibraryAtom);
 
-  const [newBook, setNewBook] = useState({
-    title: "",
-    desc: "",
-    yearOfRelease: "",
+  const [newUser, setNewUser] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
   });
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const book = {
-      title: newBook.title,
-      desc: newBook.desc,
-      yearOfRelease: Number(newBook.yearOfRelease),
+    const user = {
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
+      email: newUser.email,
       libraryId: library?.library._id,
     };
 
-    await axios
-      .post("/api/book", book)
-      .then(() => setOpen(false))
-      .catch((err) => console.log(err));
+
+
+    await axios.post('http://localhost:4000/api/user',user).then(() => setOpen(false)).catch(err => console.log(err))
   };
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
-    setNewBook({ ...newBook, [e.target.name]: e.target.value });
+    setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
 
   return (
@@ -39,27 +38,26 @@ const AddNewBook = ({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<
         open ? "translate-x-0" : "translate-x-full"
       } transition`}
     >
-      <h4 className="text-center py-5">Pridaj novú knižku</h4>
+      <h4 className="text-center py-5">Pridaj nového užívateľa</h4>
+      {/*{library?.library?._id}*/}
       <form onSubmit={handleSubmit} className="flex flex-col">
         <input
           type="text"
-          name="title"
+          name="firstName"
           onChange={handleChange}
-          placeholder="Názov knihy"
-        />
-        <textarea
-          name="desc"
-          id=""
-          cols={50}
-          rows={10}
-          onChange={handleChange}
-          placeholder="Pridajte popis knihy..."
+          placeholder="Krstné meno"
         />
         <input
           type="text"
-          name="yearOfRelease"
+          name="lastName"
           onChange={handleChange}
-          placeholder="Rok vydania..."
+          placeholder="Priezvisko"
+        />
+        <input
+          type="text"
+          name="email"
+          onChange={handleChange}
+          placeholder="Email"
         />
         <button>Pridaj</button>
       </form>
@@ -67,4 +65,4 @@ const AddNewBook = ({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<
   );
 };
 
-export default AddNewBook;
+export default AddNewUser;
