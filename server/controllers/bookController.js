@@ -1,38 +1,54 @@
-const Book = require('../models/bookModel')
+const Book = require("../models/bookModel");
+const ApiFeatures = require("../utils/ApiFeatures");
 
 //  Get All Books
-exports.getAllBooks = async (req, res, next) => {
-  const books = await Book.find()
+exports.getAllBooks = async (req, res) => {
+  const books = await Book.find();
 
-  res.status(200).json({success: true, books})
-}
+  res.status(200).json({ success: true, books });
+};
 
 //  Create New Book
-exports.createBook = async (req, res, next) => {
-  const book = await Book.create(req.body)
+exports.createBook = async (req, res) => {
+  const book = await Book.create(req.body);
 
-  res.status(201).json({success: true, book})
-}
+  res.status(201).json({ success: true, book });
+};
 
 //  Update Book
 exports.updateBook = async (req, res) => {
-  let book = await Book.findById(req.params.id)
+  let book = await Book.findById(req.params.id);
 
   if (!book) {
-    return res.status(404, "Book not found")
+    return res.status(404, "Book not found");
   }
 
   book = await Book.findByIdAndUpdate(req.params.id, req.body, {
-    new: true, runValidators: true,  useFindAndModify: false
-  })
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  });
 
-  res.status(200).json({success: true, book})
-}
+  res.status(200).json({ success: true, book });
+};
 
 //  Get All Books From Library
-exports.getAllBooksFromLibrary = async (req, res, next) => {
-  const id  = req.params.libraryId
-  const books = await Book.find({libraryId: id})
+exports.getAllBooksFromLibrary = async (req, res) => {
+  const resultPerPage = 5;
+  const id = req.params.libraryId;
 
-  res.status(200).json({success: true, books})
-}
+  if (!id) {
+    return res.status(404).json({ success: false });
+  }
+
+  // const bookCount = await Book.find({libraryId: id}).length
+
+  const bookCount = await Book.countDocuments({libraryId: id});
+  const apiFeature = new ApiFeatures(
+    Book.find({ libraryId: id }),
+    req.query
+  ).pagination(resultPerPage);
+
+  const books = await apiFeature.query;
+  res.status(200).json({ success: true, books, bookCount });
+};
