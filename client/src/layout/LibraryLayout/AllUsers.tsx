@@ -17,7 +17,7 @@ const AllUsers = () => {
   const [users, setUsers] = useState<IUsers | any>([]);
   const [filteredUsers, setFilteredUsers] = useState<UserType[] | null>(null);
   const library = useRecoilValue(LibraryAtom);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchedLastName, setSearchedLastName] = useState<string>("");
   const { url } = useRouteMatch();
 

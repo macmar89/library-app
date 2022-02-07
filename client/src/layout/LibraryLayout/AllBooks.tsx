@@ -4,13 +4,21 @@ import { useRecoilValue } from "recoil";
 import { useRouteMatch, Link } from "react-router-dom";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import { BookType } from "../../global/types/BookType";
+import Pagination from "../../global/components/Pagination";
+
+interface IBooks {
+  success: true;
+  books: BookType[];
+  bookCount: number;
+  resultPerPage: number;
+}
 
 const AllBooks = () => {
-  const [books, setBooks] = useState([]);
+  const [books, setBooks] = useState<IBooks | any>([]);
   const library = useRecoilValue(LibraryAtom);
   const [keyword, setKeyword] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [filteredBooks, setFilteredBooks] = useState<BookType[] | null>(null);
-
   const { url } = useRouteMatch();
 
   const id = library?.library?._id;
@@ -29,11 +37,11 @@ const AllBooks = () => {
     fetchBooks();
   }, [library]);
 
+  const countOfPages = Math.ceil(books?.bookCount / books?.resultPerPage);
+
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await axios.get(
-      `/api/${id}/books?keyword=${keyword}`
-    );
+    const res = await axios.get(`/api/${id}/books?keyword=${keyword}`);
     setKeyword("");
     setFilteredBooks(res?.data?.books);
   };
@@ -80,6 +88,11 @@ const AllBooks = () => {
           ))
         )}
       </div>
+      <Pagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        countOfPages={countOfPages}
+      />
     </div>
   );
 };
