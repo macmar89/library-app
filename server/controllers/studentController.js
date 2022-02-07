@@ -47,7 +47,7 @@ exports.deleteStudent = async (req, res) => {
 
 //  Get Students By Library
 exports.getStudentsByLibrary = async (req, res) => {
-  const resultPerPage = 10;
+  const resultPerPage = 3;
   const id = req?.params?.id;
 
   if (!id) {
@@ -63,5 +63,5 @@ exports.getStudentsByLibrary = async (req, res) => {
   ).pagination(resultPerPage);
   //
   const users = await apiFeature.query;
-  res.status(200).json({ success: true, users, userCount });
+  res.status(200).json({ success: true, users, userCount, resultPerPage});
 };
