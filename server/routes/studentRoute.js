@@ -9,6 +9,6 @@ router.route("/user").post(createStudent);
 
 router.route("/user/:id").put(updateStudent).delete(deleteStudent);
 
-router.route('/:librarySlug/students').get(getStudentsByLibrary)
+router.route('/:id/users').get(getStudentsByLibrary)
 
 module.exports = router;
