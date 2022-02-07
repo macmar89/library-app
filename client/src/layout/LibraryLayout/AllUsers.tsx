@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import {Link} from 'react-router-dom'
+import { Link, useRouteMatch } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
@@ -19,6 +19,7 @@ const AllUsers = () => {
   const library = useRecoilValue(LibraryAtom);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchedLastName, setSearchedLastName] = useState<string>("");
+  const { url } = useRouteMatch();
 
   const id = library?.library?._id;
 
@@ -51,7 +52,7 @@ const AllUsers = () => {
   };
 
   return (
-    <div className="container">
+    <div>
       <div className="flex justify-center">
         <form onSubmit={handleSubmit}>
           <input
@@ -84,7 +85,11 @@ const AllUsers = () => {
           </>
         ) : (
           users?.users?.map((user: UserType) => (
-            <Link to={`/pekla`} key={user._id} className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer">
+            <Link
+              to={`${url.slice(0, url.lastIndexOf('/'))}/uzivatel/${user._id}`}
+              key={user._id}
+              className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
+            >
               <div className="w-3/12">{user.firstName}</div>
               <div className="w-3/12">{user.lastName} </div>
               <div className="w-4/12">{user.email}</div>

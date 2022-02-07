@@ -2,8 +2,8 @@ import React from 'react';
 
 const UserDetail = () => {
   return (
-    <div>
-
+    <div >
+        user detail
     </div>
   );
 };

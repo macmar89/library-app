@@ -2,12 +2,12 @@ const router = require("express").Router();
 const {
   createStudent,
   updateStudent,
-  deleteStudent,getStudentsByLibrary
+  deleteStudent,getStudentsByLibrary, getStudentDetail
 } = require("../controllers/studentController");
 
 router.route("/user").post(createStudent);
 
-router.route("/user/:id").put(updateStudent).delete(deleteStudent);
+router.route("/user/:id").get(getStudentDetail).put(updateStudent).delete(deleteStudent);
 
 router.route('/:id/users').get(getStudentsByLibrary)
 

@@ -9,6 +9,7 @@ import AddNewBook from "./AddNewBook";
 import AddNewUser from "./AddNewUser";
 import AllBooks from "./AllBooks";
 import AllUsers from "./AllUsers";
+import UserDetail from "../../pages/UserDetail";
 
 const LibraryLayout = () => {
   const { url } = useRouteMatch();
@@ -29,15 +30,16 @@ const LibraryLayout = () => {
     <div className="min-h-screen relative">
       <h1>{library?.library?.name}</h1>
       <Navbar />
-      <Switch>
-        <Route path={`${url}/`} exact component={LibraryDashboard} />
-        <Route path={`${url}/knihy`} component={AllBooks} />
-        <Route path={`${url}/uzivatelia`} component={AllUsers} />
-        <Route path={`${url}/pridaj-knihu`} component={AddNewBook} />
-        <Route path={`${url}/pridaj-uzivatela`} component={AddNewUser} />
-
-
-      </Switch>
+      <div className="container">
+        <Switch>
+          <Route path={`${url}/`} exact component={LibraryDashboard} />
+          <Route path={`${url}/knihy`} component={AllBooks} />
+          <Route path={`${url}/uzivatelia`} component={AllUsers} />
+          <Route path={`${url}/pridaj-knihu`} component={AddNewBook} />
+          <Route path={`${url}/pridaj-uzivatela`} component={AddNewUser} />
+          <Route path={`${url}/uzivatel/:id`} component={UserDetail} />
+        </Switch>
+      </div>
     </div>
   );
 };

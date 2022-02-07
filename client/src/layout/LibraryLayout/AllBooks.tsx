@@ -23,8 +23,7 @@ const AllBooks = () => {
   }, [library]);
 
   return (
-    <div className="container">
-
+    <div>
       <div>
         {books?.map((book: BookType) => (
           <div key={book._id}>{book.title}</div>
