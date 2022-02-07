@@ -3,12 +3,12 @@ import Navbar from "../../global/components/Navbar";
 import { Route, Switch, useParams, useRouteMatch } from "react-router-dom";
 import LibraryDashboard from "../../pages/LibraryDashboard";
 import BookDetail from "../../pages/BookDetail";
-import Books from "../../pages/Books";
 import { useRecoilState } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
 import AddNewBook from "./AddNewBook";
 import AddNewUser from "./AddNewUser";
+import AllBooks from "./AllBooks";
 
 const LibraryLayout = () => {
   const { url } = useRouteMatch();
@@ -31,7 +31,7 @@ const LibraryLayout = () => {
       <Navbar />
       <Switch>
         <Route path={`${url}/`} exact component={LibraryDashboard} />
-        <Route path={`${url}/knihy`} component={Books} />
+        <Route path={`${url}/knihy`} component={AllBooks} />
         <Route path={`${url}/uzivatelia`} component={BookDetail} />
         <Route path={`${url}/pridaj-knihu`} component={AddNewBook} />
         <Route path={`${url}/pridaj-uzivatela`} component={AddNewUser} />

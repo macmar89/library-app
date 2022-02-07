@@ -35,7 +35,7 @@ exports.updateBook = async (req, res) => {
 
 //  Get All Books From Library
 exports.getAllBooksFromLibrary = async (req, res) => {
-  const resultPerPage = 5;
+  const resultPerPage = 10;
   const id = req.params.libraryId;
 
   if (!id) {
