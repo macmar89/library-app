@@ -17,7 +17,7 @@ const Pagination = ({
   }
 
   return (
-    <div>
+    <div className='py-5 flex justify-end'>
       <div className="flex gap-x-1">
         {numberOfPages.map((num: number) => (
           <div

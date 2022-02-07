@@ -47,7 +47,7 @@ exports.deleteStudent = async (req, res) => {
 
 //  Get Students By Library
 exports.getStudentsByLibrary = async (req, res) => {
-  const resultPerPage = 3;
+  const resultPerPage = 10;
   const id = req?.params?.id;
 
   if (!id) {
@@ -56,12 +56,11 @@ exports.getStudentsByLibrary = async (req, res) => {
 
   const userCount = await Student.countDocuments({ libraryId: id });
 
-
-  const apiFeature = new ApiFeatures(
-    Student.find({ libraryId: id }),
-    req.query
-  ).pagination(resultPerPage);
+  const apiFeature = new ApiFeatures(Student.find({ libraryId: id }), req.query)
+    .search()
+    .filter()
+    .pagination(resultPerPage);
   //
   const users = await apiFeature.query;
-  res.status(200).json({ success: true, users, userCount, resultPerPage});
+  res.status(200).json({ success: true, users, userCount, resultPerPage });
 };
