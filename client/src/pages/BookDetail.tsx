@@ -34,13 +34,14 @@ const BookDetail = () => {
     return lastIndexCut.slice(0, lastIndexCut.lastIndexOf('/'))
   };
 
+
   return (
     <div className="container ">
       <h2 className="text-center">{bookDetail?.title}</h2>
       <div className="py-5">
-        {bookDetail?.borrowed?.isBorrowed ? (
+        {bookDetail?.isBorrowed ? (
           <div className="flex justify-between items-center">
-            <div>Požičaná: {bookDetail?.borrowed?.whoBorrowed}</div>
+            <div>Požičaná: {bookDetail?.whoBorrowed?.firstName} {bookDetail?.whoBorrowed?.lastName}</div>
             <button onClick={handleReturn}>Vratit</button>
           </div>
         ) : (

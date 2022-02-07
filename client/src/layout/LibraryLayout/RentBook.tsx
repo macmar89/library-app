@@ -55,11 +55,9 @@ const RentBook = () => {
     };
     const updatedBook = {
       ...bookDetail,
-      borrowed: {
         isBorrowed: true,
         whoBorrowed: selectedUser?._id,
-        date: newDate.toISOString(),
-      },
+        borrowedDate: newDate.toISOString(),
     };
     await axios
       .put(`/api/user/${selectedUser?._id}`, updatedUser)
