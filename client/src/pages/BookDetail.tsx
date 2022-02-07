@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BookType } from "../global/types/BookType";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 
 const BookDetail = () => {
@@ -18,26 +18,42 @@ const BookDetail = () => {
     fetchBookDetail();
   }, [setBookDetail, id]);
 
-  console.log(`/api/book/${id}`);
+  const handleReturn = async () => {
+    let returnedBook = {
+      ...bookDetail,
+      borrowed: { isBorrowed: false, whoBorrowed: "-" },
+    };
+    await axios
+      .put(`/api/book/${bookDetail?._id}`, returnedBook)
+      .then((res) => setBookDetail(res?.data?.book));
+  };
 
   return (
     <div className="container ">
+      <h2 className="text-center">{bookDetail?.title}</h2>
+      <div className="py-5">
+        {bookDetail?.borrowed?.isBorrowed ? (
+          <div className="flex justify-between items-center">
+            <div>Požičaná: {bookDetail?.borrowed?.whoBorrowed}</div>
+            <button onClick={handleReturn}>Vratit</button>
+          </div>
+        ) : (
+          <Link className="btn" to={"/pozicaj"}>
+            Pozicaj
+          </Link>
+        )}
+      </div>
       <div className="flex gap-x-5 ">
-        <div className="w-2/6 h-96 border-2">image</div>
-        <article className="w-3/6">
-          <h3 className="my-3">{bookDetail?.title}</h3>
-          <h5 className="my-2">
+        <aside className="w-2/6 h-96 border-2">image</aside>
+        <article className="w-4/6">
+          <h5 className="mb-4">
+            Autor: <strong>{bookDetail?.author}</strong>
+          </h5>
+          <h5 className="mb-4">
             Rok vydania: <strong>{bookDetail?.yearOfRelease}</strong>
           </h5>
           <div>{bookDetail?.desc}</div>
         </article>
-        <aside className="w-1/6">
-          {bookDetail?.borrowed?.isBorrowed ? (
-            <div>je pozicana</div>
-          ) : (
-            <div>je v kniznici</div>
-          )}
-        </aside>
       </div>
     </div>
   );
