@@ -10,7 +10,8 @@ const bookSchema = mongoose.Schema({
   libraryId: {type: String },
   borrowed: {
     isBorrowed: {type: Boolean, default: false},
-    whoBorrowed: {type: String, default: '-'}
+    whoBorrowed: {type: String, default: ''},
+    date: {type: String, default: ''}
   }
 }, {timeStamp: true})
 

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BookType } from "../global/types/BookType";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useRouteMatch } from "react-router-dom";
 import axios from "axios";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
   const { id }: { id: string } = useParams();
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     const fetchBookDetail = async () => {
@@ -28,6 +29,11 @@ const BookDetail = () => {
       .then((res) => setBookDetail(res?.data?.book));
   };
 
+  const rentUrl = () => {
+    const lastIndexCut = url.slice(0, url.lastIndexOf("/"))
+    return lastIndexCut.slice(0, lastIndexCut.lastIndexOf('/'))
+  };
+
   return (
     <div className="container ">
       <h2 className="text-center">{bookDetail?.title}</h2>
@@ -38,9 +44,11 @@ const BookDetail = () => {
             <button onClick={handleReturn}>Vratit</button>
           </div>
         ) : (
-          <Link className="btn" to={"/pozicaj"}>
-            Pozicaj
-          </Link>
+          <div className="flex justify-end items-center">
+            <Link className="btn" to={{pathname: `${rentUrl()}/pozicaj/${bookDetail?._id}`, state:  {bookDetail}}}>
+              Pozicaj
+            </Link>
+          </div>
         )}
       </div>
       <div className="flex gap-x-5 ">
