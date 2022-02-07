@@ -18,6 +18,20 @@ class ApiFeatures {
     return this;
   }
 
+  searchBook() {
+    const keyword = this.queryStr.keyword
+      ? {
+        title: {
+          $regex: this.queryStr.keyword,
+          $options: "i",
+        },
+      }
+      : {};
+
+    this.query = this.query.find({ ...keyword });
+    return this;
+  }
+
   filter() {
     const queryCopy = { ...this.queryStr };
     //   Removing some fields for category

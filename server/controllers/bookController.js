@@ -43,18 +43,20 @@ exports.getAllBooksFromLibrary = async (req, res) => {
   }
 
   const bookCount = await Book.countDocuments({ libraryId: id });
-  const apiFeature = new ApiFeatures(
-    Book.find({ libraryId: id }),
-    req.query
-  ).pagination(resultPerPage);
+
+  const apiFeature = new ApiFeatures(Book.find({ libraryId: id }), req.query)
+    .searchBook()
+    .filter()
+    .pagination(resultPerPage);
+
+
 
   const books = await apiFeature.query;
-  res.status(200).json({ success: true, books, bookCount });
+  res.status(200).json({ success: true, books, bookCount, resultPerPage });
 };
 
 //  Get Book By ID
 exports.getBookDetail = async (req, res) => {
-
   const book = await Book.findById(req.params.id);
 
   if (!book) {
