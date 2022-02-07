@@ -13,14 +13,19 @@
   }
 
   h2 {
-    @apply text-red-900 uppercase;
+    @apply text-3xl uppercase;
+  }
+
+  h3 {
+    @apply text-2xl uppercase;
   }
 
   h4 {
-    @apply text-2xl uppercase ;
+    @apply text-xl uppercase;
   }
 
-  input, textarea {
+  input,
+  textarea {
     @apply m-2 p-2;
   }
 
@@ -32,5 +37,57 @@
 @layer components {
   .btn {
     @apply bg-teal-500 hover:bg-teal-600 transition py-3 px-6 border rounded uppercase tracking-wider cursor-pointer;
+  }
+
+  .nav-link {
+    @apply mx-2 px-2 py-2;
+    @apply text-xl;
+    @apply rounded;
+    @apply hover:bg-red-400;
+    @apply transition cursor-pointer;
+  }
+}
+
+.container {
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+}
+
+@media only screen and (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    max-width: 736px;
+  }
+}
+
+@media only screen and (min-width: 830px) {
+  .container {
+    max-width: 798px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .container {
+    max-width: 1140px;
+  }
+}
+
+@media only screen and (min-width: 1600px) {
+  .container {
+    max-width: 1140px;
   }
 }

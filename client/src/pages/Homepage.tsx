@@ -15,13 +15,14 @@ const Homepage = () => {
       const { data } = await axios.get("/api/libraries");
       setLibraries({ ...libraries, libraries: data?.libraries });
     };
-
     fetchLibraries();
   }, [libraries, setLibraries]);
 
   const handleLibrary = (e: ChangeEvent<HTMLSelectElement>) => {
     setChosenLibrary(e.target.value)
   };
+
+  console.log(libraries)
 
   return (
     <div>
@@ -42,7 +43,7 @@ const Homepage = () => {
 
         {/*  link vlozit do buttonu aby neukazovalo cestu ked je "chosenLibrary" null */}
         <Link to={{
-          pathname: `/${chosenLibrary}`
+          pathname: `/library/${chosenLibrary}`
         }} className={`btn ${chosenLibrary === null ? "opacity-30" : ""}`} >
           {/*<button className="" disabled={chosenLibrary === null}>*/}
             Vstúpiť
