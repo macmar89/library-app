@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const {Schema} = require("mongoose");
 
 const bookSchema = mongoose.Schema({
   title: {
@@ -10,8 +11,9 @@ const bookSchema = mongoose.Schema({
   libraryId: {type: String },
   borrowed: {
     isBorrowed: {type: Boolean, default: false},
-    whoBorrowed: {type: String, default: ''},
-    date: {type: String, default: ''}
+    // whoBorrowed: {type: String, default: ''},
+    whoBorrowed: {type: Schema.Types.ObjectId, ref: "Student"},
+    borrowedDate: {type: String, default: ''}
   }
 }, {timeStamp: true})
 

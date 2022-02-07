@@ -57,7 +57,7 @@ exports.getAllBooksFromLibrary = async (req, res) => {
 
 //  Get Book By ID
 exports.getBookDetail = async (req, res) => {
-  const book = await Book.findById(req.params.id);
+  const book = await Book.findById(req.params.id).populate('whoBorrowed');
 
   if (!book) {
     return res.status(404).json({ success: false, message: "Book not found" });

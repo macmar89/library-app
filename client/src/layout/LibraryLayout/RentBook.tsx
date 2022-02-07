@@ -76,7 +76,7 @@ const RentBook = () => {
       <div className="my-5 py-3 flex justify-between items-center border-b-2 ">
         <div>Čo: {bookDetail?.title}</div>
         <div>
-          Kto: {selectedUser?.lastName} {selectedUser?.lastName}
+          Kto: {selectedUser?.firstName} {selectedUser?.lastName}
         </div>
         <button onClick={handleRent} disabled={selectedUser === null}>
           Požičaj

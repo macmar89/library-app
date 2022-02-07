@@ -26,7 +26,7 @@
 
   input,
   textarea {
-    @apply  p-2;
+    @apply  p-2 my-2;
     @apply rounded;
   }
 
