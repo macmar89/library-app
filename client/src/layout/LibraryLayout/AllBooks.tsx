@@ -75,6 +75,12 @@ const AllBooks = () => {
                 {book.title}
               </Link>
             ))}
+            <span
+              className="cursor-pointer underline text-right"
+              onClick={() => setFilteredBooks(null)}
+            >
+              Späť na všetkých používateľov
+            </span>
           </>
         ) : (
           books?.map((book: BookType) => (
