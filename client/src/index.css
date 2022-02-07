@@ -46,6 +46,10 @@
     @apply hover:bg-red-400;
     @apply transition cursor-pointer;
   }
+
+  .table-row {
+    @apply flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer;
+  }
 }
 
 .container {

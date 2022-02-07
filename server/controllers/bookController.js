@@ -54,7 +54,8 @@ exports.getAllBooksFromLibrary = async (req, res) => {
 
 //  Get Book By ID
 exports.getBookDetail = async (req, res) => {
-  const book = await Book.findOne({ objectId: req.params.id });
+
+  const book = await Book.findById(req.params.id);
 
   if (!book) {
     return res.status(404).json({ success: false, message: "Book not found" });

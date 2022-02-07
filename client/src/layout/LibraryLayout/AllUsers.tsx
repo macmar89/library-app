@@ -86,7 +86,7 @@ const AllUsers = () => {
         ) : (
           users?.users?.map((user: UserType) => (
             <Link
-              to={`${url.slice(0, url.lastIndexOf('/'))}/uzivatel/${user._id}`}
+              to={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${user._id}`}
               key={user._id}
               className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
             >
