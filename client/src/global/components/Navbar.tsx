@@ -21,7 +21,7 @@ const Navbar = () => {
         <Link to={`${url}/pridaj-knihu`} className="nav-link">
           Pridaj knihu
         </Link>
-        <Link to={`${url}/pridaj-užívateľa`} className="nav-link">
+        <Link to={`${url}/pridaj-uzivatela`} className="nav-link">
           Pridaj užívateľa
         </Link>
       </aside>

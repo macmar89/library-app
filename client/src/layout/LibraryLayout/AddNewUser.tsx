@@ -1,9 +1,9 @@
-import React, {ChangeEvent, SetStateAction, useState} from "react";
+import React, { ChangeEvent, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
 
-const AddNewUser = ({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<SetStateAction<boolean>> }) => {
+const AddNewUser = () => {
   const library = useRecoilValue<any>(LibraryAtom);
 
   const [newUser, setNewUser] = useState({
@@ -21,9 +21,10 @@ const AddNewUser = ({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<
       libraryId: library?.library._id,
     };
 
-
-
-    await axios.post('http://localhost:4000/api/user',user).then(() => setOpen(false)).catch(err => console.log(err))
+    await axios
+      .post("http://localhost:4000/api/user", user)
+      .then(() => {})
+      .catch((err) => console.log(err));
   };
 
   const handleChange = (
@@ -33,14 +34,9 @@ const AddNewUser = ({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<
   };
 
   return (
-    <div
-      className={`absolute w-96 right-0 top-0 h-screen bg-gray-500 ${
-        open ? "translate-x-0" : "translate-x-full"
-      } transition`}
-    >
+    <div className="container">
       <h4 className="text-center py-5">Pridaj nového užívateľa</h4>
-      {/*{library?.library?._id}*/}
-      <form onSubmit={handleSubmit} className="flex flex-col">
+      <form onSubmit={handleSubmit} className="flex flex-col w-2/3 mx-auto">
         <input
           type="text"
           name="firstName"
@@ -59,7 +55,9 @@ const AddNewUser = ({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<
           onChange={handleChange}
           placeholder="Email"
         />
-        <button>Pridaj</button>
+        <div className="flex justify-end mr-2">
+          <button className="">Pridaj užívateľa</button>
+        </div>
       </form>
     </div>
   );

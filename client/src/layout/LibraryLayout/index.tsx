@@ -7,6 +7,8 @@ import Books from "../../pages/Books";
 import { useRecoilState } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
+import AddNewBook from "./AddNewBook";
+import AddNewUser from "./AddNewUser";
 
 const LibraryLayout = () => {
   const { url } = useRouteMatch();
@@ -28,9 +30,13 @@ const LibraryLayout = () => {
       <h1>{library?.library?.name}</h1>
       <Navbar />
       <Switch>
-        <Route path={`${url}/`} component={LibraryDashboard} />
+        <Route path={`${url}/`} exact component={LibraryDashboard} />
         <Route path={`${url}/knihy`} component={Books} />
         <Route path={`${url}/uzivatelia`} component={BookDetail} />
+        <Route path={`${url}/pridaj-knihu`} component={AddNewBook} />
+        <Route path={`${url}/pridaj-uzivatela`} component={AddNewUser} />
+
+
       </Switch>
     </div>
   );
