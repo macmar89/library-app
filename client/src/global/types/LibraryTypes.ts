@@ -1,4 +1,4 @@
-export type Library = {
+export type LibraryType = {
   _id: string;
   name: string;
   slug: string;
