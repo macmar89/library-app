@@ -37,10 +37,16 @@ const LibraryDashboard = () => {
   return (
     <div className="min-h-screen relative">
       <h1>{data?.library?.name}</h1>
-      <button onClick={() => setAddNewBook(!addNewBook)}>
+      <button onClick={() => {
+        setAddNewBook(!addNewBook)
+        setAddNewUser(false)
+      }}>
         pridaj novu knihu
       </button>
-      <button onClick={() => setAddNewUser(!addNewUser)}>user</button>
+      <button onClick={() => {
+        setAddNewUser(!addNewUser)
+        setAddNewBook(false)
+      }}>user</button>
       <section className="flex my-5 gap-x-10">
         <div
           className={
@@ -49,7 +55,7 @@ const LibraryDashboard = () => {
         >
           <h4 className="text-gray-900">Najnovšie pridané knihy</h4>
           {data?.newestBooks?.map((book: any) => (
-            <div key={book._id}>{book.title}</div>
+            <div key={book._id} className='border-b py-2 pl-1'>{book.title}</div>
           ))}
         </div>
         <div
@@ -63,6 +69,7 @@ const LibraryDashboard = () => {
           })}
         </div>
       </section>
+
       <AddNewBook open={addNewBook} setOpen={setAddNewBook} />
       <AddNewUser open={addNewUser} setOpen={setAddNewUser} />
     </div>

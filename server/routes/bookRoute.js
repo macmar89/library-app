@@ -1,9 +1,9 @@
 const router = require("express").Router();
-const {getAllBooks, createBook, updateBook, getAllBooksFromLibrary}  = require('../controllers/bookController')
+const {getAllBooks, createBook, updateBook, getAllBooksFromLibrary, getBookDetail}  = require('../controllers/bookController')
 
 router.route("/book").get(getAllBooks).post(createBook);
 
-router.route('/book/:id').put(updateBook)
+router.route('/book/:id').get(getBookDetail).put(updateBook)
 
 router.route('/:libraryId/books').get(getAllBooksFromLibrary)
 
