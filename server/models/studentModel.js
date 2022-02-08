@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const {Schema} = require("mongoose");
+const { Schema } = require("mongoose");
 
 const student = mongoose.Schema(
   {
@@ -20,21 +20,20 @@ const student = mongoose.Schema(
       validate: [validator.isEmail, "Please Enter a valid email"],
     },
     libraryId: { type: String, required: true },
-    // borrowedBooks : [
+    // borrowedBooks: [
     //   {
-    //     bookId: {
-    //       type: mongoose.Schema.objectId,
+    //     book: {
+    //       type: Schema.Types.ObjectId,
     //       ref: "Book",
-    //       required: true
     //     },
-    //     borrowed: {type: Date, required: true}
-    //   }
+    //     borrowedDate: { type: Date, required: true },
+    //   },
     // ],
     borrowedBooks: { type: Array, default: [] },
     history: [
       {
         book: { type: Schema.Types.ObjectId, ref: "Book" },
-        borrowedDate: {type: String, required: true},
+        borrowedDate: { type: String, required: true },
         returnedDate: { type: String, required: true },
       },
     ],
