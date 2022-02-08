@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import {useRouteMatch, Link, useHistory} from "react-router-dom";
+import { useRouteMatch, useHistory } from "react-router-dom";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import { BookType } from "../../global/types/BookType";
 import Pagination from "../../global/components/Pagination";
-import { RiDeleteBin5Line, RiMoreFill, RiEdit2Line } from "react-icons/ri";
+import BookList from "../BookDetailLayout/BookList";
 
 interface IBooks {
   success: true;
@@ -21,7 +21,7 @@ const AllBooks = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filteredBooks, setFilteredBooks] = useState<BookType[] | null>(null);
   const { url } = useRouteMatch();
-  const history = useHistory()
+  const history = useHistory();
 
   const id = library?.library?._id;
 
@@ -49,7 +49,6 @@ const AllBooks = () => {
   };
 
   const handleDelete = async (id: string) => {
-
     await axios
       .delete("/api/book/" + id)
       .then(() => history.push(`${url}`))
@@ -69,65 +68,24 @@ const AllBooks = () => {
               setKeyword(e.target.value)
             }
           />
-
           <button>Hľadať</button>
         </form>
       </div>
-      <div>
-        {filteredBooks ? (
-          <>
-            {filteredBooks?.map((book: BookType) => (
-              <Link
-                to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
-                key={book._id}
-                className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
-              >
-                {book.title}
-              </Link>
-            ))}
-            <span
-              className="cursor-pointer underline text-right"
-              onClick={() => setFilteredBooks(null)}
-            >
-              Späť na všetkých používateľov
-            </span>
-          </>
-        ) : (
-          books?.map((book: BookType) => (
-            <div
-              key={book._id}
-              className="flex items-center px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
-            >
-              <Link
-                to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
-                className={`w-5/6 hover:underline`}
-              >
-                {book.title}
-              </Link>
-              <div className="w-1/6 list-icons">
-                <Link
-                  to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
-                  className="list-icon"
-                >
-                  <RiEdit2Line />
-                </Link>
-                <Link
-                  to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
-                  className="list-icon"
-                >
-                  <RiMoreFill />
-                </Link>
-                <div
-                  className="list-icon"
-                  onClick={() => handleDelete(book._id)}
-                >
-                  <RiDeleteBin5Line className={"text-red-600 "} />
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+
+      <BookList
+        books={filteredBooks ? filteredBooks : books}
+        url={url}
+        handleDelete={handleDelete}
+      />
+      {filteredBooks && (
+        <div
+          className="cursor-pointer underline text-right mt-5"
+          onClick={() => setFilteredBooks(null)}
+        >
+          Späť na všetky knihy
+        </div>
+      )}
+
       <Pagination
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
