@@ -13,7 +13,7 @@ const bookSchema = mongoose.Schema(
     yearOfRelease: { type: Number },
     libraryId: { type: String, required: true },
     isBorrowed: { type: Boolean, default: false },
-    whoBorrowed: { type: Schema.Types.ObjectId, ref: "Student" },
+    whoBorrowed: { type: Schema.Types.ObjectId , ref: "Student" },
     borrowedDate: { type: String, default: "" },
   },
   { timeStamp: true }

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const {Schema} = require("mongoose");
 
 const student = mongoose.Schema(
   {
@@ -18,7 +19,7 @@ const student = mongoose.Schema(
       required: [true, "Please Enter email"],
       validate: [validator.isEmail, "Please Enter a valid email"],
     },
-    libraryId: { type: String , required: true},
+    libraryId: { type: String, required: true },
     // borrowedBooks : [
     //   {
     //     bookId: {
@@ -30,9 +31,15 @@ const student = mongoose.Schema(
     //   }
     // ],
     borrowedBooks: { type: Array, default: [] },
-
-    history: { type: Array, default: [] },
+    history: [
+      {
+        book: { type: Schema.Types.ObjectId, ref: "Book" },
+        borrowedDate: {type: String, required: true},
+        returnedDate: { type: String, required: true },
+      },
+    ],
   },
+
   { timestamps: true }
 );
 

@@ -3,6 +3,7 @@ import { BookType } from "../global/types/BookType";
 import { useParams, Link, useRouteMatch } from "react-router-dom";
 import axios from "axios";
 import { formatDate, returnTo } from "../global/helpers/Moment";
+import { UserType } from "../global/types/UserType";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
@@ -21,25 +22,38 @@ const BookDetail = () => {
   }, [setBookDetail, id]);
 
   const handleReturnToLibrary = async () => {
-    let returnedBook = {
+    const today = new Date();
+    let updatedBook = {
       ...bookDetail,
       isBorrowed: false,
       whoBorrowed: "",
       borrowedDate: "",
     };
     // console.log(returnedBook);
-    let updatedUser = {...bookDetail?.whoBorrowed}
-    console.log(updatedUser)
+    let user: UserType = { ...bookDetail?.whoBorrowed };
+    const book = {
+      book: bookDetail?._id,
+      borrowedDate: bookDetail?.borrowedDate,
+      returnedDate: today.toISOString(),
+    };
+
+    console.log(JSON.stringify(updatedBook))
+
+    const updatedUser = { ...user, history: [...user?.history, book] };
+
+    // await axios
+    //   .put(`/api/book/${bookDetail?._id}`, updatedBook)
+    //   .then((res) => setBookDetail(res?.data?.book));
+
     await axios
-      .put(`/api/book/${bookDetail?._id}`, returnedBook)
-      .then((res) => setBookDetail(res?.data?.book));
+      .put(`/api/user/${user?._id}`, updatedUser)
+      .then((res) => console.log(res));
   };
 
   const rentUrl = () => {
     const lastIndexCut = url.slice(0, url.lastIndexOf("/"));
     return lastIndexCut.slice(0, lastIndexCut.lastIndexOf("/"));
   };
-
 
   return (
     <div className="container">

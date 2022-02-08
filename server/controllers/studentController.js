@@ -17,7 +17,10 @@ exports.createStudent = async (req, res) => {
 
 //  Student Detail
 exports.getStudentDetail = async (req, res) => {
-  const student = await Student.findById(req.params.id);
+  const student = await Student.findById(req.params.id).populate({
+    path: "history.book",
+    select: "title yearOfRelease author",
+  });
 
   if (!student) {
     return res.status(404).json({ success: false, message: "User not found" });
