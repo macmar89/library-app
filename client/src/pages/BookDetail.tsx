@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { BookType } from "../global/types/BookType";
-import { useParams, Link, useRouteMatch } from "react-router-dom";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useParams, Link, useRouteMatch } from "react-router-dom";
+import { BookType } from "../global/types/BookType";
 import { formatDate, returnTo } from "../global/helpers/Moment";
 import { textWithBr } from "../global/helpers/formatText";
 
@@ -9,7 +9,6 @@ const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
   const { id }: { id: string } = useParams();
   const { url } = useRouteMatch();
-
 
   useEffect(() => {
     const fetchBookDetail = async () => {
@@ -43,7 +42,7 @@ const BookDetail = () => {
       ...user,
       history: [...user?.history, returnedBook],
       borrowedBooks: user?.borrowedBooks.filter(
-        (book: any) => book.bookId !== returnedBook?.book
+        (book: any) => book.book !== returnedBook?.book
       ),
     };
 
