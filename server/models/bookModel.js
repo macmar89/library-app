@@ -11,16 +11,15 @@ const bookSchema = mongoose.Schema(
     author: { type: String, required: true, trim: true },
     slug: { type: String, required: true },
     desc: { type: String, required: true },
-    yearOfRelease: { type: Number },
+    yearOfRelease: { type: Number | String },
     libraryId: { type: Schema.Types.ObjectId, ref: "Library", required: true },
-    isBorrowed: { type: Boolean, default: false },
-    whoBorrowed: { type: Schema.Types.ObjectId, ref: "Student" },
-    borrowedDate: { type: String, default: "" },
-    borrowed: {
-      isBorrowed: { type: Boolean, required: true, default: false },
-      whoBorrowed: { type: Schema.Types.ObjectId, ref: "Student" },
-      borrowedDate: { type: String, default: "-" },
-    },
+    borrowed: [
+      {
+        isBorrowed: { type: Boolean, required: true, default: false },
+        whoBorrowed: { type: Schema.Types.ObjectId, ref: "Student" },
+        borrowedDate: { type: String, default: "" },
+      },
+    ],
     lastBorrowing: { type: String, default: "not yet" },
   },
   { timeStamp: true }

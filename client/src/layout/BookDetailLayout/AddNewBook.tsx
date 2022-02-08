@@ -21,7 +21,7 @@ const AddNewBook = () => {
     e.preventDefault();
     const book = {
       title: newBook.title,
-      // author: newBook.author,
+      author: newBook.author,
       desc: newBook.desc,
       yearOfRelease: Number(newBook.yearOfRelease),
       libraryId: library?.library._id,

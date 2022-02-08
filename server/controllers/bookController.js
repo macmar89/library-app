@@ -35,14 +35,19 @@ exports.updateBook = async (req, res) => {
 
 //  Delete Book
 exports.deleteBook = async (req, res) => {
-  const deletedBook = await Book.findByIdAndDelete(req.params.id)
+  const deletedBook = await Book.findByIdAndDelete(req.params.id);
 
   if (!deletedBook) {
-    return res.status(404).json({success: false, message: `Book with id: ${req.body.id} not found`})
+    return res
+      .status(404)
+      .json({
+        success: false,
+        message: `Book with id: ${req.body.id} not found`,
+      });
   }
 
-  res.status(200).json({success: false, message: "Book was deleted"})
-}
+  res.status(200).json({ success: false, message: "Book was deleted" });
+};
 
 //  Get All Books From Library
 exports.getAllBooksFromLibrary = async (req, res) => {
@@ -60,15 +65,13 @@ exports.getAllBooksFromLibrary = async (req, res) => {
     .filter()
     .pagination(resultPerPage);
 
-
-
   const books = await apiFeature.query;
   res.status(200).json({ success: true, books, bookCount, resultPerPage });
 };
 
 //  Get Book By ID
 exports.getBookDetail = async (req, res) => {
-  const book = await Book.findById(req.params.id).populate('whoBorrowed');
+  const book = await Book.findById(req.params.id).populate('borrowed.whoBorrowed');
 
   if (!book) {
     return res.status(404).json({ success: false, message: "Book not found" });

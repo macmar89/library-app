@@ -55,18 +55,23 @@ const RentBook = () => {
     };
     const updatedBook = {
       ...bookDetail,
+      borrowed: {
         isBorrowed: true,
         whoBorrowed: selectedUser?._id,
         borrowedDate: newDate.toISOString(),
+      },
+      // isBorrowed: true,
+      // whoBorrowed: selectedUser?._id,
+      // borrowedDate: newDate.toISOString(),
     };
+
+    console.log(updatedBook);
     await axios
       .put(`/api/user/${selectedUser?._id}`, updatedUser)
       .then((res) => console.log(res.status));
     await axios
       .put(`/api/book/${bookDetail?._id}`, updatedBook)
       .then((res) => console.log(res.status));
-
-    console.log();
   };
 
   return (

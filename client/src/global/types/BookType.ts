@@ -8,5 +8,17 @@ export type BookType = {
   isBorrowed: boolean;
   whoBorrowed: string | any;
   borrowedDate?: string;
-  libraryId: string
+  libraryId: string;
+  borrowed: {
+    isBorrowed: boolean;
+    whoBorrowed: string | User | any;
+    borrowedDate?: string;
+  }[];
+};
+
+type User = {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
 };

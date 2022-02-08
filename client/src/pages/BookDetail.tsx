@@ -3,7 +3,7 @@ import { BookType } from "../global/types/BookType";
 import { useParams, Link, useRouteMatch } from "react-router-dom";
 import axios from "axios";
 import { formatDate, returnTo } from "../global/helpers/Moment";
-import { UserType } from "../global/types/UserType";
+import { textWithBr } from "../global/helpers/formatText";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
@@ -23,30 +23,31 @@ const BookDetail = () => {
 
   const handleReturnToLibrary = async () => {
     const today = new Date();
-    let updatedBook = {
-      ...bookDetail,
-      isBorrowed: false,
-      whoBorrowed: "",
-      borrowedDate: "",
-    };
-    // console.log(returnedBook);
-    let user: UserType = { ...bookDetail?.whoBorrowed };
-    const book = {
+    let user = { ...bookDetail?.borrowed[0].whoBorrowed };
+    let returnedBook = {
       book: bookDetail?._id,
-      borrowedDate: bookDetail?.borrowedDate,
+      borrowedDate: bookDetail?.borrowed[0]?.borrowedDate,
       returnedDate: today.toISOString(),
     };
 
-    console.log(JSON.stringify(updatedBook))
+    let updatedBook = {
+      ...bookDetail,
+      borrowed: [],
+    };
+    await axios
+      .put(`/api/book/${bookDetail?._id}`, updatedBook)
+      .then((res) => setBookDetail(res?.data?.book));
 
-    const updatedUser = { ...user, history: [...user?.history, book] };
-
-    // await axios
-    //   .put(`/api/book/${bookDetail?._id}`, updatedBook)
-    //   .then((res) => setBookDetail(res?.data?.book));
+    user = {
+      ...user,
+      history: [...user?.history, returnedBook],
+      borrowedBooks: user?.borrowedBooks.filter(
+        (book: any) => book.bookId !== returnedBook?.book
+      ),
+    };
 
     await axios
-      .put(`/api/user/${user?._id}`, updatedUser)
+      .put(`/api/user/${user?._id}`, user)
       .then((res) => console.log(res));
   };
 
@@ -59,19 +60,24 @@ const BookDetail = () => {
     <div className="container">
       <h2 className="text-center">{bookDetail?.title}</h2>
       <div className="py-5">
-        {bookDetail?.isBorrowed ? (
+        {bookDetail?.borrowed[0]?.isBorrowed ? (
           <div className="flex justify-between items-center">
             <div>
               Požičaná:{" "}
               <Link
-                to={`/library/${bookDetail?.libraryId}/uzivatel/${bookDetail?.whoBorrowed?._id}`}
+                to={`/library/${bookDetail?.libraryId}/uzivatel/${bookDetail?.borrowed[0]?.whoBorrowed?._id}`}
               >
-                {bookDetail?.whoBorrowed?.firstName}{" "}
-                {bookDetail?.whoBorrowed?.lastName}
+                {bookDetail?.borrowed[0]?.whoBorrowed?.firstName}{" "}
+                {bookDetail?.borrowed[0]?.whoBorrowed?.lastName}
               </Link>
             </div>
-            <div>Dátum požičania: {formatDate(bookDetail?.borrowedDate)}</div>
-            <div>Vrátiť do: {returnTo(bookDetail?.borrowedDate)}</div>
+            <div>
+              Dátum požičania:{" "}
+              {formatDate(bookDetail?.borrowed[0].borrowedDate)}
+            </div>
+            <div>
+              Vrátiť do: {returnTo(bookDetail?.borrowed[0].borrowedDate)}
+            </div>
             <button onClick={handleReturnToLibrary}>Vratit</button>
           </div>
         ) : (
@@ -97,7 +103,11 @@ const BookDetail = () => {
           <h5 className="mb-4">
             Rok vydania: <strong>{bookDetail?.yearOfRelease}</strong>
           </h5>
-          <div>{bookDetail?.desc}</div>
+          {bookDetail?.desc && (
+            <div
+              dangerouslySetInnerHTML={{ __html: textWithBr(bookDetail.desc) }}
+            />
+          )}
         </article>
       </div>
     </div>
