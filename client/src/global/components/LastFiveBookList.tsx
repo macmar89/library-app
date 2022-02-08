@@ -16,7 +16,7 @@ export const LastFiveBookList = ({
     <ul className={className}>
       {books?.slice(0, 5).map((book: any, index: number) => (
         <li key={index}>
-          <Link to={`/library/${slug}/kniha/${book.book?._id}`}>
+          <Link to={`/kniznica/${slug}/kniha/${book.book?._id}`}>
             {book.book?.title}
           </Link>
         </li>

@@ -65,7 +65,7 @@ const BookDetail = () => {
             <div>
               Požičaná:{" "}
               <Link
-                to={`/library/${bookDetail?.libraryId}/uzivatel/${bookDetail?.borrowed[0]?.whoBorrowed?._id}`}
+                to={`/kniznica/${bookDetail?.libraryId}/uzivatel/${bookDetail?.borrowed[0]?.whoBorrowed?._id}`}
               >
                 {bookDetail?.borrowed[0]?.whoBorrowed?.firstName}{" "}
                 {bookDetail?.borrowed[0]?.whoBorrowed?.lastName}
