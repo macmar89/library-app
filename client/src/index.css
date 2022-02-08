@@ -9,7 +9,7 @@
   }
 
   h1 {
-    @apply uppercase text-4xl text-center py-5 underline font-bold;
+    @apply uppercase text-4xl text-center py-5 font-bold;
   }
 
   h2 {
@@ -17,11 +17,11 @@
   }
 
   h3 {
-    @apply text-2xl uppercase;
+    @apply text-2xl;
   }
 
   h4 {
-    @apply text-xl uppercase;
+    @apply text-xl;
   }
 
   a {

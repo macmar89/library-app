@@ -10,7 +10,6 @@ interface BookListProps {
 }
 
 const BookList = ({ books, url , handleDelete}: BookListProps) => {
-  console.log(books, url);
 
   return (
     <div>

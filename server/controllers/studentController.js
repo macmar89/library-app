@@ -26,7 +26,10 @@ exports.getStudentDetail = async (req, res) => {
     return res.status(404).json({ success: false, message: "User not found" });
   }
 
-  res.status(200).json({ success: true, student });
+  const currentBorrowedBooks = (student?.borrowedBooks.length)
+  const totalBorrowedBooks = (student?.history.length)
+
+  res.status(200).json({ success: true, student, currentBorrowedBooks, totalBorrowedBooks});
 };
 
 //  Update Student
