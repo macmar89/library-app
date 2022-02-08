@@ -5,8 +5,9 @@ export type UserType = {
   firstName: string;
   lastName: string;
   email: string;
-  borrowedBooks: { bookId?: string; date?: string }[];
+  borrowedBooks: { book?: string; date?: string }[];
   history: BookType[];
   libraryId: string
+  currentBooks: number
 };
 

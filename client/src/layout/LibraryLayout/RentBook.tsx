@@ -1,11 +1,11 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import axios from "axios";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { LibraryAtom } from "../../global/recoil/LibraryAtom";
-import { UserType } from "../../global/types/UserType";
-import UserCard from "./UserCard";
 import { useLocation, useParams } from "react-router-dom";
+import { LibraryAtom } from "../../global/recoil/LibraryAtom";
+import { UserCard } from "../../global/components/UserCard";
 import { BookType } from "../../global/types/BookType";
+import { UserType } from "../../global/types/UserType";
 
 const RentBook = () => {
   const nameRef = useRef<any | null>(null);
@@ -44,12 +44,11 @@ const RentBook = () => {
   };
 
   const handleRent = async () => {
-    console.log("rent");
     const newDate = new Date();
     let updatedUser = {
       ...selectedUser,
-      borrowed: selectedUser?.borrowedBooks.push({
-        bookId: bookDetail?._id,
+      borrowed: selectedUser?.borrowedBooks?.push({
+        book: bookDetail?._id,
         date: newDate.toISOString(),
       }),
     };
@@ -60,12 +59,8 @@ const RentBook = () => {
         whoBorrowed: selectedUser?._id,
         borrowedDate: newDate.toISOString(),
       },
-      // isBorrowed: true,
-      // whoBorrowed: selectedUser?._id,
-      // borrowedDate: newDate.toISOString(),
     };
 
-    console.log(updatedBook);
     await axios
       .put(`/api/user/${selectedUser?._id}`, updatedUser)
       .then((res) => console.log(res.status));

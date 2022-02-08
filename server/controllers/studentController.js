@@ -17,19 +17,23 @@ exports.createStudent = async (req, res) => {
 
 //  Student Detail
 exports.getStudentDetail = async (req, res) => {
-  const student = await Student.findById(req.params.id).populate({
-    path: "history.book",
-    select: "title yearOfRelease author",
-  });
+  const student = await Student.findById(req.params.id)
+    .populate({
+      path: "history.book",
+      select: "title yearOfRelease author",
+    })
+    .populate({ path: "borrowedBooks.book", select: "_id title author" });
 
   if (!student) {
     return res.status(404).json({ success: false, message: "User not found" });
   }
 
-  const currentBorrowedBooks = (student?.borrowedBooks.length)
-  const totalBorrowedBooks = (student?.history.length)
+  const currentBorrowedBooks = student?.borrowedBooks.length;
+  const totalBorrowedBooks = student?.history.length;
 
-  res.status(200).json({ success: true, student, currentBorrowedBooks, totalBorrowedBooks});
+  res
+    .status(200)
+    .json({ success: true, student, currentBorrowedBooks, totalBorrowedBooks });
 };
 
 //  Update Student

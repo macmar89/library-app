@@ -32,6 +32,7 @@ const AllUsers = () => {
       );
       if (res?.data?.success) {
         setUsers(res?.data);
+        console.log(res?.data)
       }
       if (!res?.data?.success) {
         return <div>smolka</div>;

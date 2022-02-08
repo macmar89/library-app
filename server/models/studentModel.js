@@ -20,16 +20,16 @@ const student = mongoose.Schema(
       validate: [validator.isEmail, "Please Enter a valid email"],
     },
     libraryId: { type: String, required: true },
-    // borrowedBooks: [
-    //   {
-    //     book: {
-    //       type: Schema.Types.ObjectId,
-    //       ref: "Book",
-    //     },
-    //     borrowedDate: { type: Date, required: true },
-    //   },
-    // ],
-    borrowedBooks: { type: Array, default: [] },
+    borrowedBooks: [
+      {
+        book: {
+          type: Schema.Types.ObjectId,
+          ref: "Book",
+        },
+        borrowedDate: { type: Date },
+      },
+    ],
+    // borrowedBooks: { type: Array, default: [] },
     history: [
       {
         book: { type: Schema.Types.ObjectId, ref: "Book" },

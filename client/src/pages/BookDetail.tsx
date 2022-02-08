@@ -10,6 +10,7 @@ const BookDetail = () => {
   const { id }: { id: string } = useParams();
   const { url } = useRouteMatch();
 
+
   useEffect(() => {
     const fetchBookDetail = async () => {
       const res = await axios.get(`/api/book/${id}`);

@@ -31,7 +31,9 @@ const UserDetail = () => {
 
   return (
     <div>
-      <UserCard user={userDetail?.student} />
+      <div className="w-1/2 mx-auto">
+        <UserCard user={userDetail?.student} />
+      </div>
 
       <div className="flex justify-between items-start my-5">
         <div>
