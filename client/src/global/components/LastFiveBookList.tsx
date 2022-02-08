@@ -12,9 +12,6 @@ export const LastFiveBookList = ({
   slug,
   className,
 }: LastFiveBookListProps) => {
-
-
-  console.log(books)
   return (
     <ul className={className}>
       {books?.slice(0, 5).map((book: any, index: number) => (
