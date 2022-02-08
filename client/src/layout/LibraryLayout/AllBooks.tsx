@@ -47,9 +47,12 @@ const AllBooks = () => {
     setFilteredBooks(res?.data?.books);
   };
 
-  const handleDelete = (id : string) => {
-    console.log(id)
-  }
+  const handleDelete = async (id: string) => {
+    await axios
+      .delete("/api/book/" + id)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div>
@@ -99,8 +102,11 @@ const AllBooks = () => {
               >
                 {book.title}
               </Link>
-              <div className='flex justify-end w-1/6 p-2 cursor-pointer' onClick={() => handleDelete(book._id)}>
-                <RiDeleteBin5Line className={'text-red-600' } />
+              <div
+                className="flex justify-end w-1/6 p-2 cursor-pointer"
+                onClick={() => handleDelete(book._id)}
+              >
+                <RiDeleteBin5Line className={"text-red-600"} />
               </div>
             </div>
           ))

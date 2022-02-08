@@ -36,7 +36,6 @@ const BookDetail = () => {
     return lastIndexCut.slice(0, lastIndexCut.lastIndexOf('/'))
   };
 
-  console.log(url)
 
   return (
     <div className="container ">
