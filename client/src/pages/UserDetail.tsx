@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 import { UserCard } from "../global/components/UserCard";
@@ -60,6 +60,9 @@ const UserDetail = () => {
             books={userDetail?.student?.history}
             slug={library?.library?.slug}
           />
+          <div className='mt-3 flex justify-end'>
+            <Link to={{pathname: "/test", state: {books: userDetail?.student?.history }}}>všetky knihy</Link>
+          </div>
         </div>
       </div>
     </div>

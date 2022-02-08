@@ -1,7 +1,7 @@
 import {Route, Switch} from "react-router-dom";
 import Homepage from "./pages/Homepage";
-import BookDetail from "./pages/BookDetail";
 import LibraryLayout from "./layout/LibraryLayout";
+import DetailedBookList from "./pages/DetailedBookList";
 
 function App() {
   return (
@@ -9,7 +9,7 @@ function App() {
   <Switch>
     <Route path='/' exact component={Homepage} />
     <Route path='/library/:slug' component={LibraryLayout}  />
-    <Route path='/test' component={BookDetail} />
+    <Route path='/test' component={DetailedBookList} />
   </Switch>
 </div>
   );
