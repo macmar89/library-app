@@ -5,6 +5,7 @@ import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
 import { UserType } from "../../global/types/UserType";
 import Pagination from "../../global/components/Pagination";
+import {UserCard} from "../../global/components/UserCard";
 
 interface IUsers {
   success: true;
@@ -69,36 +70,40 @@ const AllUsers = () => {
         </form>
       </div>
 
-      <div className="">
-        {filteredUsers ? (
-          <>
-            {filteredUsers?.map((user: UserType) => (
-              <div key={user._id} className="py-2 bg-pink-500">
-                {user.firstName} {user.lastName}
-              </div>
-            ))}
-            <span
-              className="cursor-pointer underline text-right"
-              onClick={() => setFilteredUsers(null)}
-            >
-              Späť na všetkých používateľov
-            </span>
-          </>
-        ) : (
-          users?.users?.map((user: UserType) => (
-            <Link
-              to={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${user._id}`}
-              key={user._id}
-              className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
-            >
-              <div className="w-3/6">
-                {user.firstName} {user.lastName}
-              </div>
-              <div className="w-2/6">{user.email}</div>
-              <div className="w-1/6 justify-center flex">detail</div>
-            </Link>
-          ))
-        )}
+      <div className="grid grid-cols-2">
+        <div className="">
+          {filteredUsers ? (
+            <>
+              {filteredUsers?.map((user: UserType) => (
+                <div key={user._id} className="py-2 bg-pink-500">
+                  {user.firstName} {user.lastName}
+                </div>
+              ))}
+              <span
+                className="cursor-pointer underline text-right"
+                onClick={() => setFilteredUsers(null)}
+              >
+                Späť na všetkých používateľov
+              </span>
+            </>
+          ) : (
+            users?.users?.map((user: UserType) => (
+              <Link
+                to={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${
+                  user._id
+                }`}
+                key={user._id}
+                className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
+              >
+                <div className="w-5/6">
+                  {user.firstName} {user.lastName}
+                </div>
+                <div className="w-1/6 justify-center flex">detail</div>
+              </Link>
+            ))
+          )}
+        </div>
+        <div>{/*{selectedUser && <UserCard user={} />}*/}</div>
       </div>
       {countOfPages > 1 && (
         <Pagination
