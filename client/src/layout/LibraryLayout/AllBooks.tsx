@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { useRouteMatch, Link } from "react-router-dom";
+import {useRouteMatch, Link, useHistory} from "react-router-dom";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import { BookType } from "../../global/types/BookType";
 import Pagination from "../../global/components/Pagination";
-import { RiDeleteBin5Line } from "react-icons/ri";
+import { RiDeleteBin5Line, RiMoreFill, RiEdit2Line } from "react-icons/ri";
 
 interface IBooks {
   success: true;
@@ -21,6 +21,7 @@ const AllBooks = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [filteredBooks, setFilteredBooks] = useState<BookType[] | null>(null);
   const { url } = useRouteMatch();
+  const history = useHistory()
 
   const id = library?.library?._id;
 
@@ -48,9 +49,10 @@ const AllBooks = () => {
   };
 
   const handleDelete = async (id: string) => {
+
     await axios
       .delete("/api/book/" + id)
-      .then((res) => console.log(res))
+      .then(() => history.push(`${url}`))
       .catch((err) => console.log(err));
   };
 
@@ -98,15 +100,29 @@ const AllBooks = () => {
             >
               <Link
                 to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
-                className={`w-5/6`}
+                className={`w-5/6 hover:underline`}
               >
                 {book.title}
               </Link>
-              <div
-                className="flex justify-end w-1/6 p-2 cursor-pointer"
-                onClick={() => handleDelete(book._id)}
-              >
-                <RiDeleteBin5Line className={"text-red-600"} />
+              <div className="w-1/6 list-icons">
+                <Link
+                  to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
+                  className="list-icon"
+                >
+                  <RiEdit2Line />
+                </Link>
+                <Link
+                  to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
+                  className="list-icon"
+                >
+                  <RiMoreFill />
+                </Link>
+                <div
+                  className="list-icon"
+                  onClick={() => handleDelete(book._id)}
+                >
+                  <RiDeleteBin5Line className={"text-red-600 "} />
+                </div>
               </div>
             </div>
           ))

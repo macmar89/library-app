@@ -51,6 +51,14 @@
   .table-row {
     @apply flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer;
   }
+
+  .list-icons {
+    @apply flex justify-end;
+  }
+
+  .list-icon {
+    @apply p-2 cursor-pointer transition hover:scale-150;
+  }
 }
 
 .container {
