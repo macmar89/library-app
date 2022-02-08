@@ -78,7 +78,7 @@ exports.getStudentsByLibrary = async (req, res) => {
   const userCount = await Student.countDocuments({ libraryId: id });
 
   const apiFeature = new ApiFeatures(Student.find({ libraryId: id }), req.query)
-    .search()
+    .searchLastName()
     .filter()
     .pagination(resultPerPage);
   //

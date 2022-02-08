@@ -4,7 +4,7 @@ class ApiFeatures {
     this.queryStr = queryStr;
   }
 
-  search() {
+  searchLastName() {
     const keyword = this.queryStr.keyword
       ? {
         lastName: {

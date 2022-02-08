@@ -32,7 +32,11 @@ const UserDetail = () => {
   return (
     <div>
       <div className="w-1/2 mx-auto">
-        <UserCard user={userDetail?.student} currentBooks={userDetail?.currentBorrowedBooks} totalBooks={userDetail?.totalBorrowedBooks} />
+        <UserCard
+          user={userDetail?.student}
+          currentBooks={userDetail?.currentBorrowedBooks}
+          totalBooks={userDetail?.totalBorrowedBooks}
+        />
       </div>
 
       <div className="flex justify-between items-start my-5">

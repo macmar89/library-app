@@ -1,11 +1,11 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Link, useRouteMatch } from "react-router-dom";
+import {  useRouteMatch } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
 import { UserType } from "../../global/types/UserType";
 import Pagination from "../../global/components/Pagination";
-import {UserCard} from "../../global/components/UserCard";
+import { UserCard } from "../../global/components/UserCard";
 
 interface IUsers {
   success: true;
@@ -20,6 +20,7 @@ const AllUsers = () => {
   const library = useRecoilValue(LibraryAtom);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchedLastName, setSearchedLastName] = useState<string>("");
+  const [selectedUser, setSelectedUser] = useState<UserType | null>(null);
   const { url } = useRouteMatch();
 
   const id = library?.library?._id;
@@ -46,7 +47,7 @@ const AllUsers = () => {
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await axios.get(
-      `/api/${id}/users?lastName=${searchedLastName}`
+      `/api/${id}/users?keyword=${searchedLastName}`
     );
     setSearchedLastName("");
     setFilteredUsers(res?.data.users);
@@ -70,13 +71,20 @@ const AllUsers = () => {
         </form>
       </div>
 
-      <div className="grid grid-cols-2">
+      <div className="grid grid-cols-2 gap-x-10">
         <div className="">
           {filteredUsers ? (
             <>
               {filteredUsers?.map((user: UserType) => (
-                <div key={user._id} className="py-2 bg-pink-500">
-                  {user.firstName} {user.lastName}
+                <div
+                  key={user._id}
+                  onClick={() => setSelectedUser(user)}
+                  className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
+                >
+                  <div className="w-5/6">
+                    {user.firstName} {user.lastName}
+                  </div>
+                  <div className="w-1/6 justify-center flex">detail</div>
                 </div>
               ))}
               <span
@@ -88,22 +96,31 @@ const AllUsers = () => {
             </>
           ) : (
             users?.users?.map((user: UserType) => (
-              <Link
-                to={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${
-                  user._id
-                }`}
+              <div
                 key={user._id}
+                onClick={() => setSelectedUser(user)}
                 className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
               >
                 <div className="w-5/6">
                   {user.firstName} {user.lastName}
                 </div>
                 <div className="w-1/6 justify-center flex">detail</div>
-              </Link>
+              </div>
             ))
           )}
         </div>
-        <div>{/*{selectedUser && <UserCard user={} />}*/}</div>
+        <div>
+          {selectedUser && (
+            <UserCard
+              user={selectedUser}
+              currentBooks={selectedUser?.borrowedBooks?.length}
+              totalBooks={selectedUser?.history?.length}
+              url={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${
+                selectedUser._id
+              }`}
+            />
+          )}
+        </div>
       </div>
       {countOfPages > 1 && (
         <Pagination
