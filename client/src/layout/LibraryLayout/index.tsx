@@ -5,7 +5,7 @@ import LibraryDashboard from "../../pages/LibraryDashboard";
 import { useRecoilState } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
-import AddNewBook from "./AddNewBook";
+import AddNewBook from "../BookDetailLayout/AddNewBook";
 import AddNewUser from "./AddNewUser";
 import AllBooks from "./AllBooks";
 import AllUsers from "./AllUsers";

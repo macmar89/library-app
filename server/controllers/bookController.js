@@ -33,6 +33,17 @@ exports.updateBook = async (req, res) => {
   res.status(200).json({ success: true, book });
 };
 
+//  Delete Book
+exports.deleteBook = async (req, res) => {
+  const deletedBook = await Book.findByIdAndDelete(req.params.id)
+
+  if (!deletedBook) {
+    return res.status(404).json({success: false, message: `Book with id: ${req.body.id} not found`})
+  }
+
+  res.status(200).json({success: false, message: "Book was deleted"})
+}
+
 //  Get All Books From Library
 exports.getAllBooksFromLibrary = async (req, res) => {
   const resultPerPage = 10;

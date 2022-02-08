@@ -5,7 +5,7 @@ const Navbar = () => {
   const  {url}  = useRouteMatch()
 
   return (
-    <div className="bg-red-300 h-12 flex justify-between items-center">
+    <div className="bg-teal-500 h-12 flex justify-between items-center">
       <main>
         <Link to={`${url}`} className="nav-link">
           Home

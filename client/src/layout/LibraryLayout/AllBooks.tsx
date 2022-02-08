@@ -5,6 +5,7 @@ import { useRouteMatch, Link } from "react-router-dom";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import { BookType } from "../../global/types/BookType";
 import Pagination from "../../global/components/Pagination";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 interface IBooks {
   success: true;
@@ -46,6 +47,10 @@ const AllBooks = () => {
     setFilteredBooks(res?.data?.books);
   };
 
+  const handleDelete = (id : string) => {
+    console.log(id)
+  }
+
   return (
     <div>
       <div className="flex justify-center">
@@ -84,13 +89,20 @@ const AllBooks = () => {
           </>
         ) : (
           books?.map((book: BookType) => (
-            <Link
-              to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
+            <div
               key={book._id}
-              className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
+              className="flex items-center px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
             >
-              {book.title}
-            </Link>
+              <Link
+                to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
+                className={`w-5/6`}
+              >
+                {book.title}
+              </Link>
+              <div className='flex justify-end w-1/6 p-2 cursor-pointer' onClick={() => handleDelete(book._id)}>
+                <RiDeleteBin5Line className={'text-red-600' } />
+              </div>
+            </div>
           ))
         )}
       </div>

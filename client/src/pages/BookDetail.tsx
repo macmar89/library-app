@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { BookType } from "../global/types/BookType";
-import { useParams, Link, useRouteMatch } from "react-router-dom";
+import {useParams, Link, useRouteMatch, Route} from "react-router-dom";
 import axios from "axios";
+import BookDetailLayout from "../layout/BookDetailLayout";
+import EditBook from "../layout/BookDetailLayout/EditBook";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
@@ -34,36 +36,40 @@ const BookDetail = () => {
     return lastIndexCut.slice(0, lastIndexCut.lastIndexOf('/'))
   };
 
+  console.log(url)
 
   return (
     <div className="container ">
-      <h2 className="text-center">{bookDetail?.title}</h2>
-      <div className="py-5">
-        {bookDetail?.isBorrowed ? (
-          <div className="flex justify-between items-center">
-            <div>Požičaná: {bookDetail?.whoBorrowed?.firstName} {bookDetail?.whoBorrowed?.lastName}</div>
-            <button onClick={handleReturn}>Vratit</button>
-          </div>
-        ) : (
-          <div className="flex justify-end items-center">
-            <Link className="btn" to={{pathname: `${rentUrl()}/pozicaj/${bookDetail?._id}`, state:  {bookDetail}}}>
-              Pozicaj
-            </Link>
-          </div>
-        )}
-      </div>
-      <div className="flex gap-x-5 ">
-        <aside className="w-2/6 h-96 border-2">image</aside>
-        <article className="w-4/6">
-          <h5 className="mb-4">
-            Autor: <strong>{bookDetail?.author}</strong>
-          </h5>
-          <h5 className="mb-4">
-            Rok vydania: <strong>{bookDetail?.yearOfRelease}</strong>
-          </h5>
-          <div>{bookDetail?.desc}</div>
-        </article>
-      </div>
+      <Route path={`${url}`} component={BookDetailLayout} />
+      <Route path={`${url}/uprav`} component={EditBook} />
+
+      {/*<h2 className="text-center">{bookDetail?.title}</h2>*/}
+      {/*<div className="py-5">*/}
+      {/*  {bookDetail?.isBorrowed ? (*/}
+      {/*    <div className="flex justify-between items-center">*/}
+      {/*      <div>Požičaná: {bookDetail?.whoBorrowed?.firstName} {bookDetail?.whoBorrowed?.lastName}</div>*/}
+      {/*      <button onClick={handleReturn}>Vratit</button>*/}
+      {/*    </div>*/}
+      {/*  ) : (*/}
+      {/*    <div className="flex justify-end items-center">*/}
+      {/*      <Link className="btn" to={{pathname: `${rentUrl()}/pozicaj/${bookDetail?._id}`, state:  {bookDetail}}}>*/}
+      {/*        Pozicaj*/}
+      {/*      </Link>*/}
+      {/*    </div>*/}
+      {/*  )}*/}
+      {/*</div>*/}
+      {/*<div className="flex gap-x-5 ">*/}
+      {/*  <aside className="w-2/6 h-96 border-2">image</aside>*/}
+      {/*  <article className="w-4/6">*/}
+      {/*    <h5 className="mb-4">*/}
+      {/*      Autor: <strong>{bookDetail?.author}</strong>*/}
+      {/*    </h5>*/}
+      {/*    <h5 className="mb-4">*/}
+      {/*      Rok vydania: <strong>{bookDetail?.yearOfRelease}</strong>*/}
+      {/*    </h5>*/}
+      {/*    <div>{bookDetail?.desc}</div>*/}
+      {/*  </article>*/}
+      {/*</div>*/}
     </div>
   );
 };
