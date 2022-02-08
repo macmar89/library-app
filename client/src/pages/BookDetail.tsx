@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { BookType } from "../global/types/BookType";
-import { useParams, Link, useRouteMatch, Route } from "react-router-dom";
+import { useParams, Link, useRouteMatch } from "react-router-dom";
 import axios from "axios";
-import {formatDate, returnTo, timeFromStart} from "../global/helpers/Moment";
+import { formatDate, returnTo } from "../global/helpers/Moment";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
@@ -20,11 +20,16 @@ const BookDetail = () => {
     fetchBookDetail();
   }, [setBookDetail, id]);
 
-  const handleReturn = async () => {
+  const handleReturnToLibrary = async () => {
     let returnedBook = {
       ...bookDetail,
-      borrowed: { isBorrowed: false, whoBorrowed: "-" },
+      isBorrowed: false,
+      whoBorrowed: "",
+      borrowedDate: "",
     };
+    // console.log(returnedBook);
+    let updatedUser = {...bookDetail?.whoBorrowed}
+    console.log(updatedUser)
     await axios
       .put(`/api/book/${bookDetail?._id}`, returnedBook)
       .then((res) => setBookDetail(res?.data?.book));
@@ -37,18 +42,23 @@ const BookDetail = () => {
 
 
   return (
-    <div className="container ">
+    <div className="container">
       <h2 className="text-center">{bookDetail?.title}</h2>
       <div className="py-5">
         {bookDetail?.isBorrowed ? (
           <div className="flex justify-between items-center">
             <div>
-              Požičaná: {bookDetail?.whoBorrowed?.firstName}{" "}
-              {bookDetail?.whoBorrowed?.lastName}
+              Požičaná:{" "}
+              <Link
+                to={`/library/${bookDetail?.libraryId}/uzivatel/${bookDetail?.whoBorrowed?._id}`}
+              >
+                {bookDetail?.whoBorrowed?.firstName}{" "}
+                {bookDetail?.whoBorrowed?.lastName}
+              </Link>
             </div>
             <div>Dátum požičania: {formatDate(bookDetail?.borrowedDate)}</div>
             <div>Vrátiť do: {returnTo(bookDetail?.borrowedDate)}</div>
-            <button onClick={handleReturn}>Vratit</button>
+            <button onClick={handleReturnToLibrary}>Vratit</button>
           </div>
         ) : (
           <div className="flex justify-end items-center">

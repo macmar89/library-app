@@ -1,15 +1,11 @@
-import {BookType} from "./BookType";
+import { BookType } from "./BookType";
 
 export type UserType = {
-  _id: string
-  firstName: string
-  lastName: string
-  email: string
-  borrowedBooks: BorrowedBooks[]
-  history: BookType[]
-}
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  borrowedBooks: { bookId?: string; date?: string }[];
+  history: BookType[];
+};
 
-interface BorrowedBooks {
-  bookId?: string
-  date?: string
-}

@@ -24,6 +24,10 @@
     @apply text-xl uppercase;
   }
 
+  a {
+    @apply hover:underline;
+  }
+
   input,
   textarea {
     @apply  p-2 my-2;
