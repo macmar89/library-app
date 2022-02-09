@@ -34,19 +34,6 @@ const Homepage = () => {
       .then(() => fetchLibraries());
   };
 
-  const library = {
-    name: "Nejaka kniznica",
-    address: {
-      street: "Energetikov",
-      houseNumber: "205/48",
-      postalCode: "971 01",
-      city: "Prievidza city",
-      state: "Slovakia",
-      email: "naj.kniznica@gmail.com",
-      phone: "+421 46 540 56 59",
-    },
-  };
-
   return (
     <div className="h-screen w-screen flex items-center flex-col relative">
       <div className="py-10 border w-full">
@@ -79,8 +66,8 @@ const Homepage = () => {
         <div className="border-2 w-1/3 py-5 px-16 shadow-xl">
           <h1 className="border-b-2 pb-5">{chosenLibrary?.name}</h1>
           <main className="grid grid-cols-2 border-b-2 p-5">
-            <div >
-                <h5 className='mb-1 underline'>Adresa:</h5>
+            <div>
+              <h5 className="mb-1 underline">Adresa:</h5>
               <div className="mb-2 pl-2">
                 <div>{chosenLibrary.address?.street}</div>
                 <div>
@@ -89,8 +76,8 @@ const Homepage = () => {
                 </div>
                 <div>{chosenLibrary?.address?.state}</div>
               </div>
-              <h5 className='mb-1 underline'>Kontakt:</h5>
-              <div className='pl-2'>
+              <h5 className="mb-1 underline">Kontakt:</h5>
+              <div className="pl-2">
                 <div>{chosenLibrary?.contact?.email}</div>
                 <div>{chosenLibrary?.contact?.phone}</div>
               </div>
@@ -105,7 +92,12 @@ const Homepage = () => {
             </div>
           </main>
           <footer className="pt-5 flex items-center justify-end gap-x-5">
-            <Link to={`/uprav-kniznicu/${chosenLibrary?.slug}`}>
+            <Link
+              to={{
+                pathname: `/uprav-kniznicu/${chosenLibrary?.slug}`,
+                state: { library: chosenLibrary },
+              }}
+            >
               <RiEdit2Line className="homepage-icon text-teal-700" />
             </Link>
             <RiDeleteBin5Line
