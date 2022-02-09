@@ -34,7 +34,7 @@ const AddNewUser = () => {
 
     await axios
       .post("http://localhost:4000/api/user", user)
-      .then(() => {})
+      .then(() => reset())
       .catch((err) => console.log(err));
     return false;
   };
@@ -52,9 +52,7 @@ const AddNewUser = () => {
             {...register("firstName")}
             placeholder="Krstné meno"
           />
-          <div className="input-form-error">
-            {errors.firstName?.message}
-          </div>
+          <div className="input-form-error">{errors.firstName?.message}</div>
         </div>
         <div className="flex flex-col mb-2">
           <input
@@ -62,15 +60,11 @@ const AddNewUser = () => {
             {...register("lastName")}
             placeholder="Priezvisko"
           />
-          <div className="input-form-error">
-            {errors.lastName?.message}
-          </div>
+          <div className="input-form-error">{errors.lastName?.message}</div>
         </div>
         <div className="flex flex-col mb-2">
           <input type="text" {...register("email")} placeholder="Email" />
-          <div className="input-form-error">
-            {errors.email?.message}
-          </div>
+          <div className="input-form-error">{errors.email?.message}</div>
         </div>
         <div className="flex justify-end mt-3">
           <button className="btn-primary">Pridaj užívateľa</button>

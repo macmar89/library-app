@@ -78,7 +78,7 @@
   }
 
   .input-form-error {
-    @apply text-red-500 text-lg text-right -mt-2;
+    @apply text-red-500 text-lg text-right -mt-1;
   }
 }
 
