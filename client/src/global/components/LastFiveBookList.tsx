@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 interface LastFiveBookListProps {
-  title?: string
+  title: string
   books: any;
   slug?: string
   className?: string;

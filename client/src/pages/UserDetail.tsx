@@ -44,7 +44,7 @@ const UserDetail = () => {
             title="momentálne požičané knihy"
             books={userDetail?.student?.borrowedBooks}
             slug={library?.library?.slug}
-            emptyLabel="Momentálne žiadna požičaná knih"
+            emptyLabel="Momentálne žiadna požičaná kniha"
           />
         </div>
         <div>
