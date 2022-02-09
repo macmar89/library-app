@@ -27,7 +27,7 @@ export const LibraryForm = ({
       name: library.name,
       street: library.address.street,
       city: library.address.city,
-      postalCode: library.address.city,
+      postalCode: library.address.postalCode,
       state: library.address.state,
       email: library.contact.email,
       phone: library.contact.phone,
@@ -73,9 +73,9 @@ export const LibraryForm = ({
   };
 
   return (
-    <>
+    <div className="border p-10 shadow-xl rounded-xl">
       <h1>{title}</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col">
+      <form onSubmit={handleSubmit} className="flex flex-col w-96">
         <input
           type="text"
           name="name"
@@ -90,20 +90,24 @@ export const LibraryForm = ({
           onChange={handleChange}
           value={newLibrary.street}
         />
-        <input
-          type="text"
-          name="city"
-          placeholder="Mesto"
-          onChange={handleChange}
-          value={newLibrary.city}
-        />
-        <input
-          type="text"
-          name="postalCode"
-          placeholder="PSČ"
-          onChange={handleChange}
-          value={newLibrary.postalCode}
-        />
+        <div className="flex gap-x-2">
+          <input
+            type="text"
+            name="postalCode"
+            placeholder="PSČ"
+            onChange={handleChange}
+            value={newLibrary.postalCode}
+            className="w-1/3"
+          />
+          <input
+            type="text"
+            name="city"
+            placeholder="Mesto"
+            onChange={handleChange}
+            value={newLibrary.city}
+            className="w-2/3"
+          />
+        </div>
         <input
           type="text"
           name="state"
@@ -126,8 +130,8 @@ export const LibraryForm = ({
           value={newLibrary.phone}
         />
 
-        <button>Pridaj knižnicu</button>
+        <button className="btn-primary mt-2">Pridaj knižnicu</button>
       </form>
-    </>
+    </div>
   );
 };

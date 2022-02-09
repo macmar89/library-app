@@ -30,18 +30,26 @@
 
   input,
   textarea {
-    @apply  p-2 my-2;
+    @apply p-2 my-2;
     @apply rounded;
   }
 
   button {
-    @apply bg-teal-500 hover:bg-teal-600 transition py-3 px-6 border rounded uppercase tracking-wider cursor-pointer;
+    @apply transition py-3 px-6 border rounded uppercase tracking-wider cursor-pointer;
   }
 }
 
 @layer components {
   .btn {
-    @apply bg-teal-500 hover:bg-teal-600 transition py-3 px-6 border rounded uppercase tracking-wider cursor-pointer;
+    @apply  transition py-3 px-6 border rounded uppercase tracking-wider cursor-pointer;
+  }
+
+  .btn-primary {
+    @apply bg-teal-500 hover:bg-teal-600;
+  }
+
+  .btn-secondary {
+    @apply bg-lime-400 hover:bg-lime-500;
   }
 
   .nav-link {

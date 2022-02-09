@@ -67,7 +67,7 @@ const AllUsers = () => {
             }
           />
 
-          <button>Hľadať</button>
+          <button className='btn-primary'>Hľadať</button>
         </form>
       </div>
 

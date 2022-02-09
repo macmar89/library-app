@@ -56,7 +56,7 @@ const AddNewUser = () => {
           placeholder="Email"
         />
         <div className="flex justify-end mr-2">
-          <button className="">Pridaj užívateľa</button>
+          <button className="btn-primary">Pridaj užívateľa</button>
         </div>
       </form>
     </div>

@@ -82,7 +82,7 @@ const AddNewBook = () => {
             placeholder="Pridajte popis knihy..."
           />
           <div className="flex justify-end mr-2">
-            <button className=''>Pridaj do knižnice</button>
+            <button className='btn-primary'>Pridaj do knižnice</button>
           </div>
         </form>
         {addedBook && <div>Kniha bola úspešne pridaná do knižnice</div>}

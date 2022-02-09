@@ -76,7 +76,7 @@ const RentBook = () => {
         <div>
           Kto: {selectedUser?.firstName} {selectedUser?.lastName}
         </div>
-        <button onClick={handleRent} disabled={selectedUser === null}>
+        <button onClick={handleRent} className='btn-primary' disabled={selectedUser === null}>
           Požičaj
         </button>
       </div>
@@ -93,7 +93,7 @@ const RentBook = () => {
               ref={nameRef}
               className="w-full"
             />
-            <button>Hľadaj</button>
+            <button className='btn-primary'>Hľadaj</button>
           </form>
           <div>
             {selectedUser ? (
@@ -103,7 +103,7 @@ const RentBook = () => {
                   className="text-right"
                   onClick={() => setSelectedUser(null)}
                 >
-                  <button className="scale-90 ">Späť</button>
+                  <button className="scale-90 btn-secondary">Späť</button>
                 </div>
               </>
             ) : (

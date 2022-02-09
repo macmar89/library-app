@@ -68,7 +68,7 @@ const AllBooks = () => {
               setKeyword(e.target.value)
             }
           />
-          <button>Hľadať</button>
+          <button className='btn-primary'>Hľadať</button>
         </form>
       </div>
 

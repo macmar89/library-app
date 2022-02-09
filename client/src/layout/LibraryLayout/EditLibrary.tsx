@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { LibraryForm } from "./LibraryForm";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory, useLocation, Link } from "react-router-dom";
 import { LibraryType } from "../../global/types/LibraryTypes";
 
 const EditLibrary = () => {
@@ -19,7 +19,14 @@ const EditLibrary = () => {
 
   return (
     <div className="h-screen w-screen flex justify-center items-center flex-col relative">
-      <LibraryForm title={"Uprav knižnicu"} library={state?.library} />
+      <div>
+        <LibraryForm title={"Uprav knižnicu"} library={state?.library} />
+        <div className="mt-10 text-right">
+          <Link to={'/'} className="btn btn-secondary">
+            Späť
+          </Link>
+        </div>
+      </div>
     </div>
   );
 };
