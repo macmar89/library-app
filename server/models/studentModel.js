@@ -29,7 +29,6 @@ const student = mongoose.Schema(
         borrowedDate: { type: Date },
       },
     ],
-    // borrowedBooks: { type: Array, default: [] },
     history: [
       {
         book: { type: Schema.Types.ObjectId, ref: "Book" },

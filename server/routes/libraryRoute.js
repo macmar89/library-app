@@ -15,7 +15,6 @@ router.route("/library/:id").delete(deleteLibrary).put(updateLibrary);
 
 router.route("/library/:slug").get(getLibraryDetail);
 
-// router.route("/library/:id").get(getLibraryDetailById);
 
 
 module.exports = router;

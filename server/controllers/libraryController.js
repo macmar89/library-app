@@ -10,7 +10,7 @@ exports.getLibrary = async (req, res) => {
 
     res.status(200).json({ success: true, libraries });
   } catch (err) {
-    res.status(500).json({ success: false, message: "haha" });
+    res.status(500).json({ success: false });
   }
 };
 
@@ -34,6 +34,13 @@ exports.updateLibrary = async (req, res) => {
       .json({ success: false, message: "Library not found" });
   }
 
+  //  TODO - check
+  // library.update((req.params.id, req.body, {
+  //   new: true,
+  //   runValidators: true,
+  //   useFindAndModify: false,
+  // }))
+
   library = await Library.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
@@ -50,7 +57,7 @@ exports.deleteLibrary = async (req, res) => {
   if (!library) {
     return res
       .status(404)
-      .json({ success: false, message: `Library with id: xxx not found` });
+      .json({ success: false, message: `Library with id: ${req.params.id} not found` });
   }
 
   await library.remove();
@@ -68,7 +75,7 @@ exports.getLibraryDetail = async (req, res) => {
 
   try {
     const newestBooks = await Book.find({ libraryId: id })
-      .sort({ yearOfRelease: -1 })
+      .sort({ createdAt: -1 })
       .limit(5);
 
     const newestStudents = await Student.find({ libraryId: id })
@@ -83,19 +90,3 @@ exports.getLibraryDetail = async (req, res) => {
   }
 };
 
-//  Add New Student To Library
-// exports.createNewStudentToLibrary = async (req, res) => {};
-
-//  Get Library By Id
-exports.getLibraryDetailById = async (req, res) => {
-  const { slug } = req.params;
-
-  // const books = await Book.find({libraryId})
-
-  const library = await Library.findOne({ slug: slug });
-  try {
-    res.status(200).json({ success: true, library });
-  } catch (err) {
-    res.status(400).json({ success: false });
-  }
-};

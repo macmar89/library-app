@@ -46,7 +46,7 @@ const AddNewUser = () => {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col w-2/3 mx-auto"
       >
-        <div className="flex flex-col">
+        <div className="flex flex-col mb-2">
           <input
             type="text"
             {...register("firstName")}
@@ -56,7 +56,7 @@ const AddNewUser = () => {
             {errors.firstName?.message}
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col mb-2">
           <input
             type="text"
             {...register("lastName")}
@@ -66,7 +66,7 @@ const AddNewUser = () => {
             {errors.lastName?.message}
           </div>
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col mb-2">
           <input type="text" {...register("email")} placeholder="Email" />
           <div className="input-form-error">
             {errors.email?.message}
