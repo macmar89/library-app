@@ -28,7 +28,7 @@ const Pagination = ({
         currentPage + 2,
       ]);
 
-    if (currentPage < countOfPages && currentPage > countOfPages - 2)
+    if (currentPage <= countOfPages && currentPage > countOfPages - 2)
       setNumbers([
         countOfPages - 4,
         countOfPages - 3,
@@ -39,9 +39,12 @@ const Pagination = ({
   }, [currentPage]);
 
   return (
-    <div className="py-5 flex justify-end">
+    <div className="py-5 flex justify-end select-none">
       <div className="flex items-center gap-x-1">
-        <BsChevronDoubleLeft onClick={() => setCurrentPage(1)} className='cursor-pointer' />
+        <BsChevronDoubleLeft
+          onClick={() => setCurrentPage(1)}
+          className="cursor-pointer"
+        />
         {numbers?.map((num: number) => (
           <div
             key={num}
@@ -53,7 +56,10 @@ const Pagination = ({
             {num}
           </div>
         ))}
-        <BsChevronDoubleRight onClick={() => setCurrentPage(15)} className='cursor-pointer'/>
+        <BsChevronDoubleRight
+          onClick={() => setCurrentPage(countOfPages)}
+          className="cursor-pointer"
+        />
       </div>
     </div>
   );
