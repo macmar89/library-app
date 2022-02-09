@@ -73,9 +73,9 @@ export const LibraryForm = ({
   };
 
   return (
-    <div className="border p-10 shadow-xl rounded-xl">
+    <div className="flex flex-col items-center border p-10 shadow-xl rounded-xl">
       <h1>{title}</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col w-96">
+      <form onSubmit={handleSubmit} className="flex flex-col  w-96">
         <input
           type="text"
           name="name"
