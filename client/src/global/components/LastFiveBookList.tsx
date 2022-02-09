@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 interface LastFiveBookListProps {
-  title: string
+  title: string;
   books: any;
-  slug?: string
+  slug?: string;
   className?: string;
-  url?: string
-  emptyLabel: string
+  url?: string;
+  emptyLabel: string;
+  count?: number;
 }
 
 export const LastFiveBookList = ({
@@ -16,7 +17,8 @@ export const LastFiveBookList = ({
   slug,
   className,
   url,
-                                   emptyLabel
+  emptyLabel,
+  count,
 }: LastFiveBookListProps) => {
   return (
     <div className={`border rounded-xl p-5 shadow-xl ${className}`}>
@@ -24,7 +26,7 @@ export const LastFiveBookList = ({
       {books && books?.length > 0 ? (
         <>
           <ul>
-            {books?.slice(0, 5).map((book: any, index: number) => (
+            {books?.slice(0, count || 5).map((book: any, index: number) => (
               <li key={index} className="border-b py-2 pl-1.5 last:border-0 ">
                 <h4>
                   <Link to={`/kniznica/${slug}/kniha/${book.book?._id}`}>
@@ -34,9 +36,11 @@ export const LastFiveBookList = ({
               </li>
             ))}
           </ul>
-          <div className={"py-2 text-right text-xl text-gray-700 uppercase"}>
-            <Link to={`/`}>Zobraziť celý zoznam</Link>
-          </div>
+          {url && (
+            <div className={"py-2 text-right text-xl text-gray-700 uppercase"}>
+              <Link to={{pathname: url, state: {book: books}}}>Zobraziť celý zoznam</Link>
+            </div>
+          )}
         </>
       ) : (
         <div className="pt-2 text-gray-700 uppercase text-center ">
@@ -46,4 +50,3 @@ export const LastFiveBookList = ({
     </div>
   );
 };
-

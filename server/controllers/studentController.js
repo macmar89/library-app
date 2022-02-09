@@ -85,3 +85,12 @@ exports.getStudentsByLibrary = async (req, res) => {
   const users = await apiFeature.query;
   res.status(200).json({ success: true, users, userCount, resultPerPage });
 };
+
+//  Get User Book History
+exports.getUserBookHistory = async (req,res) => {
+  const id = "620408d659765b720dd8b284"
+
+  const user = await Student.findById(id)
+
+  res.status(200).json({success: true, user})
+}

@@ -12,10 +12,11 @@ import AllUsers from "./AllUsers";
 import UserDetail from "../../pages/UserDetail";
 import BookDetail from "../../pages/BookDetail";
 import RentBook from "./RentBook";
-import EditUser from "../UserLayout/UserEdit";
+import {EditUser} from "../UserLayout/UserEdit";
 import NoMatch from "../../pages/NoMatch";
+import UserHistory from "../UserLayout/UserHistory";
 
-const LibraryLayout = () => {
+export const LibraryLayout = () => {
   const { url } = useRouteMatch();
   const { slug }: { slug: string } = useParams();
   const [library, setLibrary] = useRecoilState(LibraryAtom);
@@ -41,9 +42,9 @@ const LibraryLayout = () => {
           <Route path={`${url}/uzivatelia`} component={AllUsers} />
           <Route path={`${url}/pridaj-knihu`} component={AddNewBook} />
           <Route path={`${url}/pridaj-uzivatela`} component={AddNewUser} />
-          <Route path={`${url}/uzivatel/:id`} component={UserDetail} />
-          {/*<Route path={`${url}/`}*/}
-          <Route path={`${url}/uprav/uzivatel/:id`} component={EditUser} />
+          <Route path={`${url}/uzivatel/:id`} exact component={UserDetail} />
+          <Route path={`${url}/uzivatel/:id/uprav`} exact component={EditUser} />
+          <Route path={`${url}/uzivatel/:id/historia`} exact component={UserHistory} />
           <Route path={`${url}/kniha/:id`} component={BookDetail} />
           <Route path={`${url}/pozicaj/:id`} component={RentBook} />
 
@@ -55,4 +56,3 @@ const LibraryLayout = () => {
   );
 };
 
-export default LibraryLayout;

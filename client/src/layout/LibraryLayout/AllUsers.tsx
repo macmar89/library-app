@@ -116,9 +116,9 @@ const AllUsers = () => {
               url={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${
                 selectedUser._id
               }`}
-              editUrl={`${url.slice(0, url.lastIndexOf("/"))}/uprav/uzivatel/${
+              editUrl={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${
                 selectedUser._id
-              }`}
+              }/uprav`}
             />
           </div>
         )}

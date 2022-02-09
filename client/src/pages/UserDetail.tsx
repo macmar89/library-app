@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { useRecoilValue } from "recoil";
+import { useParams, useRouteMatch } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { UserCard } from "../global/components/UserCard";
 import { UserType } from "../global/types/UserType";
 import { LibraryAtom } from "../global/recoil/LibraryAtom";
 import { LastFiveBookList } from "../global/components/LastFiveBookList";
+import { UserAtom } from "../global/recoil/UserAtom";
 
 interface IUser {
   student: UserType;
@@ -17,13 +18,18 @@ interface IUser {
 const UserDetail = () => {
   const { id }: { id: string } = useParams();
   const [userDetail, setUserDetail] = useState<IUser | null>(null);
+  const setUser = useSetRecoilState(UserAtom);
   const library = useRecoilValue(LibraryAtom);
+  const { url } = useRouteMatch();
 
   useEffect(() => {
     const fetchUser = async () => {
       await axios
         .get(`/api/user/${id}`)
-        .then((res) => setUserDetail(res?.data))
+        .then((res) => {
+          setUserDetail(res?.data);
+          setUser(res?.data?.student);
+        })
         .catch((err) => console.log(err));
     };
     fetchUser();
@@ -45,6 +51,7 @@ const UserDetail = () => {
             books={userDetail?.student?.borrowedBooks}
             slug={library?.library?.slug}
             emptyLabel="Momentálne žiadna požičaná kniha"
+            count={userDetail?.student?.borrowedBooks?.length}
           />
         </div>
         <div>
@@ -53,6 +60,7 @@ const UserDetail = () => {
             emptyLabel={"Zatiaľ žiadne vrátené knihy"}
             books={userDetail?.student?.history}
             slug={library?.library?.slug}
+            url={`${url}/historia`}
           />
         </div>
       </aside>

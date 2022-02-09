@@ -3,7 +3,7 @@ import {useHistory, useLocation} from "react-router-dom";
 import {UserType} from "../../global/types/UserType";
 import {UserForm} from "./UserForm";
 
-const EditUser = () => {
+export const EditUser = () => {
   const {
     state,
   }: {
@@ -24,4 +24,3 @@ const EditUser = () => {
   );
 };
 
-export default EditUser;
