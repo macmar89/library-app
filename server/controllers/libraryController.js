@@ -8,7 +8,7 @@ exports.getLibrary = async (req, res) => {
   try {
     const libraries = await Library.find();
 
-    res.status(200).json({ success: true, libraries });
+    res.status(200).json({ success: true, libraries, message: 'halo' });
   } catch (err) {
     res.status(500).json({ success: false });
   }

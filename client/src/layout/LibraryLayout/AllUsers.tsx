@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import {  useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
@@ -46,9 +46,7 @@ const AllUsers = () => {
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await axios.get(
-      `/api/${id}/users?keyword=${searchedLastName}`
-    );
+    const res = await axios.get(`/api/${id}/users?keyword=${searchedLastName}`);
     setSearchedLastName("");
     setFilteredUsers(res?.data.users);
   };
@@ -67,11 +65,15 @@ const AllUsers = () => {
             }
           />
 
-          <button className='btn-primary'>Hľadať</button>
+          <button className="btn-primary">Hľadať</button>
         </form>
       </div>
 
-      <div className="grid grid-cols-2 gap-x-10">
+      <div
+        className={`grid ${
+          selectedUser ? "grid-cols-2" : "grid-cols-1"
+        } gap-x-10 transition`}
+      >
         <div className="">
           {filteredUsers ? (
             <>
@@ -109,8 +111,8 @@ const AllUsers = () => {
             ))
           )}
         </div>
-        <div>
-          {selectedUser && (
+        {selectedUser && (
+          <div>
             <UserCard
               user={selectedUser}
               currentBooks={selectedUser?.borrowedBooks?.length}
@@ -119,8 +121,8 @@ const AllUsers = () => {
                 selectedUser._id
               }`}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
       {countOfPages > 1 && (
         <Pagination

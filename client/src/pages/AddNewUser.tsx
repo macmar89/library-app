@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { LibraryAtom } from "../../global/recoil/LibraryAtom";
+import { LibraryAtom } from "../global/recoil/LibraryAtom";
 import axios from "axios";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";

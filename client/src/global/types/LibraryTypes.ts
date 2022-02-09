@@ -16,4 +16,6 @@ export type LibraryType = {
     email: string;
     phone: string;
   };
+  totalBooks: number
+  currentBorrowedBooks: number
 };

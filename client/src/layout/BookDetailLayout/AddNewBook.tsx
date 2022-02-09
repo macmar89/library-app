@@ -11,6 +11,8 @@ import { useForm } from "react-hook-form";
 const AddNewBook = () => {
   const library = useRecoilValue<any>(LibraryAtom);
 
+  console.log(library);
+
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Toto pole je povinné"),
     author: Yup.string().required("Toto pole je povinné"),
@@ -28,6 +30,7 @@ const AddNewBook = () => {
   } = useForm(formOptions);
 
   const onSubmit = async (data: any) => {
+
     const book = {
       title: data.title,
       author: data.author,
@@ -42,7 +45,6 @@ const AddNewBook = () => {
         reset();
       })
       .catch((err) => console.log(err));
-
     return false;
   };
 
