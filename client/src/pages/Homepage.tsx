@@ -76,22 +76,23 @@ const Homepage = () => {
         </select>
       </div>
       {chosenLibrary && (
-        <div className="border-2 w-1/3 py-5 px-16">
+        <div className="border-2 w-1/3 py-5 px-16 shadow-xl">
           <h1 className="border-b-2 pb-5">{chosenLibrary?.name}</h1>
           <main className="grid grid-cols-2 border-b-2 p-5">
-            <div>
-              <div>
-                {library.address?.street} {library.address?.houseNumber}
+            <div >
+                <h5 className='mb-1 underline'>Adresa:</h5>
+              <div className="mb-2 pl-2">
+                <div>{chosenLibrary.address?.street}</div>
+                <div>
+                  {chosenLibrary?.address?.postalCode}{" "}
+                  {chosenLibrary?.address?.city}
+                </div>
+                <div>{chosenLibrary?.address?.state}</div>
               </div>
-              <div>
-                {library?.address?.postalCode} {library?.address?.city}
-              </div>
-              <div>
-                <strong>email:</strong> {library?.address?.email}
-              </div>
-              <div>
-                <strong>tel. č.:</strong>
-                {library?.address?.phone}
+              <h5 className='mb-1 underline'>Kontakt:</h5>
+              <div className='pl-2'>
+                <div>{chosenLibrary?.contact?.email}</div>
+                <div>{chosenLibrary?.contact?.phone}</div>
               </div>
             </div>
             <div>

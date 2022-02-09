@@ -6,4 +6,14 @@ export type LibraryType = {
   updatedAt: string;
   books: any;
   students: any;
+  address: {
+    street: string;
+    city: string;
+    postalCode: string;
+    state: string;
+  };
+  contact: {
+    email: string;
+    phone: string;
+  };
 };
