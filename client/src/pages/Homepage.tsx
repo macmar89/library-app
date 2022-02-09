@@ -104,7 +104,7 @@ const Homepage = () => {
               className="homepage-icon text-red-600"
               onClick={handleRemove}
             />
-            <Link className="btn" to={`/kniznica/${chosenLibrary?.slug}`}>
+            <Link className="btn btn-primary" to={`/kniznica/${chosenLibrary?.slug}`}>
               Vstúpiť do knižnice
             </Link>
           </footer>
