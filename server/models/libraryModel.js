@@ -7,9 +7,18 @@ const librarySchema = mongoose.Schema(
       required: [true, "Please Enter library name"],
       trim: true,
     },
-    slug: {type: String, required: true},
+    slug: { type: String, required: true },
     students: { type: Array, default: [] },
     books: { type: Array, default: [] },
+    address: {
+      street: { type: String, required: true },
+      houseNumber: { type: String, required: true },
+      city: { type: String, required: true },
+      state: { type: String, required: true },
+      email: { type: String, required: true },
+
+      phone: { type: String, required: true },
+    },
   },
   { timestamps: true }
 );

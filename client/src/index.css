@@ -63,6 +63,11 @@
   .list-icon {
     @apply p-2 cursor-pointer transition hover:scale-150;
   }
+
+  .homepage-icon {
+    @apply text-4xl;
+    @apply transition hover:scale-110 cursor-pointer;
+  }
 }
 
 .container {
