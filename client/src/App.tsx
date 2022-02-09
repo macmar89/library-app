@@ -1,9 +1,9 @@
 import {Route, Switch} from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import LibraryLayout from "./layout/LibraryLayout";
-import DetailedBookList from "./pages/DetailedBookList";
 import AddNewLibrary from "./layout/LibraryLayout/AddNewLibrary";
 import EditLibrary from "./layout/LibraryLayout/EditLibrary";
+import NoMatch from "./pages/NoMatch";
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
     <Route path='/pridaj-kniznicu' component={AddNewLibrary} />
     <Route path='/uprav-kniznicu/:slug' component={EditLibrary} />
 
-    <Route path='/test' component={DetailedBookList} />
+    <Route path='/*' component={NoMatch} />
   </Switch>
 </div>
   );
