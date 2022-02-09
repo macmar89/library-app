@@ -28,7 +28,7 @@ export const UserCard = ({
   };
 
   return (
-    <div className="border-2 py-8 px-10 rounded-xl bg-gray-200">
+    <div className="relative border-2 py-8 px-10 rounded-xl bg-gray-200">
       <div className="flex justify-center">
         <img src="/monkey.svg" width={200} alt="profile" />
       </div>
@@ -46,7 +46,11 @@ export const UserCard = ({
       <h4 className="text-center border-b border-gray-900 pb-4">
         {user?.email}
       </h4>
-      <div className="flex justify-between border-b border-gray-900 py-4">
+      <div
+        className={`flex justify-between ${
+          url && "border-b border-gray-900"
+        } py-4`}
+      >
         <div>
           <strong>{currentBooks}</strong> momentálne požičaných
         </div>
@@ -55,7 +59,7 @@ export const UserCard = ({
         </div>
       </div>
       {url && (
-        <footer className="pt-5 flex items-center justify-end gap-x-5">
+        <footer className="flex pt-5 items-center justify-end gap-x-5">
           <Link
             to={{
               pathname: "/",

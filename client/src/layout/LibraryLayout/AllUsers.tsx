@@ -70,11 +70,9 @@ const AllUsers = () => {
       </div>
 
       <div
-        className={`grid ${
-          selectedUser ? "grid-cols-2" : "grid-cols-1"
-        } gap-x-10 transition`}
+        className={`flex gap-x-10 overlay-hidden`}
       >
-        <div className="">
+        <div className={`${selectedUser ? 'w-1/2' : 'w-full'}`}>
           {filteredUsers ? (
             <>
               {filteredUsers?.map((user: UserType) => (
@@ -112,7 +110,7 @@ const AllUsers = () => {
           )}
         </div>
         {selectedUser && (
-          <div>
+          <div className={'w-1/2'}>
             <UserCard
               user={selectedUser}
               currentBooks={selectedUser?.borrowedBooks?.length}

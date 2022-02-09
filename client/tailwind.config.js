@@ -6,7 +6,10 @@ module.exports = {
     extend: {
       fontSize: {
         "10xl" : "64px"
-      }
+      },
+      transitionProperty: {
+        'width': 'width'
+      },
     },
   },
   plugins: [],
