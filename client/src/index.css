@@ -76,6 +76,10 @@
     @apply text-4xl;
     @apply transition hover:scale-110 cursor-pointer;
   }
+
+  .input-form-error {
+    @apply text-red-500 text-lg text-right -mt-2;
+  }
 }
 
 .container {

@@ -1,23 +1,34 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import { useRecoilValue } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
+import * as Yup from "yup";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 const AddNewUser = () => {
   const library = useRecoilValue<any>(LibraryAtom);
 
-  const [newUser, setNewUser] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
+  const validationSchema = Yup.object().shape({
+    firstName: Yup.string().required("Toto pole je povinné"),
+    lastName: Yup.string().required("Priezvisko je povinné"),
+    email: Yup.string().required("Email je povinný").email("Email je neplatný"),
   });
+  const formOptions = { resolver: yupResolver(validationSchema) };
 
-  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // get functions to build form with useForm() hook
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm(formOptions);
+
+  const onSubmit = async (data: any) => {
     const user = {
-      firstName: newUser.firstName,
-      lastName: newUser.lastName,
-      email: newUser.email,
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
       libraryId: library?.library._id,
     };
 
@@ -25,37 +36,43 @@ const AddNewUser = () => {
       .post("http://localhost:4000/api/user", user)
       .then(() => {})
       .catch((err) => console.log(err));
-  };
-
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+    return false;
   };
 
   return (
     <div className="container">
       <h4 className="text-center py-5">Pridaj nového užívateľa</h4>
-      <form onSubmit={handleSubmit} className="flex flex-col w-2/3 mx-auto">
-        <input
-          type="text"
-          name="firstName"
-          onChange={handleChange}
-          placeholder="Krstné meno"
-        />
-        <input
-          type="text"
-          name="lastName"
-          onChange={handleChange}
-          placeholder="Priezvisko"
-        />
-        <input
-          type="text"
-          name="email"
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <div className="flex justify-end mr-2">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col w-2/3 mx-auto"
+      >
+        <div className="flex flex-col">
+          <input
+            type="text"
+            {...register("firstName")}
+            placeholder="Krstné meno"
+          />
+          <div className="input-form-error">
+            {errors.firstName?.message}
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <input
+            type="text"
+            {...register("lastName")}
+            placeholder="Priezvisko"
+          />
+          <div className="input-form-error">
+            {errors.lastName?.message}
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <input type="text" {...register("email")} placeholder="Email" />
+          <div className="input-form-error">
+            {errors.email?.message}
+          </div>
+        </div>
+        <div className="flex justify-end mt-3">
           <button className="btn-primary">Pridaj užívateľa</button>
         </div>
       </form>
