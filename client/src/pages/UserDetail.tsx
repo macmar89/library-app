@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 import { UserCard } from "../global/components/UserCard";
@@ -40,32 +40,20 @@ const UserDetail = () => {
       </div>
       <aside className="flex flex-col">
         <div className="mb-10">
-          <h2 className="text-center">momentálne požičané knihy</h2>
-          {userDetail?.student?.borrowedBooks &&
-          userDetail?.student?.borrowedBooks?.length > 0 ? (
-            <LastFiveBookList
-              books={userDetail?.student?.borrowedBooks}
-              slug={library?.library?.slug}
-            />
-          ) : (
-            <div className="pt-8 text-gray-700 uppercase text-center ">
-              <h4>Momentálne žiadna požičaná knih</h4>
-            </div>
-          )}
+          <LastFiveBookList
+            title="momentálne požičané knihy"
+            books={userDetail?.student?.borrowedBooks}
+            slug={library?.library?.slug}
+            emptyLabel="Momentálne žiadna požičaná knih"
+          />
         </div>
         <div>
-          <h2 className="text-center">História požičaných kníh</h2>
-          {userDetail?.student?.history &&
-          userDetail?.student?.history?.length > 0 ? (
-            <LastFiveBookList
-              books={userDetail?.student?.history}
-              slug={library?.library?.slug}
-            />
-          ) : (
-            <div className="pt-8 text-gray-700 uppercase text-center ">
-              <h4>Zatiaľ žiadne vrátené knihy</h4>
-            </div>
-          )}
+          <LastFiveBookList
+            title={"História požičaných kníh"}
+            emptyLabel={"Zatiaľ žiadne vrátené knihy"}
+            books={userDetail?.student?.history}
+            slug={library?.library?.slug}
+          />
         </div>
       </aside>
     </div>
