@@ -77,6 +77,10 @@
     @apply transition hover:scale-110 cursor-pointer;
   }
 
+  .form-group {
+    @apply flex flex-col mb-2;
+  }
+
   .input-form-error {
     @apply text-red-500 text-lg text-right -mt-1;
   }

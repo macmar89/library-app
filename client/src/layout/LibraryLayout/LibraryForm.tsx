@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { LibraryType } from "../../global/types/LibraryTypes";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useForm } from "react-hook-form";
 
 export const LibraryForm = ({
   title,
@@ -35,19 +38,44 @@ export const LibraryForm = ({
     setNewLibrary(lib);
   }, [library]);
 
-  const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewLibrary((val) => ({ ...val, [e.target.name]: e.target.value }));
+  };
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required("Toto pole je povinné"),
+    street: Yup.string().required("Toto pole je povinné"),
+    postalCode: Yup.string().required("Toto pole je povinné"),
+    city: Yup.string().required("Toto pole je povinné"),
+    state: Yup.string().required("Toto pole je povinné"),
+    email: Yup.string()
+      .required("Toto pole je povinné")
+      .email("Email je neplatný"),
+    phone: Yup.string().required("Toto pole je povinné"),
+  });
+
+  const formOptions = { resolver: yupResolver(validationSchema) };
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm(formOptions);
+
+  const onSubmit = async (data: any) => {
+    console.log(newLibrary)
     const libraryData = {
-      name: newLibrary.name.trim(),
+      name: data.name.trim(),
       address: {
-        street: newLibrary.street.trim(),
-        city: newLibrary.city.trim(),
-        postalCode: newLibrary.postalCode,
-        state: newLibrary.state.trim(),
+        street: data.street.trim(),
+        city: data.city.trim(),
+        postalCode: data.postalCode,
+        state: data.state.trim(),
       },
       contact: {
-        email: newLibrary.email,
-        phone: newLibrary.phone,
+        email: data.email,
+        phone: data.phone,
       },
     };
 
@@ -55,6 +83,7 @@ export const LibraryForm = ({
       await axios
         .put("/api/library/" + library?._id, libraryData)
         .then((res) => {
+          reset();
           return res.data?.library?.slug;
         })
         .then((slug) => history.push("/kniznica/" + slug));
@@ -62,74 +91,93 @@ export const LibraryForm = ({
       await axios
         .post("/api/library", libraryData)
         .then((res) => {
+          reset();
           return res.data?.library?.slug;
         })
         .then((slug) => history.push("/kniznica/" + slug));
     }
-  };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewLibrary((val) => ({ ...val, [e.target.name]: e.target.value }));
+    return false;
   };
 
   return (
     <div className="flex flex-col items-center border p-10 shadow-xl rounded-xl">
       <h1>{title}</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col  w-96">
-        <input
-          type="text"
-          name="name"
-          placeholder="Meno knižnice"
-          onChange={handleChange}
-          value={newLibrary.name}
-        />
-        <input
-          type="text"
-          name="street"
-          placeholder="Ulica"
-          onChange={handleChange}
-          value={newLibrary.street}
-        />
-        <div className="flex gap-x-2">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col  w-96">
+        <div className="form-group">
           <input
             type="text"
-            name="postalCode"
-            placeholder="PSČ"
+            {...register("name")}
             onChange={handleChange}
-            value={newLibrary.postalCode}
-            className="w-1/3"
+            placeholder="Meno knižnice"
+            value={newLibrary.name}
           />
-          <input
-            type="text"
-            name="city"
-            placeholder="Mesto"
-            onChange={handleChange}
-            value={newLibrary.city}
-            className="w-2/3"
-          />
+          <div className="input-form-error">{errors.name?.message}</div>
         </div>
-        <input
-          type="text"
-          name="state"
-          placeholder="Štát"
-          onChange={handleChange}
-          value={newLibrary.state}
-        />
-        <input
-          type="text"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          value={newLibrary.email}
-        />
-        <input
-          type="text"
-          name="phone"
-          placeholder="Telefón"
-          onChange={handleChange}
-          value={newLibrary.phone}
-        />
-
+        <div className="form-group">
+          <input
+            type="text"
+            {...register("street")}
+            onChange={handleChange}
+            placeholder="Ulica"
+            value={newLibrary.street}
+          />{" "}
+          <div className="input-form-error">{errors.street?.message}</div>
+        </div>
+        <div className="flex gap-x-2">
+          <div className=" w-1/3">
+            <input
+              type="text"
+              {...register("postalCode")}
+              onChange={handleChange}
+              placeholder="PSČ"
+              value={newLibrary.postalCode}
+              className="w-full"
+            />
+            <div className="input-form-error">{errors.postalCode?.message}</div>
+          </div>
+          <div className=" w-2/3">
+            <input
+              type="text"
+              {...register("city")}
+              onChange={handleChange}
+              placeholder="Mesto"
+              value={newLibrary.city}
+              className="w-full"
+            />
+            <div className="input-form-error">{errors.city?.message}</div>
+          </div>
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            {...register("state")}
+            onChange={handleChange}
+            placeholder="Štát"
+            value={newLibrary.state}
+          />{" "}
+          <div className="input-form-error">{errors.state?.message}</div>
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            {...register("email")}
+            onChange={handleChange}
+            placeholder="Email"
+            value={newLibrary.email}
+          />{" "}
+          <div className="input-form-error">{errors.email?.message}</div>
+        </div>
+        <div className="form-group">
+          <input
+            type="text"
+            {...register("phone")}
+            onChange={handleChange}
+            placeholder="Telefón"
+            value={newLibrary.phone}
+          />
+          <div className="input-form-error">{errors.phone?.message}</div>
+        </div>
         <button className="btn-primary mt-2">Pridaj knižnicu</button>
       </form>
     </div>
