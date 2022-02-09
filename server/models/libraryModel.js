@@ -12,11 +12,12 @@ const librarySchema = mongoose.Schema(
     books: { type: Array, default: [] },
     address: {
       street: { type: String, required: true },
-      houseNumber: { type: String, required: true },
       city: { type: String, required: true },
+      postalCode: { type: String, required: true },
       state: { type: String, required: true },
+    },
+    contact: {
       email: { type: String, required: true },
-
       phone: { type: String, required: true },
     },
   },

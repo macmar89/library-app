@@ -104,14 +104,14 @@ const Homepage = () => {
             </div>
           </main>
           <footer className="pt-5 flex items-center justify-end gap-x-5">
-            <Link to={`/uprav-kniznicu/${chosenLibrary}`}>
+            <Link to={`/uprav-kniznicu/${chosenLibrary?.slug}`}>
               <RiEdit2Line className="homepage-icon text-teal-700" />
             </Link>
             <RiDeleteBin5Line
               className="homepage-icon text-red-600"
               onClick={handleRemove}
             />
-            <Link className="btn" to={`/kniznica/${chosenLibrary}`}>
+            <Link className="btn" to={`/kniznica/${chosenLibrary?.slug}`}>
               Vstúpiť do knižnice
             </Link>
           </footer>
