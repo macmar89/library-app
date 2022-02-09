@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 
 import { UserCard } from "../global/components/UserCard";
@@ -30,41 +30,44 @@ const UserDetail = () => {
   }, [id]);
 
   return (
-    <div>
-      <div className="w-1/2 mx-auto">
+    <div className="grid grid-cols-2 gap-x-10 mt-10">
+      <div className="">
         <UserCard
           user={userDetail?.student}
           currentBooks={userDetail?.currentBorrowedBooks}
           totalBooks={userDetail?.totalBorrowedBooks}
         />
       </div>
-
-      <div className="flex justify-between items-start my-5">
-        <div>
-          <div className="flex items-center gap-x-3">
-            <h1 className="">{userDetail?.currentBorrowedBooks}</h1>
-            <h3>momentálne požičaných kníh</h3>
-          </div>
-          <LastFiveBookList
-            books={userDetail?.student?.borrowedBooks}
-            slug={library?.library?.slug}
-          />
+      <aside className="flex flex-col">
+        <div className="mb-10">
+          <h2 className="text-center">momentálne požičané knihy</h2>
+          {userDetail?.student?.borrowedBooks &&
+          userDetail?.student?.borrowedBooks?.length > 0 ? (
+            <LastFiveBookList
+              books={userDetail?.student?.borrowedBooks}
+              slug={library?.library?.slug}
+            />
+          ) : (
+            <div className="pt-8 text-gray-700 uppercase text-center ">
+              <h4>Momentálne žiadna požičaná knih</h4>
+            </div>
+          )}
         </div>
         <div>
-          <div className="flex items-center gap-x-3">
-            <h1 className="">{userDetail?.totalBorrowedBooks}</h1>
-            <h3>požičaných a vrátených kníh</h3>
-          </div>
-
-          <LastFiveBookList
-            books={userDetail?.student?.history}
-            slug={library?.library?.slug}
-          />
-          <div className='mt-3 flex justify-end'>
-            <Link to={{pathname: "/test", state: {books: userDetail?.student?.history }}}>všetky knihy</Link>
-          </div>
+          <h2 className="text-center">História požičaných kníh</h2>
+          {userDetail?.student?.history &&
+          userDetail?.student?.history?.length > 0 ? (
+            <LastFiveBookList
+              books={userDetail?.student?.history}
+              slug={library?.library?.slug}
+            />
+          ) : (
+            <div className="pt-8 text-gray-700 uppercase text-center ">
+              <h4>Zatiaľ žiadne vrátené knihy</h4>
+            </div>
+          )}
         </div>
-      </div>
+      </aside>
     </div>
   );
 };

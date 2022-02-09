@@ -12,6 +12,7 @@ import AllUsers from "./AllUsers";
 import UserDetail from "../../pages/UserDetail";
 import BookDetail from "../../pages/BookDetail";
 import RentBook from "./RentBook";
+import EditUser from "../UserLayout/UserEdit";
 
 const LibraryLayout = () => {
   const { url } = useRouteMatch();
@@ -40,9 +41,9 @@ const LibraryLayout = () => {
           <Route path={`${url}/pridaj-knihu`} component={AddNewBook} />
           <Route path={`${url}/pridaj-uzivatela`} component={AddNewUser} />
           <Route path={`${url}/uzivatel/:id`} component={UserDetail} />
+          <Route path={`${url}/uprav/uzivatel/:id`} component={EditUser} />
           <Route path={`${url}/kniha/:id`} component={BookDetail} />
           <Route path={`${url}/pozicaj/:id`} component={RentBook} />
-
         </Switch>
       </div>
     </div>

@@ -77,6 +77,10 @@
     @apply transition hover:scale-110 cursor-pointer;
   }
 
+  .form-box {
+    @apply flex flex-col items-center border p-10 shadow-xl rounded-xl;
+  }
+
   .form-group {
     @apply flex flex-col mb-2;
   }

@@ -69,10 +69,8 @@ const AllUsers = () => {
         </form>
       </div>
 
-      <div
-        className={`flex gap-x-10 overlay-hidden`}
-      >
-        <div className={`${selectedUser ? 'w-1/2' : 'w-full'}`}>
+      <div className={`flex gap-x-10 mt-10 overlay-hidden`}>
+        <div className={`${selectedUser ? "w-1/2" : "w-full"}`}>
           {filteredUsers ? (
             <>
               {filteredUsers?.map((user: UserType) => (
@@ -110,12 +108,15 @@ const AllUsers = () => {
           )}
         </div>
         {selectedUser && (
-          <div className={'w-1/2'}>
+          <div className={"w-1/2"}>
             <UserCard
               user={selectedUser}
               currentBooks={selectedUser?.borrowedBooks?.length}
               totalBooks={selectedUser?.history?.length}
               url={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${
+                selectedUser._id
+              }`}
+              editUrl={`${url.slice(0, url.lastIndexOf("/"))}/uprav/uzivatel/${
                 selectedUser._id
               }`}
             />

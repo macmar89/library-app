@@ -98,7 +98,7 @@ const RentBook = () => {
           <div>
             {selectedUser ? (
               <>
-                <UserCard user={selectedUser} totalBooks={0} currentBooks={0} url={'cmuQ'} />
+                <UserCard user={selectedUser} totalBooks={0} currentBooks={0}  />
                 <div
                   className="text-right"
                   onClick={() => setSelectedUser(null)}

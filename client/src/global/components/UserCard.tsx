@@ -9,6 +9,7 @@ interface UserCardProps {
   totalBooks?: number;
   currentBooks?: number;
   url?: string;
+  editUrl?: string
 }
 
 export const UserCard = ({
@@ -16,6 +17,7 @@ export const UserCard = ({
   totalBooks,
   currentBooks,
   url,
+  editUrl
 }: UserCardProps) => {
   const history = useHistory();
 
@@ -62,9 +64,8 @@ export const UserCard = ({
         <footer className="flex pt-5 items-center justify-end gap-x-5">
           <Link
             to={{
-              pathname: "/",
-              // pathname: `/uprav-kniznicu/${chosenLibrary?.slug}`,
-              // state: { library: chosenLibrary },
+              pathname: editUrl,
+              state: { user: user },
             }}
           >
             <RiEdit2Line className="homepage-icon text-teal-700" />

@@ -4,9 +4,12 @@ import { useParams, Link, useRouteMatch } from "react-router-dom";
 import { BookType } from "../global/types/BookType";
 import { formatDate, returnTo } from "../global/helpers/Moment";
 import { textWithBr } from "../global/helpers/formatText";
+import {useRecoilValue} from "recoil";
+import {LibraryAtom} from "../global/recoil/LibraryAtom";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
+  const library = useRecoilValue(LibraryAtom)
   const { id }: { id: string } = useParams();
   const { url } = useRouteMatch();
 
@@ -65,7 +68,7 @@ const BookDetail = () => {
             <div>
               Požičaná:{" "}
               <Link
-                to={`/kniznica/${bookDetail?.libraryId}/uzivatel/${bookDetail?.borrowed[0]?.whoBorrowed?._id}`}
+                to={`/kniznica/${library?.library?.slug}/uzivatel/${bookDetail?.borrowed[0]?.whoBorrowed?._id}`}
               >
                 {bookDetail?.borrowed[0]?.whoBorrowed?.firstName}{" "}
                 {bookDetail?.borrowed[0]?.whoBorrowed?.lastName}
