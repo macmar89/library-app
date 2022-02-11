@@ -8,7 +8,7 @@ interface IButtonProps {
   className?: string;
 }
 
-const Button = ({
+export const Button = ({
   variant = "primary",
   label,
   onClick,
@@ -17,7 +17,7 @@ const Button = ({
 }: IButtonProps) => {
   return (
     <button
-      className={`${
+      className={`transition py-3 px-6 border rounded uppercase tracking-wider cursor-pointer ${
         variant === "primary" ? "btn-primary" : "btn-secondary"
       } ${className}`}
       onClick={onClick}
@@ -27,5 +27,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;
