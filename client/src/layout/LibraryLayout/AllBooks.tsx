@@ -24,7 +24,9 @@ const AllBooks = () => {
   const { url } = useRouteMatch();
   const history = useHistory();
 
-  const id = library?.library?._id;
+  const id = library?._id;
+
+  console.log(library)
 
   useEffect(() => {
     const fetchBooks = async () => {

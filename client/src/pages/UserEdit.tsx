@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import {useHistory, useLocation} from "react-router-dom";
-import {UserType} from "../../global/types/UserType";
-import {UserForm} from "./UserForm";
+import {UserType} from "../global/types/UserType";
+import {UserForm} from "../layout/UserLayout/UserForm";
 
-export const EditUser = () => {
+const UserEdit = () => {
   const {
     state,
   }: {
@@ -24,3 +24,4 @@ export const EditUser = () => {
   );
 };
 
+export default UserEdit

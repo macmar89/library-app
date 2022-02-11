@@ -1,12 +1,12 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { LibraryAtom } from "../../global/recoil/LibraryAtom";
+import { LibraryAtom } from "../global/recoil/LibraryAtom";
 import axios from "axios";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import Button from "../../global/components/Ui/Button";
+import Button from "../global/components/Ui/Button";
 
 //  TODO - validation, error messages/tooltip component
 

@@ -1,7 +1,7 @@
 import React from "react";
 import {Link, useRouteMatch} from "react-router-dom";
 
-const Navbar = () => {
+export const Navbar = () => {
   const  {url}  = useRouteMatch()
 
   return (
@@ -29,4 +29,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+

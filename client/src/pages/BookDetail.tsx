@@ -82,7 +82,6 @@ const BookDetail = () => {
             <div>
               Vrátiť do: {returnTo(bookDetail?.borrowed[0].borrowedDate)}
             </div>
-            <button onClick={handleReturnToLibrary}>Vratit</button>
             <Button label={'Vratit'} onClick={handleReturnToLibrary} />
           </div>
         ) : (
