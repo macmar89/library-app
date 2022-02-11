@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useHistory, useLocation} from "react-router-dom";
 import {UserType} from "../global/types/UserType";
-import {UserForm} from "../layout/UserLayout/UserForm";
+import {UserForm} from "../components/User/UserForm";
 
 const UserEdit = () => {
   const {

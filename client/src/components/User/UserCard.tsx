@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useHistory } from "react-router-dom";
-import { UserType } from "../types/UserType";
+import { UserType } from "../../global/types/UserType";
 import { RiDeleteBin5Line, RiEdit2Line } from "react-icons/ri";
 import axios from "axios";
 

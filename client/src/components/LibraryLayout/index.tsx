@@ -5,14 +5,14 @@ import { useRecoilState } from "recoil";
 
 import AddNewBook from "../../pages/AddNewBook";
 import AddNewUser from "../../pages/AddNewUser";
-import AllBooks from "./AllBooks";
-import AllUsers from "./AllUsers";
+import AllBooks from "../../pages/AllBooks";
+import AllUsers from "../../pages/AllUsers";
 import UserDetail from "../../pages/UserDetail";
 import BookDetail from "../../pages/BookDetail";
 import RentBook from "../../pages/RentBook";
 import UserEdit from "../../pages/UserEdit";
 import NoMatch from "../../pages/NoMatch";
-import UserHistory from "../UserLayout/UserHistory";
+import UserHistory from "../../pages/UserHistory";
 import BookEdit from '../../pages/BookEdit'
 
 import { Navbar } from "../../global/components/Navbar";

@@ -34,9 +34,6 @@
     @apply rounded;
   }
 
-  button {
-    @apply transition py-3 px-6 border rounded uppercase tracking-wider cursor-pointer;
-  }
 }
 
 @layer components {

@@ -4,10 +4,10 @@ import { useParams, useRouteMatch } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 
-import { UserCard } from "../global/components/UserCard";
+import { UserCard } from "../components/User/UserCard";
 import { UserType } from "../global/types/UserType";
 import { LibraryAtom } from "../global/recoil/LibraryAtom";
-import { LastFiveBookList } from "../global/components/LastFiveBookList";
+import { LastFiveBookList } from "../components/Book/LastFiveBookList";
 import { UserAtom } from "../global/recoil/UserAtom";
 
 interface IUser {

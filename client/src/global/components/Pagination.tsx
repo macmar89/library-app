@@ -8,7 +8,7 @@ interface IPagination {
   countOfPages: number;
 }
 
-const Pagination = ({ setCurrentPage, countOfPages }: IPagination) => {
+export const Pagination = ({ setCurrentPage, countOfPages }: IPagination) => {
   const handlePageChange = (e: any) => {
     setCurrentPage(e.selected + 1);
   };
@@ -26,4 +26,3 @@ const Pagination = ({ setCurrentPage, countOfPages }: IPagination) => {
   );
 };
 
-export default Pagination;

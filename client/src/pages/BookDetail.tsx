@@ -6,7 +6,7 @@ import { formatDate, returnTo } from "../global/helpers/Moment";
 import { textWithBr } from "../global/helpers/formatText";
 import {useRecoilValue} from "recoil";
 import {LibraryAtom} from "../global/recoil/LibraryAtom";
-import Button from "../global/components/Ui/Button";
+import {Button} from "../global/components/Button";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);

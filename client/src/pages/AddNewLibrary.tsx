@@ -1,5 +1,5 @@
 import React from "react";
-import { LibraryForm } from "../layout/LibraryLayout/LibraryForm";
+import { LibraryForm } from "../components/LibraryLayout/LibraryForm";
 import { Link } from "react-router-dom";
 
 const AddNewLibrary = () => {

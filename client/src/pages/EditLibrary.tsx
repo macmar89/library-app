@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { LibraryForm } from "../layout/LibraryLayout/LibraryForm";
+import { LibraryForm } from "../components/LibraryLayout/LibraryForm";
 import { useHistory, useLocation, Link } from "react-router-dom";
 import { LibraryType } from "../global/types/LibraryTypes";
 

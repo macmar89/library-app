@@ -6,7 +6,7 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import Button from "../global/components/Ui/Button";
+import {Button} from "../global/components/Button";
 
 const AddNewUser = () => {
   const library = useRecoilValue<any>(LibraryAtom);
