@@ -10,7 +10,7 @@ import { LastFiveBookList } from "../../layout/Book/LastFiveBookList";
 import { UserAtom } from "../../global/recoil/UserAtom";
 
 interface IUser {
-  student: UserType;
+  user: UserType;
   currentBorrowedBooks: number;
   totalBorrowedBooks: number;
 }
@@ -28,7 +28,7 @@ const UserDetail = () => {
         .get(`/api/user/${id}`)
         .then((res) => {
           setUserDetail(res?.data);
-          setUser(res?.data?.student);
+          setUser(res?.data?.user);
         })
         .catch((err) => console.log(err));
     };
@@ -39,7 +39,7 @@ const UserDetail = () => {
     <div className="grid grid-cols-2 gap-x-10 mt-10">
       <div className="">
         <UserCard
-          user={userDetail?.student}
+          user={userDetail?.user}
           currentBooks={userDetail?.currentBorrowedBooks}
           totalBooks={userDetail?.totalBorrowedBooks}
         />
@@ -48,17 +48,17 @@ const UserDetail = () => {
         <div className="mb-10">
           <LastFiveBookList
             title="momentálne požičané knihy"
-            books={userDetail?.student?.borrowedBooks}
+            books={userDetail?.user?.borrowedBooks}
             slug={library?.library?.slug}
             emptyLabel="Momentálne žiadna požičaná kniha"
-            count={userDetail?.student?.borrowedBooks?.length}
+            count={userDetail?.user?.borrowedBooks?.length}
           />
         </div>
         <div>
           <LastFiveBookList
             title={"História požičaných kníh"}
             emptyLabel={"Zatiaľ žiadne vrátené knihy"}
-            books={userDetail?.student?.history}
+            books={userDetail?.user?.history}
             slug={library?.library?.slug}
             url={`${url}/historia`}
           />

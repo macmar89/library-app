@@ -13,11 +13,12 @@ import RentBook from "../../pages/Book/RentBook";
 import UserEdit from "../../pages/User/UserEdit";
 import NoMatch from "../../pages/NoMatch";
 import UserHistory from "../../pages/User/UserHistory";
-import BookEdit from '../../pages/Book/BookEdit'
+import BookEdit from "../../pages/Book/BookEdit";
 
 import { Navbar } from "../../global/components/Navbar";
 
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
+import LibraryDashboard from "../../pages/Library/LibraryDashboard";
 
 export const LibraryLayout = () => {
   const { url } = useRouteMatch();
@@ -34,28 +35,34 @@ export const LibraryLayout = () => {
     fetchLibraryData();
   }, [slug, setLibrary]);
 
-
   return (
     <div className="min-h-screen relative">
       <h1>{library?.library?.name}</h1>
       <Navbar />
       <div className="container">
         <Switch>
+          <Route path={`${url}/`} exact component={LibraryDashboard} />
           <Route path={`${url}/knihy`} component={AllBooks} />
           <Route path={`${url}/uzivatelia`} component={AllUsers} />
           <Route path={`${url}/pridaj-knihu`} component={AddNewBook} />
           <Route path={`${url}/pridaj-uzivatela`} component={AddNewUser} />
           <Route path={`${url}/uzivatel/:id`} exact component={UserDetail} />
-          <Route path={`${url}/uzivatel/:id/uprav`} exact component={UserEdit} />
-          <Route path={`${url}/uzivatel/:id/historia`} exact component={UserHistory} />
+          <Route
+            path={`${url}/uzivatel/:id/uprav`}
+            exact
+            component={UserEdit}
+          />
+          <Route
+            path={`${url}/uzivatel/:id/historia`}
+            exact
+            component={UserHistory}
+          />
           <Route path={`${url}/kniha/:id`} exact component={BookDetail} />
           <Route path={`${url}/kniha/:id/uprav`} exact component={BookEdit} />
           <Route path={`${url}/pozicaj/:id`} component={RentBook} />
           <Route path={`${url}/*`} component={NoMatch} />
-
         </Switch>
       </div>
     </div>
   );
 };
-

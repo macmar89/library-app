@@ -16,7 +16,7 @@ const bookSchema = mongoose.Schema(
     borrowed: [
       {
         isBorrowed: { type: Boolean, required: true, default: false },
-        whoBorrowed: { type: Schema.Types.ObjectId, ref: "Student" },
+        whoBorrowed: { type: Schema.Types.ObjectId, ref: "User" },
         borrowedDate: { type: String, default: "" },
       },
     ],

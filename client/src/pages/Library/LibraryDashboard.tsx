@@ -11,6 +11,7 @@ const LibraryDashboard = () => {
   return (
     <div>
       <section className="flex my-5 gap-x-10">
+
         <div
           className={
             "border-2 border-gray-200 bg-gray-500 rounded-2xl px-8 py-5 "
@@ -30,9 +31,9 @@ const LibraryDashboard = () => {
         >
           <h4>Najnovšie pridaný užívatelia</h4>
 
-          {library?.newestStudents?.map((student: any) => {
-            const name = student.firstName + " " + student.lastName;
-            return <div key={student._id}>{name}</div>;
+          {library?.newestUsers?.map((user: any) => {
+            const name = user.firstName + " " + user.lastName;
+            return <div key={user._id}>{name}</div>;
           })}
         </div>
       </section>

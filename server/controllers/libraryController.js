@@ -78,13 +78,13 @@ exports.getLibraryDetail = async (req, res) => {
       .sort({ createdAt: -1 })
       .limit(5);
 
-    const newestStudents = await Student.find({ libraryId: id })
+    const newestUsers = await Student.find({ libraryId: id })
       .sort({ createdAt: -1 })
       .limit(5);
 
     res
       .status(200)
-      .json({ success: true, library, newestBooks, newestStudents });
+      .json({ success: true, library, newestBooks, newestUsers });
   } catch (err) {
     res.status(400).json({ success: false });
   }
