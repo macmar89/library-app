@@ -1,13 +1,17 @@
 import axios from "axios";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useRecoilState } from "recoil";
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 import { GeneralAtom } from "../global/recoil/GeneralAtom";
 import { RiDeleteBin5Line, RiEdit2Line } from "react-icons/ri";
 import { LibraryType } from "../global/types/LibraryTypes";
+import {LibraryAtom} from "../global/recoil/LibraryAtom";
+import Button from "../global/components/Ui/Button";
 
 const Homepage = () => {
   const [libraries, setLibraries] = useRecoilState(GeneralAtom);
+  const setLibrary = useSetRecoilState(LibraryAtom)
+  const library = useRecoilValue(LibraryAtom)
   const [chosenLibrary, setChosenLibrary] = useState<LibraryType | null>(null);
 
   const fetchLibraries = async () => {
@@ -25,6 +29,8 @@ const Homepage = () => {
       (lib: any) => e.target.value === lib._id
     );
     setChosenLibrary(library);
+    setLibrary(library)
+    console.log(library)
   };
 
   const handleRemove = async () => {

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import Navbar from "../../global/components/Navbar";
 import { Route, Switch, useParams, useRouteMatch } from "react-router-dom";
-import LibraryDashboard from "../../pages/LibraryDashboard";
 import { useRecoilState } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
@@ -31,13 +30,14 @@ export const LibraryLayout = () => {
     fetchLibraryData();
   }, [slug, setLibrary]);
 
+  console.log('index', library)
+
   return (
     <div className="min-h-screen relative">
       <h1>{library?.library?.name}</h1>
       <Navbar />
       <div className="container">
         <Switch>
-          <Route path={`${url}/`} exact component={LibraryDashboard} />
           <Route path={`${url}/knihy`} component={AllBooks} />
           <Route path={`${url}/uzivatelia`} component={AllUsers} />
           <Route path={`${url}/pridaj-knihu`} component={AddNewBook} />
@@ -47,7 +47,6 @@ export const LibraryLayout = () => {
           <Route path={`${url}/uzivatel/:id/historia`} exact component={UserHistory} />
           <Route path={`${url}/kniha/:id`} component={BookDetail} />
           <Route path={`${url}/pozicaj/:id`} component={RentBook} />
-
           <Route path={`${url}/*`} component={NoMatch} />
 
         </Switch>

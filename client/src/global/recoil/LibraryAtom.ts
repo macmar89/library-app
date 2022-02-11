@@ -11,5 +11,5 @@ interface ILibrary {
 
 export const LibraryAtom = atom({
   key: "LibraryAtom",
-  default: null as ILibrary | null,
+  default: {} as any,
 });
