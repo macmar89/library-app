@@ -4,58 +4,58 @@ const ApiFeatures = require("../utils/ApiFeatures");
 
 //  Create New User
 exports.createUser = async (req, res) => {
-  const student = await User.create(req.body);
+  const user = await User.create(req.body);
 
-  res.status(201).json({ success: true, student });
+  res.status(201).json({ success: true, user });
 };
 
 //  User Detail
 exports.getUserDetail = async (req, res) => {
-  const student = await User.findById(req.params.id)
+  const user = await User.findById(req.params.id)
     .populate({
       path: "history.book",
       select: "title yearOfRelease author",
     })
     .populate({ path: "borrowedBooks.book", select: "_id title author" });
 
-  if (!student) {
+  if (!user) {
     return res.status(404).json({ success: false, message: "User not found" });
   }
 
-  const currentBorrowedBooks = student?.borrowedBooks.length;
-  const totalBorrowedBooks = student?.history.length;
+  const currentBorrowedBooks = user?.borrowedBooks.length;
+  const totalBorrowedBooks = user?.history.length;
 
   res
     .status(200)
-    .json({ success: true, student, currentBorrowedBooks, totalBorrowedBooks });
+    .json({ success: true, user, currentBorrowedBooks, totalBorrowedBooks });
 };
 
 //  Update User
 exports.updateUser = async (req, res) => {
-  let student = await User.findById(req.params.id);
+  let user = await User.findById(req.params.id);
 
-  if (!student) {
+  if (!user) {
     return res.status(404).json({ success: false, message: "User not found" });
   }
 
-  student = await User.findByIdAndUpdate(req.params.id, req.body, {
+  user = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
   });
 
-  res.status(200).json({ success: true, student });
+  res.status(200).json({ success: true, user });
 };
 
 //  Delete User
 exports.deleteUser = async (req, res) => {
-  const student = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id);
 
-  if (!student) {
+  if (!user) {
     return res.status(404).json({ success: false, message: "User not found" });
   }
 
-  await student.remove();
+  await user.remove();
 
   res.status(200).json({ success: true, message: "User was deleted" });
 };
