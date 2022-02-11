@@ -51,6 +51,7 @@ const AllUsers = () => {
     setFilteredUsers(res?.data.users);
   };
 
+
   return (
     <div>
       <div className="flex justify-center">
@@ -125,7 +126,6 @@ const AllUsers = () => {
       </div>
       {countOfPages > 1 && (
         <Pagination
-          currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           countOfPages={countOfPages}
         />

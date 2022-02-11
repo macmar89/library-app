@@ -5,6 +5,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 //  TODO - validation, error messages/tooltip component
 
@@ -30,7 +31,6 @@ const AddNewBook = () => {
   } = useForm(formOptions);
 
   const onSubmit = async (data: any) => {
-
     const book = {
       title: data.title,
       author: data.author,
@@ -42,9 +42,12 @@ const AddNewBook = () => {
     await axios
       .post("/api/book", book)
       .then(() => {
+        toast("Kniha úspešne pridaná");
+      })
+      .then(() => {
         reset();
       })
-      .catch((err) => console.log(err));
+      .catch(() => toast("Niečo sa pokazilo :("));
     return false;
   };
 

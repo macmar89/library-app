@@ -5,6 +5,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "react-toastify";
 
 const AddNewUser = () => {
   const library = useRecoilValue<any>(LibraryAtom);
@@ -34,14 +35,15 @@ const AddNewUser = () => {
 
     await axios
       .post("http://localhost:4000/api/user", user)
+      .then(() => toast("Študent úspešne pridaný"))
       .then(() => reset())
-      .catch((err) => console.log(err));
+      .catch(() => toast("Niečo sa pokazilo :("));
     return false;
   };
 
   return (
     <div className="container">
-      <h4 className="text-center py-5">Pridaj nového užívateľa</h4>
+      <h2 className="text-center py-5">Pridaj nového študenta</h2>
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col w-2/3 mx-auto"
@@ -51,6 +53,7 @@ const AddNewUser = () => {
             type="text"
             {...register("firstName")}
             placeholder="Krstné meno"
+            autoFocus
           />
           <div className="input-form-error">{errors.firstName?.message}</div>
         </div>

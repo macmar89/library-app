@@ -31,6 +31,7 @@ const AllBooks = () => {
       const res = await axios.get(`/api/${id}/books`);
       if (res?.data?.success) {
         setBooks(res?.data?.books);
+        console.log(res?.data);
       }
       if (!res?.data?.success) {
         return <div>smolka</div>;
@@ -39,6 +40,7 @@ const AllBooks = () => {
     fetchBooks();
   }, [library]);
 
+  console.log(books);
   const countOfPages = Math.ceil(books?.bookCount / books?.resultPerPage);
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
@@ -55,6 +57,8 @@ const AllBooks = () => {
       .catch((err) => console.log(err));
   };
 
+  console.log(countOfPages);
+
   return (
     <div>
       <div className="flex justify-center">
@@ -68,7 +72,7 @@ const AllBooks = () => {
               setKeyword(e.target.value)
             }
           />
-          <button className='btn-primary'>Hľadať</button>
+          <button className="btn-primary">Hľadať</button>
         </form>
       </div>
 
@@ -85,12 +89,12 @@ const AllBooks = () => {
           Späť na všetky knihy
         </div>
       )}
-
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        countOfPages={countOfPages}
-      />
+      {countOfPages > 1 && (
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          countOfPages={countOfPages}
+        />
+      )}
     </div>
   );
 };

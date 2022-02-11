@@ -88,6 +88,10 @@
   .input-form-error {
     @apply text-red-500 text-lg text-right -mt-1;
   }
+
+  .selected {
+    @apply bg-gray-500;
+  }
 }
 
 .container {
