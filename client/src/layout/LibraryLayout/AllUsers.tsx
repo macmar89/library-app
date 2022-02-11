@@ -6,6 +6,7 @@ import axios from "axios";
 import { UserType } from "../../global/types/UserType";
 import Pagination from "../../global/components/Pagination";
 import { UserCard } from "../../global/components/UserCard";
+import Button from "../../global/components/Ui/Button";
 
 interface IUsers {
   success: true;
@@ -51,24 +52,22 @@ const AllUsers = () => {
     setFilteredUsers(res?.data.users);
   };
 
-
   return (
     <div>
-      <div className="flex justify-center">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder={"Zadaj hľadané priezvisko ..."}
-            name="lastName"
-            value={searchedLastName}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setSearchedLastName(e.target.value)
-            }
-          />
+      <form onSubmit={handleSubmit} className="flex gap-x-5">
+        <input
+          type="text"
+          placeholder={"Zadaj hľadané priezvisko ..."}
+          name="lastName"
+          value={searchedLastName}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setSearchedLastName(e.target.value)
+          }
+          className="w-full"
+        />
 
-          <button className="btn-primary">Hľadať</button>
-        </form>
-      </div>
+        <Button label={'Hľadať'} />
+      </form>
 
       <div className={`flex gap-x-10 mt-10 overlay-hidden`}>
         <div className={`${selectedUser ? "w-1/2" : "w-full"}`}>

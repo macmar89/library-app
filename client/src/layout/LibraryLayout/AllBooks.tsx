@@ -6,6 +6,7 @@ import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import { BookType } from "../../global/types/BookType";
 import Pagination from "../../global/components/Pagination";
 import BookList from "../BookDetailLayout/BookList";
+import Button from "../../global/components/Ui/Button";
 
 interface IBooks {
   success: true;
@@ -35,7 +36,6 @@ const AllBooks = () => {
       );
       if (res?.data?.success) {
         setBooks(res?.data);
-        console.log(res?.data);
       }
       if (!res?.data?.success) {
         return <div>smolka</div>;
@@ -44,7 +44,6 @@ const AllBooks = () => {
     fetchBooks();
   }, [library, currentPage, id]);
 
-  console.log(books);
   const countOfPages = Math.ceil(books?.bookCount / books?.resultPerPage);
 
   const handleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
@@ -61,24 +60,21 @@ const AllBooks = () => {
       .catch((err) => console.log(err));
   };
 
-  console.log(countOfPages);
-
   return (
     <div>
-      <div className="flex justify-center">
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder={"Hľadaj ..."}
-            name="keyword"
-            value={keyword}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setKeyword(e.target.value)
-            }
-          />
-          <button className="btn-primary">Hľadať</button>
-        </form>
-      </div>
+      <form onSubmit={handleSubmit} className="flex gap-x-5">
+        <input
+          type="text"
+          placeholder={"Hľadaj podľa názvu knihy ..."}
+          name="keyword"
+          value={keyword}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setKeyword(e.target.value)
+          }
+          className="w-full"
+        />
+        <Button label={"Hľadať"} />
+      </form>
 
       <div className="mt-10">
         <BookList

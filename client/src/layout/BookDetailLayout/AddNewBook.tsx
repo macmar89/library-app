@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import Button from "../../global/components/Ui/Button";
 
 //  TODO - validation, error messages/tooltip component
 
@@ -89,12 +90,12 @@ const AddNewBook = () => {
           />
 
           <div className="input-form-error">
-            {errors.yearOfRelease?.message}
+            {errors.desc?.message}
           </div>
         </div>
 
         <div className="flex justify-end mr-2">
-          <button className="btn-primary">Pridaj do knižnice</button>
+         <Button label={'Pridaj do knižnice'} />
         </div>
       </form>
     </div>

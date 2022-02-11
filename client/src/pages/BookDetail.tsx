@@ -6,6 +6,7 @@ import { formatDate, returnTo } from "../global/helpers/Moment";
 import { textWithBr } from "../global/helpers/formatText";
 import {useRecoilValue} from "recoil";
 import {LibraryAtom} from "../global/recoil/LibraryAtom";
+import Button from "../global/components/Ui/Button";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
@@ -82,17 +83,18 @@ const BookDetail = () => {
               Vrátiť do: {returnTo(bookDetail?.borrowed[0].borrowedDate)}
             </div>
             <button onClick={handleReturnToLibrary}>Vratit</button>
+            <Button label={'Vratit'} onClick={handleReturnToLibrary} />
           </div>
         ) : (
           <div className="flex justify-end items-center">
             <Link
-              className="btn"
+              className="btn btn-primary"
               to={{
                 pathname: `${rentUrl()}/pozicaj/${bookDetail?._id}`,
                 state: { bookDetail },
               }}
             >
-              Pozicaj
+              Pozičať
             </Link>
           </div>
         )}

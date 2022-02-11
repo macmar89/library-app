@@ -11,7 +11,7 @@ const bookSchema = mongoose.Schema(
     author: { type: String, required: true, trim: true },
     slug: { type: String, required: true },
     desc: { type: String, required: true },
-    yearOfRelease: { type: Number | String },
+    yearOfRelease: { type: String },
     libraryId: { type: Schema.Types.ObjectId, ref: "Library", required: true },
     borrowed: [
       {

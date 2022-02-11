@@ -29,7 +29,7 @@ const BookList = ({ books, url , handleDelete}: BookListProps) => {
               to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
               className="list-icon"
             >
-              <RiEdit2Line />
+              <RiEdit2Line className='text-green-700' />
             </Link>
             <Link
               to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}

@@ -6,6 +6,7 @@ import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import { UserCard } from "../../global/components/UserCard";
 import { BookType } from "../../global/types/BookType";
 import { UserType } from "../../global/types/UserType";
+import Button from "../../global/components/Ui/Button";
 
 const RentBook = () => {
   const nameRef = useRef<any | null>(null);
@@ -76,12 +77,20 @@ const RentBook = () => {
         <div>
           Kto: {selectedUser?.firstName} {selectedUser?.lastName}
         </div>
-        <button onClick={handleRent} className='btn-primary' disabled={selectedUser === null}>
-          Požičaj
-        </button>
+        <Button
+          label={"Požičaj"}
+          onClick={handleRent}
+          disabled={selectedUser === null}
+        />
       </div>
       <div className="flex gap-x-5">
-        <div className="flex-1">book detail: {bookDetail?.title}</div>
+        <div className="flex-1">
+          <div>
+            <h2>{bookDetail?.title}</h2>
+            <h3>{bookDetail?.author}</h3>
+            <h3>{bookDetail?.yearOfRelease}</h3>
+          </div>
+        </div>
         <div className="flex-1">
           <form
             onSubmit={handleSubmit}
@@ -93,17 +102,20 @@ const RentBook = () => {
               ref={nameRef}
               className="w-full"
             />
-            <button className='btn-primary'>Hľadaj</button>
+            <Button label={"Hľadaj"} />
           </form>
           <div>
             {selectedUser ? (
               <>
-                <UserCard user={selectedUser} totalBooks={0} currentBooks={0}  />
+                <UserCard user={selectedUser} totalBooks={0} currentBooks={0} />
                 <div
                   className="text-right"
                   onClick={() => setSelectedUser(null)}
                 >
-                  <button className="scale-90 btn-secondary">Späť</button>
+                  <Button
+                    label="Späť"
+                    className="scale-90 btn-secondary mt-3"
+                  />
                 </div>
               </>
             ) : (

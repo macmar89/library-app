@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
+import Button from "../global/components/Ui/Button";
 
 const AddNewUser = () => {
   const library = useRecoilValue<any>(LibraryAtom);
@@ -70,7 +71,7 @@ const AddNewUser = () => {
           <div className="input-form-error">{errors.email?.message}</div>
         </div>
         <div className="flex justify-end mt-3">
-          <button className="btn-primary">Pridaj užívateľa</button>
+          <Button label={"Pridaj užívateľa"} />
         </div>
       </form>
     </div>
