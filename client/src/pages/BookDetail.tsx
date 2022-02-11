@@ -4,13 +4,13 @@ import { useParams, Link, useRouteMatch } from "react-router-dom";
 import { BookType } from "../global/types/BookType";
 import { formatDate, returnTo } from "../global/helpers/Moment";
 import { textWithBr } from "../global/helpers/formatText";
-import {useRecoilValue} from "recoil";
-import {LibraryAtom} from "../global/recoil/LibraryAtom";
-import {Button} from "../global/components/Button";
+import { useRecoilValue } from "recoil";
+import { LibraryAtom } from "../global/recoil/LibraryAtom";
+import { Button } from "../global/components/Button";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
-  const library = useRecoilValue(LibraryAtom)
+  const library = useRecoilValue(LibraryAtom);
   const { id }: { id: string } = useParams();
   const { url } = useRouteMatch();
 
@@ -82,7 +82,7 @@ const BookDetail = () => {
             <div>
               Vrátiť do: {returnTo(bookDetail?.borrowed[0].borrowedDate)}
             </div>
-            <Button label={'Vratit'} onClick={handleReturnToLibrary} />
+            <Button label={"Vratit"} onClick={handleReturnToLibrary} />
           </div>
         ) : (
           <div className="flex justify-end items-center">

@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply w-screen overflow-hidden;
+    @apply w-screen ;
     @apply text-gray-900;
   }
 
