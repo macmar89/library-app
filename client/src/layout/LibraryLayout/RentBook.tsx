@@ -7,13 +7,15 @@ import { UserCard } from "../../global/components/UserCard";
 import { BookType } from "../../global/types/BookType";
 import { UserType } from "../../global/types/UserType";
 import Button from "../../global/components/Ui/Button";
+import Pagination from "../../global/components/Pagination";
 
 const RentBook = () => {
   const nameRef = useRef<any | null>(null);
   const library = useRecoilValue(LibraryAtom);
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
-  const [searchedUsers, setSearchedUsers] = useState<UserType[] | null>(null);
+  const [searchedUsers, setSearchedUsers] = useState<any | null>(null);
   const [selectedUser, setSelectedUser] = useState<UserType | null>(null);
+  const [usersCurrentPage, setUsersCurrentPage] = useState<number>(1);
   const { id }: { id: string } = useParams();
   const {
     state,
@@ -41,7 +43,8 @@ const RentBook = () => {
       .get(
         `/api/${library?.library?._id}/users?keyword=${nameRef.current?.value}`
       )
-      .then((res) => setSearchedUsers(res?.data?.users));
+      .then((res) => setSearchedUsers(res?.data))
+      .then(() => console.log(searchedUsers));
   };
 
   const handleRent = async () => {
@@ -69,6 +72,10 @@ const RentBook = () => {
       .put(`/api/book/${bookDetail?._id}`, updatedBook)
       .then((res) => console.log(res.status));
   };
+
+  const countOfPages = Math.ceil(
+    searchedUsers?.userCount / searchedUsers?.resultPerPage
+  );
 
   return (
     <div>
@@ -133,7 +140,7 @@ const RentBook = () => {
                 </div>
               </>
             ) : (
-              searchedUsers?.map((user: UserType) => (
+              searchedUsers?.users?.map((user: UserType) => (
                 <div
                   key={user._id}
                   className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
@@ -142,6 +149,12 @@ const RentBook = () => {
                   {user.firstName} {user.lastName}
                 </div>
               ))
+            )}
+            {countOfPages > 0 && !selectedUser && (
+              <Pagination
+                setCurrentPage={setUsersCurrentPage}
+                countOfPages={countOfPages}
+              />
             )}
           </div>
         </div>
