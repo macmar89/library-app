@@ -1,12 +1,12 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRouteMatch } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { LibraryAtom } from "../global/recoil/LibraryAtom";
+import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
-import { UserType } from "../global/types/UserType";
-import { Pagination } from "../global/components/Pagination";
-import { UserCard } from "../layout/User/UserCard";
-import {Button} from "../global/components/Button";
+import { UserType } from "../../global/types/UserType";
+import { Pagination } from "../../global/components/Pagination";
+import { UserCard } from "../../layout/User/UserCard";
+import {Button} from "../../global/components/Button";
 
 interface IUsers {
   success: true;

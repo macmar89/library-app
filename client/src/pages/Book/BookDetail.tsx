@@ -1,12 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useRouteMatch } from "react-router-dom";
-import { BookType } from "../global/types/BookType";
-import { formatDate, returnTo } from "../global/helpers/Moment";
-import { textWithBr } from "../global/helpers/formatText";
+import { BookType } from "../../global/types/BookType";
+import { formatDate, returnTo } from "../../global/helpers/Moment";
+import { textWithBr } from "../../global/helpers/formatText";
 import { useRecoilValue } from "recoil";
-import { LibraryAtom } from "../global/recoil/LibraryAtom";
-import { Button } from "../global/components/Button";
+import { LibraryAtom } from "../../global/recoil/LibraryAtom";
+import { Button } from "../../global/components/Button";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { Link } from "react-router-dom";
-import { UserAtom } from "../global/recoil/UserAtom";
-import { formatDate } from "../global/helpers/Moment";
-import { Pagination } from "../global/components/Pagination";
-import { BookType } from "../global/types/BookType";
-import { LibraryAtom } from "../global/recoil/LibraryAtom";
+import { UserAtom } from "../../global/recoil/UserAtom";
+import { formatDate } from "../../global/helpers/Moment";
+import { Pagination } from "../../global/components/Pagination";
+import { BookType } from "../../global/types/BookType";
+import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 
 const UserHistory = () => {
   const user = useRecoilValue(UserAtom);

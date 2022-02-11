@@ -1,12 +1,12 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { LibraryAtom } from "../global/recoil/LibraryAtom";
+import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import axios from "axios";
 import * as Yup from "yup";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { toast } from "react-toastify";
-import {Button} from "../global/components/Button";
+import {Button} from "../../global/components/Button";
 
 const AddNewUser = () => {
   const library = useRecoilValue<any>(LibraryAtom);

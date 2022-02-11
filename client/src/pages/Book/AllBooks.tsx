@@ -2,11 +2,11 @@ import axios from "axios";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { useRouteMatch, useHistory } from "react-router-dom";
-import { LibraryAtom } from "../global/recoil/LibraryAtom";
-import { BookType } from "../global/types/BookType";
-import {Pagination} from "../global/components/Pagination";
-import BookList from "../layout/Book/BookList";
-import {Button} from "../global/components/Button";
+import { LibraryAtom } from "../../global/recoil/LibraryAtom";
+import { BookType } from "../../global/types/BookType";
+import {Pagination} from "../../global/components/Pagination";
+import BookList from "../../layout/Book/BookList";
+import {Button} from "../../global/components/Button";
 
 interface IBooks {
   success: true;

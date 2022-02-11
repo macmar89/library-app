@@ -1,8 +1,8 @@
 import { Route, Switch } from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import { LibraryLayout } from "./layout/LibraryLayout";
-import AddNewLibrary from "./pages/AddNewLibrary";
-import EditLibrary from "./pages/EditLibrary";
+import AddNewLibrary from "./pages/Library/AddNewLibrary";
+import EditLibrary from "./pages/Library/EditLibrary";
 import NoMatch from "./pages/NoMatch";
 
 function App() {

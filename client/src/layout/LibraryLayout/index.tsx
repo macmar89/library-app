@@ -3,17 +3,17 @@ import React, { useEffect } from "react";
 import { Route, Switch, useParams, useRouteMatch } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
-import AddNewBook from "../../pages/AddNewBook";
-import AddNewUser from "../../pages/AddNewUser";
-import AllBooks from "../../pages/AllBooks";
-import AllUsers from "../../pages/AllUsers";
-import UserDetail from "../../pages/UserDetail";
-import BookDetail from "../../pages/BookDetail";
-import RentBook from "../../pages/RentBook";
-import UserEdit from "../../pages/UserEdit";
+import AddNewBook from "../../pages/Book/AddNewBook";
+import AddNewUser from "../../pages/User/AddNewUser";
+import AllBooks from "../../pages/Book/AllBooks";
+import AllUsers from "../../pages/User/AllUsers";
+import UserDetail from "../../pages/User/UserDetail";
+import BookDetail from "../../pages/Book/BookDetail";
+import RentBook from "../../pages/Book/RentBook";
+import UserEdit from "../../pages/User/UserEdit";
 import NoMatch from "../../pages/NoMatch";
-import UserHistory from "../../pages/UserHistory";
-import BookEdit from '../../pages/BookEdit'
+import UserHistory from "../../pages/User/UserHistory";
+import BookEdit from '../../pages/Book/BookEdit'
 
 import { Navbar } from "../../global/components/Navbar";
 
