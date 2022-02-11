@@ -74,7 +74,7 @@ const AddNewBook = () => {
           <input
             type="text"
             {...register("yearOfRelease")}
-            placeholder="Autor knihy"
+            placeholder="Rok vydania"
           />
           <div className="input-form-error">
             {errors.yearOfRelease?.message}

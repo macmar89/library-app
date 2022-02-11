@@ -9,7 +9,7 @@ import BookList from "../BookDetailLayout/BookList";
 
 interface IBooks {
   success: true;
-  books: BookType[];
+  books: any;
   bookCount: number;
   resultPerPage: number;
 }
@@ -28,9 +28,13 @@ const AllBooks = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       const id = library?.library?._id;
-      const res = await axios.get(`/api/${id}/books`);
+      const res = await axios.get(
+        currentPage === 1
+          ? `/api/${id}/books`
+          : `/api/${id}/books/?page=${currentPage}`
+      );
       if (res?.data?.success) {
-        setBooks(res?.data?.books);
+        setBooks(res?.data);
         console.log(res?.data);
       }
       if (!res?.data?.success) {
@@ -38,7 +42,7 @@ const AllBooks = () => {
       }
     };
     fetchBooks();
-  }, [library]);
+  }, [library, currentPage, id]);
 
   console.log(books);
   const countOfPages = Math.ceil(books?.bookCount / books?.resultPerPage);
@@ -76,19 +80,21 @@ const AllBooks = () => {
         </form>
       </div>
 
-      <BookList
-        books={filteredBooks ? filteredBooks : books}
-        url={url}
-        handleDelete={handleDelete}
-      />
-      {filteredBooks && (
-        <div
-          className="cursor-pointer underline text-right mt-5"
-          onClick={() => setFilteredBooks(null)}
-        >
-          Späť na všetky knihy
-        </div>
-      )}
+      <div className="mt-10">
+        <BookList
+          books={filteredBooks ? filteredBooks : books?.books}
+          url={url}
+          handleDelete={handleDelete}
+        />
+        {filteredBooks && (
+          <div
+            className="cursor-pointer underline text-right mt-5"
+            onClick={() => setFilteredBooks(null)}
+          >
+            Späť na všetky knihy
+          </div>
+        )}
+      </div>
       {countOfPages > 1 && (
         <Pagination
           setCurrentPage={setCurrentPage}

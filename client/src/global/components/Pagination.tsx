@@ -13,7 +13,7 @@ const Pagination = ({ setCurrentPage, countOfPages }: IPagination) => {
     setCurrentPage(e.selected + 1);
   };
   return (
-    <div className="py-5 flex justify-end select-none">
+    <div className="pb-5 pt-10 flex justify-end select-none">
       <ReactPaginate
         pageCount={countOfPages}
         nextLabel={<BsChevronDoubleRight />}
