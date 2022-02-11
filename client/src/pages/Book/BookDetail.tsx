@@ -99,8 +99,8 @@ const BookDetail = () => {
         )}
       </div>
       <div className="flex gap-x-5 ">
-        <aside className="w-2/6 h-96 border-2">
-          <img src={'book.svg'} alt='book'/>
+        <aside className="w-2/6 h-96">
+          <img src={'/book.svg'} alt='book' className='w-full h-full'/>
         </aside>
         <article className="w-4/6">
           <h5 className="mb-4">

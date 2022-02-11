@@ -4,8 +4,6 @@ export type LibraryType = {
   slug: string;
   createdAt: string;
   updatedAt: string;
-  books: any;
-  students: any;
   address: {
     street: string;
     city: string;

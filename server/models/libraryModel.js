@@ -8,8 +8,6 @@ const librarySchema = mongoose.Schema(
       trim: true,
     },
     slug: { type: String, required: true },
-    students: { type: Array, default: [] },
-    books: { type: Array, default: [] },
     address: {
       street: { type: String, required: true },
       city: { type: String, required: true },
