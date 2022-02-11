@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const validator = require("validator");
 const { Schema } = require("mongoose");
 
-const student = mongoose.Schema(
+const user = mongoose.Schema(
   {
     firstName: {
       type: String,
@@ -41,4 +41,4 @@ const student = mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Student", student);
+module.exports = mongoose.model("User", user);

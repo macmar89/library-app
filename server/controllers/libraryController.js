@@ -1,6 +1,6 @@
 const Library = require("../models/libraryModel");
 const Book = require("../models/bookModel");
-const Student = require("../models/studentModel");
+const Student = require("../models/userModel");
 const slug = require("slug");
 
 //  Get All Libraries

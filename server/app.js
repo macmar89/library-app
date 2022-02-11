@@ -8,10 +8,10 @@ app.use(cors())
 
 const library = require('./routes/libraryRoute')
 const book = require('./routes/bookRoute')
-const student = require('./routes/studentRoute')
+const user = require('./routes/userRoute')
 
 app.use('/api', library)
 app.use('/api', book)
-app.use('/api', student)
+app.use('/api', user)
 
 module.exports = app

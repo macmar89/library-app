@@ -1,23 +1,17 @@
-const Student = require("../models/studentModel");
-const Book = require("../models/bookModel");
+const User = require("../models/userModel");
 const ApiFeatures = require("../utils/ApiFeatures");
 
-exports.getAllBooks = async (req, res) => {
-  const books = await Book.find();
 
-  res.status(200).json({ success: true, books });
-};
-
-//  Create New Student
-exports.createStudent = async (req, res) => {
-  const student = await Student.create(req.body);
+//  Create New User
+exports.createUser = async (req, res) => {
+  const student = await User.create(req.body);
 
   res.status(201).json({ success: true, student });
 };
 
-//  Student Detail
-exports.getStudentDetail = async (req, res) => {
-  const student = await Student.findById(req.params.id)
+//  User Detail
+exports.getUserDetail = async (req, res) => {
+  const student = await User.findById(req.params.id)
     .populate({
       path: "history.book",
       select: "title yearOfRelease author",
@@ -36,15 +30,15 @@ exports.getStudentDetail = async (req, res) => {
     .json({ success: true, student, currentBorrowedBooks, totalBorrowedBooks });
 };
 
-//  Update Student
-exports.updateStudent = async (req, res) => {
-  let student = await Student.findById(req.params.id);
+//  Update User
+exports.updateUser = async (req, res) => {
+  let student = await User.findById(req.params.id);
 
   if (!student) {
     return res.status(404).json({ success: false, message: "User not found" });
   }
 
-  student = await Student.findByIdAndUpdate(req.params.id, req.body, {
+  student = await User.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
     useFindAndModify: false,
@@ -53,9 +47,9 @@ exports.updateStudent = async (req, res) => {
   res.status(200).json({ success: true, student });
 };
 
-//  Delete Student
-exports.deleteStudent = async (req, res) => {
-  const student = await Student.findById(req.params.id);
+//  Delete User
+exports.deleteUser = async (req, res) => {
+  const student = await User.findById(req.params.id);
 
   if (!student) {
     return res.status(404).json({ success: false, message: "User not found" });
@@ -63,11 +57,11 @@ exports.deleteStudent = async (req, res) => {
 
   await student.remove();
 
-  res.status(200).json({ success: true, message: "Student was deleted" });
+  res.status(200).json({ success: true, message: "User was deleted" });
 };
 
-//  Get Students By Library
-exports.getStudentsByLibrary = async (req, res) => {
+//  Get Users By Library
+exports.getUsersByLibrary = async (req, res) => {
   const resultPerPage = 10;
   const id = req?.params?.id;
 
@@ -75,9 +69,9 @@ exports.getStudentsByLibrary = async (req, res) => {
     return res.status(404).json({ success: false });
   }
 
-  const userCount = await Student.countDocuments({ libraryId: id });
+  const userCount = await User.countDocuments({ libraryId: id });
 
-  const apiFeature = new ApiFeatures(Student.find({ libraryId: id }), req.query)
+  const apiFeature = new ApiFeatures(User.find({ libraryId: id }), req.query)
     .searchLastName()
     .filter()
     .pagination(resultPerPage);
@@ -90,7 +84,7 @@ exports.getStudentsByLibrary = async (req, res) => {
 exports.getUserBookHistory = async (req,res) => {
   const id = "620408d659765b720dd8b284"
 
-  const user = await Student.findById(id)
+  const user = await User.findById(id)
 
   res.status(200).json({success: true, user})
 }
