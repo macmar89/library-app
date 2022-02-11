@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useParams, useRouteMatch } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-
 import { UserCard } from "../../layout/User/UserCard";
 import { UserType } from "../../global/types/UserType";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
@@ -34,7 +33,7 @@ const UserDetail = () => {
         .catch((err) => console.log(err));
     };
     fetchUser();
-  }, [id]);
+  }, [id, setUser]);
 
   return (
     <div className="grid grid-cols-2 gap-x-10 mt-10">

@@ -20,7 +20,7 @@ const Homepage = () => {
   useEffect(() => {
     if (libraries?.libraries?.length > 0) return;
     fetchLibraries();
-  }, [libraries, setLibraries]);
+  }, [ setLibraries, libraries?.libraries?.length]);
 
   const handleLibrary = (e: ChangeEvent<HTMLSelectElement>) => {
     const library = libraries?.libraries?.find(
