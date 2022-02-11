@@ -73,9 +73,14 @@ const RentBook = () => {
   return (
     <div>
       <div className="my-5 py-3 flex justify-between items-center border-b-2 ">
-        <div>Čo: {bookDetail?.title}</div>
-        <div>
-          Kto: {selectedUser?.firstName} {selectedUser?.lastName}
+        <div className="flex items-baseline gap-x-3">
+          <span>Kniha:</span> <h3>{bookDetail?.title}</h3>
+        </div>
+        <div className="flex items-baseline gap-x-3">
+          <span>Študent:</span>{" "}
+          <h3>
+            {selectedUser?.firstName} {selectedUser?.lastName}
+          </h3>
         </div>
         <Button
           label={"Požičaj"}
@@ -86,9 +91,18 @@ const RentBook = () => {
       <div className="flex gap-x-5">
         <div className="flex-1">
           <div>
-            <h2>{bookDetail?.title}</h2>
-            <h3>{bookDetail?.author}</h3>
-            <h3>{bookDetail?.yearOfRelease}</h3>
+            <div className="flex items-baseline gap-x-3">
+              <span>Titul:</span>
+              <h3>{bookDetail?.title}</h3>
+            </div>
+            <div className="flex items-baseline gap-x-3">
+              <span>Autor:</span>
+              <h3>{bookDetail?.author}</h3>
+            </div>
+            <div className="flex items-baseline gap-x-3">
+              <span>Rok vydania:</span>
+              <h3>{bookDetail?.yearOfRelease}</h3>
+            </div>
           </div>
         </div>
         <div className="flex-1">
