@@ -5,7 +5,7 @@ import { LibraryAtom } from "../global/recoil/LibraryAtom";
 import axios from "axios";
 import { UserType } from "../global/types/UserType";
 import { Pagination } from "../global/components/Pagination";
-import { UserCard } from "../components/User/UserCard";
+import { UserCard } from "../layout/User/UserCard";
 import {Button} from "../global/components/Button";
 
 interface IUsers {

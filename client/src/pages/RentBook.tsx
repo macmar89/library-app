@@ -3,7 +3,7 @@ import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { useLocation, useParams } from "react-router-dom";
 import { LibraryAtom } from "../global/recoil/LibraryAtom";
-import { UserCard } from "../components/User/UserCard";
+import { UserCard } from "../layout/User/UserCard";
 import { BookType } from "../global/types/BookType";
 import { UserType } from "../global/types/UserType";
 import {Button} from "../global/components/Button";

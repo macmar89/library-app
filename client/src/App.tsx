@@ -1,6 +1,6 @@
 import { Route, Switch } from "react-router-dom";
 import Homepage from "./pages/Homepage";
-import { LibraryLayout } from "./components/LibraryLayout";
+import { LibraryLayout } from "./layout/LibraryLayout";
 import AddNewLibrary from "./pages/AddNewLibrary";
 import EditLibrary from "./pages/EditLibrary";
 import NoMatch from "./pages/NoMatch";
