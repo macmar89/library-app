@@ -1,18 +1,22 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useRouteMatch } from "react-router-dom";
+import { RiDeleteBin5Line, RiEdit2Line } from "react-icons/ri";
+import { useParams, Link, useRouteMatch, useHistory } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+
 import { BookType } from "../../global/types/BookType";
 import { formatDate, returnTo } from "../../global/helpers/Moment";
 import { textWithBr } from "../../global/helpers/formatText";
-import { useRecoilValue } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import { Button } from "../../global/components/Button";
+import { toast } from "react-toastify";
 
 const BookDetail = () => {
   const [bookDetail, setBookDetail] = useState<BookType | null>(null);
   const library = useRecoilValue(LibraryAtom);
   const { id }: { id: string } = useParams();
   const { url } = useRouteMatch();
+  const history = useHistory();
 
   useEffect(() => {
     const fetchBookDetail = async () => {
@@ -26,33 +30,39 @@ const BookDetail = () => {
   }, [setBookDetail, id]);
 
   const handleReturnToLibrary = async () => {
-    const today = new Date();
-    let user = { ...bookDetail?.borrowed[0].whoBorrowed };
-    let returnedBook = {
-      book: bookDetail?._id,
-      borrowedDate: bookDetail?.borrowed[0]?.borrowedDate,
-      returnedDate: today.toISOString(),
-    };
+    const agreement = window.confirm("Chcete vrátiť knihu do knižnice?");
 
-    let updatedBook = {
-      ...bookDetail,
-      borrowed: [],
-    };
-    await axios
-      .put(`/api/book/${bookDetail?._id}`, updatedBook)
-      .then((res) => setBookDetail(res?.data?.book));
+    if (agreement) {
+      const today = new Date();
+      let user = { ...bookDetail?.borrowed[0].whoBorrowed };
+      let returnedBook = {
+        book: bookDetail?._id,
+        borrowedDate: bookDetail?.borrowed[0]?.borrowedDate,
+        returnedDate: today.toISOString(),
+      };
 
-    user = {
-      ...user,
-      history: [...user?.history, returnedBook],
-      borrowedBooks: user?.borrowedBooks.filter(
-        (book: any) => book.book !== returnedBook?.book
-      ),
-    };
+      let updatedBook = {
+        ...bookDetail,
+        borrowed: [],
+      };
+      await axios
+        .put(`/api/book/${bookDetail?._id}`, updatedBook)
+        .then((res) => setBookDetail(res?.data?.book));
 
-    await axios
-      .put(`/api/user/${user?._id}`, user)
-      .then((res) => console.log(res));
+      user = {
+        ...user,
+        history: [...user?.history, returnedBook],
+        borrowedBooks: user?.borrowedBooks.filter(
+          (book: any) => book.book !== returnedBook?.book
+        ),
+      };
+
+      await axios
+        .put(`/api/user/${user?._id}`, user)
+        .then((res) => console.log(res));
+    }
+
+    if (!agreement) return;
   };
 
   const rentUrl = () => {
@@ -60,10 +70,38 @@ const BookDetail = () => {
     return lastIndexCut.slice(0, lastIndexCut.lastIndexOf("/"));
   };
 
+  const handleRemove = async () => {
+    const agreement = window.confirm("Chcete vymazať túto knihu?");
+
+    if (agreement) {
+      if (bookDetail?.borrowed[0]?.isBorrowed) {
+        toast("Nedá sa vymazať: kniha musí byť vrátená do knižnice.");
+      }
+      if (!bookDetail?.borrowed[0]?.isBorrowed) {
+        await axios
+          .delete("/api/book/" + bookDetail?._id)
+          .then(() => toast("Kniha bola vymazaná z knižnice"))
+          .then(() => history.push(`/kniznica/${library?.library?._id}/knihy`))
+          .catch(() =>
+            toast("Niečo sa pokazilo. Kniha nebola vymazaná z knižnice")
+          );
+      }
+    }
+
+    if (!agreement) return;
+  };
+
   return (
     <div className="container">
-      <header className='pb-10'>
-        <h2 className="text-center">{bookDetail?.title}</h2>
+      <header className="pb-10 px-5 relative ">
+        <h2 className="">{bookDetail?.title}</h2>
+        <div className="flex absolute right-5 top-0 gap-x-5">
+          <RiEdit2Line className="text-3xl cursor-pointer text-green-700" />
+          <RiDeleteBin5Line
+            className="text-3xl cursor-pointer text-red-500"
+            onClick={handleRemove}
+          />
+        </div>
       </header>
       <div className="py-10 px-5 border-y-2">
         {bookDetail?.borrowed[0]?.isBorrowed ? (
@@ -84,7 +122,7 @@ const BookDetail = () => {
             <div>
               Vrátiť do: {returnTo(bookDetail?.borrowed[0].borrowedDate)}
             </div>
-            <Button label={"Vratit"} onClick={handleReturnToLibrary} />
+            <Button label={"Vrátiť"} onClick={handleReturnToLibrary} />
           </div>
         ) : (
           <div className="flex justify-end items-center">
@@ -95,7 +133,7 @@ const BookDetail = () => {
                 state: { bookDetail },
               }}
             >
-              Pozičať
+              Požičať
             </Link>
           </div>
         )}

@@ -95,10 +95,12 @@ const AllUsers = () => {
                   onClick={() => setSelectedUser(user)}
                   className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
                 >
-                  <div className="w-5/6">
+                  <div className="w-4/6">
                     {user.firstName} {user.lastName}
                   </div>
-                  <div className="w-1/6 justify-center flex">detail</div>
+                  <div className="w-2/6 justify-end flex underline ">
+                    klikni pre detail
+                  </div>
                 </div>
               ))}
               <span
@@ -115,10 +117,12 @@ const AllUsers = () => {
                 onClick={() => setSelectedUser(user)}
                 className="flex px-2 py-3 text-xl border hover:bg-gray-500 transition cursor-pointer"
               >
-                <div className="w-5/6">
+                <div className="w-4/6">
                   {user.firstName} {user.lastName}
                 </div>
-                <div className="w-1/6 justify-center flex">detail</div>
+                <div className="w-2/6 justify-end flex underline">
+                  klikni pre detail
+                </div>
               </div>
             ))
           )}
