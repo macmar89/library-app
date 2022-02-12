@@ -1,6 +1,6 @@
 const Library = require("../models/libraryModel");
 const Book = require("../models/bookModel");
-const Student = require("../models/userModel");
+const User = require("../models/userModel");
 const slug = require("slug");
 
 //  Get All Libraries
@@ -67,17 +67,22 @@ exports.getLibraryDetail = async (req, res) => {
   const id = library._id.toString();
 
   try {
+    const totalBooks = await Book.countDocuments({libraryId: id})
+
+    const totalUsers = await User.countDocuments({libraryId: id})
+
+
     const newestBooks = await Book.find({ libraryId: id })
       .sort({ createdAt: -1 })
       .limit(5);
 
-    const newestUsers = await Student.find({ libraryId: id })
+    const newestUsers = await User.find({ libraryId: id })
       .sort({ createdAt: -1 })
       .limit(5);
 
     res
       .status(200)
-      .json({ success: true, library, newestBooks, newestUsers });
+      .json({ success: true, library, newestBooks, newestUsers, totalBooks, totalUsers });
   } catch (err) {
     res.status(400).json({ success: false });
   }

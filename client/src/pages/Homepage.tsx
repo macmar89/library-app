@@ -18,7 +18,6 @@ const Homepage = () => {
   };
 
   useEffect(() => {
-    // if (libraries?.libraries?.length > 0) return;
     fetchLibraries();
   }, [setLibraries, libraries?.libraries?.length]);
 

@@ -9,7 +9,17 @@ const LibraryDashboard = () => {
 
   return (
     <div>
-      <section className="flex my-5 gap-x-10">
+      <div className="py-10 grid grid-cols-2 gap-x-5">
+        <div className='flex flex-col items-center'>
+          <h1>Počet kníh v knižnici</h1>
+          <div className='text-10xl'>{library?.totalBooks}</div>
+        </div>
+        <div className='flex flex-col items-center'>
+          <h1>Počet študentov v knižnici</h1>
+          <div className='text-10xl'>{library?.totalUsers}</div>
+        </div>
+      </div>
+      <section className="grid grid-cols-2 gap-x-5 my-10">
         <LastFiveBookList
           title="Najnovšie pridané knihy"
           books={library?.newestBooks}
