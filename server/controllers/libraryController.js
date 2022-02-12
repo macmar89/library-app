@@ -34,13 +34,6 @@ exports.updateLibrary = async (req, res) => {
       .json({ success: false, message: "Library not found" });
   }
 
-  //  TODO - check
-  // library.update((req.params.id, req.body, {
-  //   new: true,
-  //   runValidators: true,
-  //   useFindAndModify: false,
-  // }))
-
   library = await Library.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,

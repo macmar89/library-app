@@ -6,8 +6,8 @@ import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import { UserCard } from "../../layout/User/UserCard";
 import { BookType } from "../../global/types/BookType";
 import { UserType } from "../../global/types/UserType";
-import {Button} from "../../global/components/Button";
-import {Pagination} from "../../global/components/Pagination";
+import { Button } from "../../global/components/Button";
+import { Pagination } from "../../global/components/Pagination";
 
 const RentBook = () => {
   const nameRef = useRef<any | null>(null);
@@ -48,29 +48,34 @@ const RentBook = () => {
   };
 
   const handleRent = async () => {
-    const newDate = new Date();
-    let updatedUser = {
-      ...selectedUser,
-      borrowed: selectedUser?.borrowedBooks?.push({
-        book: bookDetail?._id,
-        date: newDate.toISOString(),
-      }),
-    };
-    const updatedBook = {
-      ...bookDetail,
-      borrowed: {
-        isBorrowed: true,
-        whoBorrowed: selectedUser?._id,
-        borrowedDate: newDate.toISOString(),
-      },
-    };
+    const agreement = window.confirm("Chcete knihu požičať?");
 
-    await axios
-      .put(`/api/user/${selectedUser?._id}`, updatedUser)
-      .then((res) => console.log(res.status));
-    await axios
-      .put(`/api/book/${bookDetail?._id}`, updatedBook)
-      .then((res) => console.log(res.status));
+    if (agreement) {
+      const newDate = new Date();
+      let updatedUser = {
+        ...selectedUser,
+        borrowed: selectedUser?.borrowedBooks?.push({
+          book: bookDetail?._id,
+          date: newDate.toISOString(),
+        }),
+      };
+      const updatedBook = {
+        ...bookDetail,
+        borrowed: {
+          isBorrowed: true,
+          whoBorrowed: selectedUser?._id,
+          borrowedDate: newDate.toISOString(),
+        },
+      };
+
+      await axios
+        .put(`/api/user/${selectedUser?._id}`, updatedUser)
+        .then((res) => console.log(res.status));
+      await axios
+        .put(`/api/book/${bookDetail?._id}`, updatedBook)
+        .then((res) => console.log(res.status));
+    }
+    if (!agreement) return;
   };
 
   const countOfPages = Math.ceil(

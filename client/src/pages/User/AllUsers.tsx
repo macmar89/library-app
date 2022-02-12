@@ -6,7 +6,8 @@ import axios from "axios";
 import { UserType } from "../../global/types/UserType";
 import { Pagination } from "../../global/components/Pagination";
 import { UserCard } from "../../layout/User/UserCard";
-import {Button} from "../../global/components/Button";
+import { Button } from "../../global/components/Button";
+import {toast} from "react-toastify";
 
 interface IUsers {
   success: true;
@@ -26,20 +27,21 @@ const AllUsers = () => {
 
   const id = library?.library?._id;
 
+  const fetchUsers = async () => {
+    const res = await axios.get(
+      currentPage === 1
+        ? `/api/${id}/users`
+        : `/api/${id}/users/?page=${currentPage}`
+    );
+    if (res?.data?.success) {
+      setUsers(res?.data);
+    }
+    if (!res?.data?.success) {
+      return <div>smolka</div>;
+    }
+  };
+
   useEffect(() => {
-    const fetchUsers = async () => {
-      const res = await axios.get(
-        currentPage === 1
-          ? `/api/${id}/users`
-          : `/api/${id}/users/?page=${currentPage}`
-      );
-      if (res?.data?.success) {
-        setUsers(res?.data);
-      }
-      if (!res?.data?.success) {
-        return <div>smolka</div>;
-      }
-    };
     fetchUsers();
   }, [library, currentPage, id]);
 
@@ -50,6 +52,20 @@ const AllUsers = () => {
     const res = await axios.get(`/api/${id}/users?keyword=${searchedLastName}`);
     setSearchedLastName("");
     setFilteredUsers(res?.data.users);
+  };
+
+  const handleRemove = async (id: string ) => {
+    const agreement = window.confirm("Chcete vymazať užívateľa?");
+
+    if (agreement) {
+      await axios
+        .delete("/api/user/" + id).then(() => toast('Užívateľ úspešne vymazaný'))
+        .then(() => setSelectedUser(null))
+        .then(() =>
+          fetchUsers()
+        ).catch(( ) => toast('Niečo sa nepodarilo'))
+    }
+    if (!agreement) return;
   };
 
   return (
@@ -66,7 +82,7 @@ const AllUsers = () => {
           className="w-full"
         />
 
-        <Button label={'Hľadať'} />
+        <Button label={"Hľadať"} />
       </form>
 
       <div className={`flex gap-x-10 mt-10 overlay-hidden`}>
@@ -119,6 +135,7 @@ const AllUsers = () => {
               editUrl={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${
                 selectedUser._id
               }/uprav`}
+              removeUser={handleRemove}
             />
           </div>
         )}
