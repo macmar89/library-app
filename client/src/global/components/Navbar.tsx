@@ -14,7 +14,7 @@ export const Navbar = () => {
           Knihy
         </Link>
         <Link to={`${url}/uzivatelia`} className="nav-link">
-          Užívatelia
+          Študenti
         </Link>
       </main>
       <aside>

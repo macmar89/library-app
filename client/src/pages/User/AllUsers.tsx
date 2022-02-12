@@ -133,7 +133,7 @@ const AllUsers = () => {
               user={selectedUser}
               currentBooks={selectedUser?.borrowedBooks?.length}
               totalBooks={selectedUser?.history?.length}
-              url={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${
+              userUrl={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${
                 selectedUser._id
               }`}
               editUrl={`${url.slice(0, url.lastIndexOf("/"))}/uzivatel/${

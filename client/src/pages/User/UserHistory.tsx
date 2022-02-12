@@ -16,7 +16,7 @@ const UserHistory = () => {
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
 
-  const currentBooks: BookType[] = user?.history?.slice(
+  const currentBooks: BookType[] | null = user && user?.history?.slice(
     indexOfFirstBook,
     indexOfLastBook
   );
@@ -50,7 +50,7 @@ const UserHistory = () => {
           </li>
         ))}
       </ul>
-      {user?.history?.length > 10 && (
+      {user && user?.history?.length > 10 && (
         <Pagination
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}

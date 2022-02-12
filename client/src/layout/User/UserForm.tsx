@@ -1,29 +1,33 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { UserType } from "../../global/types/UserType";
-import {Button} from "../../global/components/Button";
+import { Button } from "../../global/components/Button";
+import { UserAtom } from "../../global/recoil/UserAtom";
+import { toast } from "react-toastify";
+import { useHistory, useRouteMatch } from "react-router-dom";
 
 interface UserFormProps {
-  user?: UserType;
+  user?: UserType | null;
   title?: string;
   className?: string;
 }
 
 export const UserForm = ({ user, title, className }: UserFormProps) => {
-
   const library = useRecoilValue<any>(LibraryAtom);
+  const setUser = useSetRecoilState(UserAtom);
+  const history = useHistory();
+  const { url } = useRouteMatch();
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string().required("Toto pole je povinné"),
     lastName: Yup.string().required("Priezvisko je povinné"),
     email: Yup.string().required("Email je povinný").email("Email je neplatný"),
   });
-  const formOptions = { resolver: yupResolver(validationSchema) };
 
   // get functions to build form with useForm() hook
   const {
@@ -31,20 +35,39 @@ export const UserForm = ({ user, title, className }: UserFormProps) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm(formOptions);
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: user || { firstName: "", lastName: "", email: "" },
+  });
 
   const onSubmit = async (data: any) => {
     const userData = {
-      firstName: data.firstName ,
+      ...user,
+      firstName: data.firstName,
       lastName: data.lastName,
       email: data.email,
       libraryId: library?.library._id,
     };
 
-    await axios
-      .post("http://localhost:4000/api/user", userData)
-      .then(() => reset())
-      .catch((err) => console.log(err));
+    if (user) {
+      await axios
+        .put("/api/user/" + user?._id, userData)
+        .then((res) => setUser(res?.data?.user))
+        .then(() => toast("Študent bol upravený"))
+        .then(() => history.push(`${url.slice(0, url.lastIndexOf("/"))}`))
+        .catch(() => toast("Niečo sa pokazilo. Užívateľ nebol upravený"));
+    }
+
+    if (!user) {
+      await axios
+        .post("http://localhost:4000/api/user", userData)
+        .then(() => reset())
+        .then(() => toast("Študent bol pridaný"))
+        .catch((err) => {
+          console.log(err);
+          toast("Niečo sa pokazilo. Študent nebol vytvorený");
+        });
+    }
     return false;
   };
 
@@ -60,7 +83,6 @@ export const UserForm = ({ user, title, className }: UserFormProps) => {
             type="text"
             {...register("firstName")}
             placeholder="Krstné meno"
-
           />
           <div className="input-form-error">{errors.firstName?.message}</div>
         </div>
@@ -76,7 +98,7 @@ export const UserForm = ({ user, title, className }: UserFormProps) => {
           <input type="text" {...register("email")} placeholder="Email" />
           <div className="input-form-error">{errors.email?.message}</div>
         </div>
-        <Button label='Potvrdiť' />
+        <Button label="Potvrdiť" />
       </form>
     </div>
   );
