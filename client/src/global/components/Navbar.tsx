@@ -22,7 +22,7 @@ export const Navbar = () => {
           Pridaj knihu
         </Link>
         <Link to={`${url}/pridaj-uzivatela`} className="nav-link">
-          Pridaj užívateľa
+          Pridaj študenta
         </Link>
       </aside>
     </div>
