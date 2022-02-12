@@ -8,7 +8,7 @@ export const Navbar = () => {
     <div className="bg-teal-500 h-12 flex justify-between items-center">
       <main>
         <Link to={`${url}`} className="nav-link">
-          Home
+          Dashboard
         </Link>
         <Link to={`${url}/knihy`} className="nav-link">
           Knihy

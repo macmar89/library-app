@@ -13,7 +13,6 @@ import {Button} from "../../global/components/Button";
 const AddNewBook = () => {
   const library = useRecoilValue<any>(LibraryAtom);
 
-  console.log(library);
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Toto pole je povinné"),

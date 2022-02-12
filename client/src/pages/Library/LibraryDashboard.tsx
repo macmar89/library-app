@@ -1,43 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
-
+import { LastFiveBookList } from "../../layout/Book/LastFiveBookList";
+import { LastUserList } from "../../layout/User/LastUserList";
 
 const LibraryDashboard = () => {
   const library = useRecoilValue(LibraryAtom);
 
-
   return (
     <div>
       <section className="flex my-5 gap-x-10">
+        <LastFiveBookList
+          title="Najnovšie pridané knihy"
+          books={library?.newestBooks}
+          slug={library?.library?.slug}
+          emptyLabel="Ešte neboli pridané žiadne knihy"
+          url={`/kniznica/${library?.library?.slug}/knihy`}
+        />
 
-        <div
-          className={
-            "border-2 border-gray-200 bg-gray-500 rounded-2xl px-8 py-5 "
-          }
-        >
-          <h4 className="text-gray-900">Najnovšie pridané knihy</h4>
-          {library?.newestBooks?.map((book: any) => (
-            <div key={book._id} className="border-b py-2 pl-1">
-              <Link to={`/${library?.library?.slug}/${book.slug}`}>
-                {book.title}
-              </Link>
-            </div>
-          ))}
-        </div>
-        <div
-          className={"border-2 border-white bg-gray-500 rounded-2xl px-8 py-5 "}
-        >
-          <h4>Najnovšie pridaný užívatelia</h4>
-
-          {library?.newestUsers?.map((user: any) => {
-            const name = user.firstName + " " + user.lastName;
-            return <div key={user._id}>{name}</div>;
-          })}
-        </div>
+        <LastUserList
+          title="Najnovšie pridaný užívatelia"
+          users={library?.newestUsers}
+          slug={library?.library?.slug}
+          emptyLabel="Ešte neboli pridaní žiadny"
+          url={`/kniznica/${library?.library?.slug}/uzivatelia`}
+        />
       </section>
-
     </div>
   );
 };

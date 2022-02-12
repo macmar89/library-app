@@ -64,7 +64,6 @@ export const LibraryForm = ({
   } = useForm(formOptions);
 
   const onSubmit = async (data: any) => {
-    console.log(newLibrary)
     const libraryData = {
       name: data.name.trim(),
       address: {

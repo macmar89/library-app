@@ -14,7 +14,6 @@ interface UserFormProps {
 }
 
 export const UserForm = ({ user, title, className }: UserFormProps) => {
-  console.log(user?.firstName);
 
   const library = useRecoilValue<any>(LibraryAtom);
 

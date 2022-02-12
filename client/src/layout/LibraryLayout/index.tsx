@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
-import { Route, Switch, useParams, useRouteMatch } from "react-router-dom";
+import { FaArrowCircleLeft } from "react-icons/fa";
+import { Route, Switch, useParams, useRouteMatch, Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 
 import AddNewBook from "../../pages/Book/AddNewBook";
@@ -37,7 +38,12 @@ export const LibraryLayout = () => {
 
   return (
     <div className="min-h-screen relative">
-      <h1>{library?.library?.name}</h1>
+      <header className="h-40 flex justify-center items-center relative">
+        <h1>{library?.library?.name}</h1>
+        <Link to={"/"}>
+          <FaArrowCircleLeft className="absolute top-2/4 -translate-y-2/4 left-10 text-4xl cursor-pointer" />
+        </Link>
+      </header>
       <Navbar />
       <div className="container">
         <Switch>
