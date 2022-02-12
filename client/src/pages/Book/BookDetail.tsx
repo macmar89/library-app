@@ -31,10 +31,10 @@ const BookDetail = () => {
 
   const handleReturnToLibrary = async () => {
     const agreement = window.confirm("Chcete vrátiť knihu do knižnice?");
+    const today = new Date();
+    let user = { ...bookDetail?.borrowed[0].whoBorrowed };
 
     if (agreement) {
-      const today = new Date();
-      let user = { ...bookDetail?.borrowed[0].whoBorrowed };
       let returnedBook = {
         book: bookDetail?._id,
         borrowedDate: bookDetail?.borrowed[0]?.borrowedDate,
@@ -45,9 +45,8 @@ const BookDetail = () => {
         ...bookDetail,
         borrowed: [],
       };
-      await axios
+      const bookUpdate = await axios
         .put(`/api/book/${bookDetail?._id}`, updatedBook)
-        .then((res) => setBookDetail(res?.data?.book));
 
       user = {
         ...user,
@@ -57,9 +56,14 @@ const BookDetail = () => {
         ),
       };
 
-      await axios
-        .put(`/api/user/${user?._id}`, user)
-        .then((res) => console.log(res));
+      const userUpdate = await axios.put(`/api/user/${user?._id}`, user);
+
+      if (userUpdate.status === 200 && bookUpdate.status === 200) {
+        toast('Kniha bola vrátená do knižnice')
+          setBookDetail(bookUpdate?.data?.book)
+      } else {
+        toast('Niečo sa pokazilo')
+      }
     }
 
     if (!agreement) return;
@@ -81,7 +85,7 @@ const BookDetail = () => {
         await axios
           .delete("/api/book/" + bookDetail?._id)
           .then(() => toast("Kniha bola vymazaná z knižnice"))
-          .then(() => history.push(`/kniznica/${library?.library?._id}/knihy`))
+          .then(() => history.push(`/kniznica/${library?.library?.slug}/knihy`))
           .catch(() =>
             toast("Niečo sa pokazilo. Kniha nebola vymazaná z knižnice")
           );

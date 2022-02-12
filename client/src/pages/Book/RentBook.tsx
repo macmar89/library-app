@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useRecoilValue } from "recoil";
-import { useLocation, useParams } from "react-router-dom";
+import {useHistory, useLocation, useParams} from "react-router-dom";
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 import { UserCard } from "../../layout/User/UserCard";
 import { BookType } from "../../global/types/BookType";
 import { UserType } from "../../global/types/UserType";
 import { Button } from "../../global/components/Button";
 import { Pagination } from "../../global/components/Pagination";
+import { toast } from "react-toastify";
 
 const RentBook = () => {
   const nameRef = useRef<any | null>(null);
@@ -24,6 +25,7 @@ const RentBook = () => {
       bookDetail: BookType;
     };
   } = useLocation();
+  const history = useHistory()
 
   useEffect(() => {
     if (state?.bookDetail) setBookDetail(state?.bookDetail);
@@ -68,12 +70,21 @@ const RentBook = () => {
         },
       };
 
-      await axios
-        .put(`/api/user/${selectedUser?._id}`, updatedUser)
-        .then((res) => console.log(res.status));
-      await axios
-        .put(`/api/book/${bookDetail?._id}`, updatedBook)
-        .then((res) => console.log(res.status));
+      const updateUser = await axios.put(
+        `/api/user/${selectedUser?._id}`,
+        updatedUser
+      );
+      const updateBook = await axios.put(
+        `/api/book/${bookDetail?._id}`,
+        updatedBook
+      );
+
+      if (updateUser.status === 200 && updateBook.status === 200) {
+        toast("Kniha bola zapožičaná");
+        history.push(`/kniznica/${library?.library?.slug}/knihy`)
+      } else {
+        toast("Niečo sa pokazilo");
+      }
     }
     if (!agreement) return;
   };
