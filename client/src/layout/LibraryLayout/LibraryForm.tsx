@@ -5,6 +5,7 @@ import { LibraryType } from "../../global/types/LibraryTypes";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import {Button} from "../../global/components/Button";
 
 export const LibraryForm = ({
   title,
@@ -177,7 +178,7 @@ export const LibraryForm = ({
           />
           <div className="input-form-error">{errors.phone?.message}</div>
         </div>
-        <button className="btn-primary mt-2">Pridaj knižnicu</button>
+        <Button label='Pridaj knižnicu' className="mt-2" />
       </form>
     </div>
   );
