@@ -1,17 +1,12 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
+import {LibraryType} from "../types/LibraryTypes";
 
 const { persistAtom } = recoilPersist();
 
-// interface ILibrary {
-//   success?: true;
-//   library?: LibraryType;
-//   newestBooks?: BookType[];
-//   newestStudents?: any;
-// }
 
 export const LibraryAtom = atom({
   key: "LibraryAtom",
-  default: {} as any,
+  default: null as null | LibraryType,
   effects_UNSTABLE: [persistAtom],
 });

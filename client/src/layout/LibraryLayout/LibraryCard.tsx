@@ -38,7 +38,6 @@ const LibraryCard = ({ library, remove }: ILibraryProps) => {
             pathname: `/uprav-kniznicu/${library?.slug}`,
             state: { library: library },
           }}
-          // onClick={() => setLibrary(library)}
         >
           <RiEdit2Line className="homepage-icon text-teal-700" />
         </Link>

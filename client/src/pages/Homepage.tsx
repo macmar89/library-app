@@ -6,6 +6,7 @@ import { GeneralAtom } from "../global/recoil/GeneralAtom";
 import { LibraryType } from "../global/types/LibraryTypes";
 import { LibraryAtom } from "../global/recoil/LibraryAtom";
 import LibraryCard from "../layout/LibraryLayout/LibraryCard";
+import { toast } from "react-toastify";
 
 const Homepage = () => {
   const [libraries, setLibraries] = useRecoilState(GeneralAtom);
@@ -35,7 +36,9 @@ const Homepage = () => {
       await axios
         .delete(`/api/library/` + id)
         .then(() => setChosenLibrary(null))
-        .then(() => fetchLibraries());
+        .then(() => toast("Knižnica bola vymazaná"))
+        .then(() => fetchLibraries())
+        .catch(() => toast("Niečo sa pokazilo. Knižnica nebola vymazaná"));
     }
     if (!agreement) return;
   };

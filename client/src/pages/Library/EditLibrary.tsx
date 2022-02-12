@@ -1,28 +1,24 @@
 import React, { useEffect } from "react";
 import { LibraryForm } from "../../layout/LibraryLayout/LibraryForm";
-import { useHistory, useLocation, Link } from "react-router-dom";
-import { LibraryType } from "../../global/types/LibraryTypes";
+import { useHistory, Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { LibraryAtom } from "../../global/recoil/LibraryAtom";
 
 const EditLibrary = () => {
-  const {
-    state,
-  }: {
-    state: {
-      library: LibraryType;
-    };
-  } = useLocation();
+  const library = useRecoilValue(LibraryAtom);
+
   const history = useHistory();
 
   useEffect(() => {}, []);
 
-  if (!state) history.goBack();
+  if (!library) history.goBack();
 
   return (
     <div className="h-screen w-screen flex justify-center items-center flex-col relative">
       <div>
-        <LibraryForm title={"Uprav knižnicu"} library={state?.library} />
+        <LibraryForm title={"Uprav knižnicu"} library={library} />
         <div className="mt-10 text-right">
-          <Link to={'/'} className="btn btn-secondary">
+          <Link to={"/"} className="btn btn-secondary">
             Späť
           </Link>
         </div>

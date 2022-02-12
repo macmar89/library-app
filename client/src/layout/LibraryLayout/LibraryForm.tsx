@@ -1,12 +1,13 @@
 import axios from "axios";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 import { LibraryType } from "../../global/types/LibraryTypes";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
-import {Button} from "../../global/components/Button";
-
+import { Button } from "../../global/components/Button";
+import { toast } from "react-toastify";
+import slug from "slug";
 export const LibraryForm = ({
   title,
   library,
@@ -15,33 +16,6 @@ export const LibraryForm = ({
   library?: LibraryType;
 }) => {
   const history = useHistory();
-  const [newLibrary, setNewLibrary] = useState({
-    name: "",
-    street: "",
-    city: "",
-    postalCode: "",
-    state: "",
-    email: "",
-    phone: "",
-  });
-
-  useEffect(() => {
-    if (!library) return;
-    const lib = {
-      name: library.name,
-      street: library.address.street,
-      city: library.address.city,
-      postalCode: library.address.postalCode,
-      state: library.address.state,
-      email: library.contact.email,
-      phone: library.contact.phone,
-    };
-    setNewLibrary(lib);
-  }, [library]);
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewLibrary((val) => ({ ...val, [e.target.name]: e.target.value }));
-  };
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required("Toto pole je povinné"),
@@ -55,18 +29,28 @@ export const LibraryForm = ({
     phone: Yup.string().required("Toto pole je povinné"),
   });
 
-  const formOptions = { resolver: yupResolver(validationSchema) };
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm(formOptions);
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      name: library?.name,
+      street: library?.address?.street,
+      city: library?.address?.city,
+      state: library?.address?.state,
+      postalCode: library?.address?.postalCode,
+      phone: library?.contact?.phone,
+      email: library?.contact?.email,
+    },
+  });
 
   const onSubmit = async (data: any) => {
     const libraryData = {
       name: data.name.trim(),
+      slug: slug(data?.name),
       address: {
         street: data.street.trim(),
         city: data.city.trim(),
@@ -86,7 +70,9 @@ export const LibraryForm = ({
           reset();
           return res.data?.library?.slug;
         })
-        .then((slug) => history.push("/kniznica/" + slug));
+        .then((slug) => history.push("/kniznica/" + slug))
+        .then(() => toast("Knižnica bola upravená"))
+        .catch(() => toast("Niečo sa pokazilo. Knižnica nebola upravená"));
     } else {
       await axios
         .post("/api/library", libraryData)
@@ -94,7 +80,9 @@ export const LibraryForm = ({
           reset();
           return res.data?.library?.slug;
         })
-        .then((slug) => history.push("/kniznica/" + slug));
+        .then((slug) => history.push("/kniznica/" + slug))
+        .then(() => toast("Knižnica bola vytvorená"))
+        .catch(() => toast("Niečo sa pokazilo. Knižnica nebola vytvorená"));
     }
 
     return false;
@@ -108,20 +96,12 @@ export const LibraryForm = ({
           <input
             type="text"
             {...register("name")}
-            onChange={handleChange}
             placeholder="Meno knižnice"
-            value={newLibrary.name}
           />
           <div className="input-form-error">{errors.name?.message}</div>
         </div>
         <div className="form-group">
-          <input
-            type="text"
-            {...register("street")}
-            onChange={handleChange}
-            placeholder="Ulica"
-            value={newLibrary.street}
-          />{" "}
+          <input type="text" {...register("street")} placeholder="Ulica" />
           <div className="input-form-error">{errors.street?.message}</div>
         </div>
         <div className="flex gap-x-2">
@@ -129,9 +109,7 @@ export const LibraryForm = ({
             <input
               type="text"
               {...register("postalCode")}
-              onChange={handleChange}
               placeholder="PSČ"
-              value={newLibrary.postalCode}
               className="w-full"
             />
             <div className="input-form-error">{errors.postalCode?.message}</div>
@@ -140,45 +118,25 @@ export const LibraryForm = ({
             <input
               type="text"
               {...register("city")}
-              onChange={handleChange}
               placeholder="Mesto"
-              value={newLibrary.city}
               className="w-full"
             />
             <div className="input-form-error">{errors.city?.message}</div>
           </div>
         </div>
         <div className="form-group">
-          <input
-            type="text"
-            {...register("state")}
-            onChange={handleChange}
-            placeholder="Štát"
-            value={newLibrary.state}
-          />{" "}
+          <input type="text" {...register("state")} placeholder="Štát" />{" "}
           <div className="input-form-error">{errors.state?.message}</div>
         </div>
         <div className="form-group">
-          <input
-            type="text"
-            {...register("email")}
-            onChange={handleChange}
-            placeholder="Email"
-            value={newLibrary.email}
-          />{" "}
+          <input type="text" {...register("email")} placeholder="Email" />{" "}
           <div className="input-form-error">{errors.email?.message}</div>
         </div>
         <div className="form-group">
-          <input
-            type="text"
-            {...register("phone")}
-            onChange={handleChange}
-            placeholder="Telefón"
-            value={newLibrary.phone}
-          />
+          <input type="text" {...register("phone")} placeholder="Telefón" />
           <div className="input-form-error">{errors.phone?.message}</div>
         </div>
-        <Button label='Pridaj knižnicu' className="mt-2" />
+        <Button className="mt-2" />
       </form>
     </div>
   );
