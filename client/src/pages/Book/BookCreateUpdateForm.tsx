@@ -99,7 +99,7 @@ export const BookCreateUpdateForm = ({className, title, toastMessage} : IBookCre
         </div>
 
         <div className="flex justify-end mt-5">
-          <Button label="Potvrdiť" />
+          <Button />
         </div>
       </form>
     </div>

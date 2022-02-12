@@ -6,7 +6,7 @@ export const Navbar = () => {
 
   return (
     <div className="bg-teal-500 h-12 flex justify-between items-center">
-      <main>
+      <main >
         <Link to={`${url}`} className="nav-link">
           Dashboard
         </Link>

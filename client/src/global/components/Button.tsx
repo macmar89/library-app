@@ -2,7 +2,7 @@ import React from "react";
 
 interface IButtonProps {
   variant?: "primary" | "secondary";
-  label: string;
+  label?: string;
   onClick?: any;
   disabled?: boolean;
   className?: string;
@@ -23,7 +23,7 @@ export const Button = ({
       onClick={onClick}
       disabled={disabled}
     >
-      {label}
+      {label || 'Potvrdiť'}
     </button>
   );
 };

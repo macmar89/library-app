@@ -4,7 +4,7 @@ import { BookCreateUpdateForm } from "./BookCreateUpdateForm";
 const AddNewBook = () => {
 
   return (
-    <div className="container">
+    <div className="mt-10">
       <BookCreateUpdateForm
         title="Pridaj knihu"
         toastMessage="Kniha bola pridaná do knižnice"
