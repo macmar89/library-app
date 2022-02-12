@@ -26,7 +26,7 @@ const BookList = ({ books, url , handleDelete}: BookListProps) => {
           </Link>
           <div className="w-1/6 list-icons">
             <Link
-              to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}`}
+              to={`${url.slice(0, url.lastIndexOf("/"))}/kniha/${book._id}/uprav`}
               className="list-icon"
             >
               <RiEdit2Line className='text-green-700' />

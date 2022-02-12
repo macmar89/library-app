@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { UserType } from "../../global/types/UserType";
+import {Button} from "../../global/components/Button";
 
 interface UserFormProps {
   user?: UserType;
@@ -75,7 +76,7 @@ export const UserForm = ({ user, title, className }: UserFormProps) => {
           <input type="text" {...register("email")} placeholder="Email" />
           <div className="input-form-error">{errors.email?.message}</div>
         </div>
-        <button className="btn-primary">Potvrdiť</button>
+        <Button label='Potvrdiť' />
       </form>
     </div>
   );

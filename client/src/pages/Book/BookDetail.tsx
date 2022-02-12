@@ -45,8 +45,10 @@ const BookDetail = () => {
         ...bookDetail,
         borrowed: [],
       };
-      const bookUpdate = await axios
-        .put(`/api/book/${bookDetail?._id}`, updatedBook)
+      const bookUpdate = await axios.put(
+        `/api/book/${bookDetail?._id}`,
+        updatedBook
+      );
 
       user = {
         ...user,
@@ -59,10 +61,10 @@ const BookDetail = () => {
       const userUpdate = await axios.put(`/api/user/${user?._id}`, user);
 
       if (userUpdate.status === 200 && bookUpdate.status === 200) {
-        toast('Kniha bola vrátená do knižnice')
-          setBookDetail(bookUpdate?.data?.book)
+        toast("Kniha bola vrátená do knižnice");
+        setBookDetail(bookUpdate?.data?.book);
       } else {
-        toast('Niečo sa pokazilo')
+        toast("Niečo sa pokazilo");
       }
     }
 
@@ -100,7 +102,9 @@ const BookDetail = () => {
       <header className="pb-10 px-5 relative ">
         <h2 className="">{bookDetail?.title}</h2>
         <div className="flex absolute right-5 top-0 gap-x-5">
-          <RiEdit2Line className="text-3xl cursor-pointer text-green-700" />
+          <Link to={url + '/uprav'}>
+            <RiEdit2Line className="text-3xl cursor-pointer text-green-700" />
+          </Link>
           <RiDeleteBin5Line
             className="text-3xl cursor-pointer text-red-500"
             onClick={handleRemove}
