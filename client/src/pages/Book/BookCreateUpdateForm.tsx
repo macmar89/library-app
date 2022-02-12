@@ -7,17 +7,25 @@ import { useRecoilValue } from "recoil";
 import * as Yup from "yup";
 
 import { LibraryAtom } from "../../global/recoil/LibraryAtom";
-import {Button} from "../../global/components/Button";
+import { Button } from "../../global/components/Button";
+import { BookType } from "../../global/types/BookType";
+import { useHistory } from "react-router-dom";
 
 interface IBookCreateUpdateFormProps {
-  className?: string
-  title: string
-  toastMessage: string
+  className?: string;
+  title: string;
+  toastMessage: string;
+  book?: BookType | null;
 }
 
-export const BookCreateUpdateForm = ({className, title, toastMessage} : IBookCreateUpdateFormProps) => {
+export const BookCreateUpdateForm = ({
+  className,
+  title,
+  toastMessage,
+  book,
+}: IBookCreateUpdateFormProps) => {
   const library = useRecoilValue<any>(LibraryAtom);
-
+  const history = useHistory();
 
   const validationSchema = Yup.object().shape({
     title: Yup.string().required("Toto pole je povinné"),
@@ -26,17 +34,23 @@ export const BookCreateUpdateForm = ({className, title, toastMessage} : IBookCre
     desc: Yup.string().required("Toto pole je povinné"),
   });
 
-  const formOptions = { resolver: yupResolver(validationSchema) };
-
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm(formOptions);
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+    defaultValues: book || {
+      title: "",
+      author: '',
+      yearOfRelease: '',
+      desc: ''
+    },
+  });
 
   const onSubmit = async (data: any) => {
-    const book = {
+    const bookData = {
       title: data.title,
       author: data.author,
       desc: data.desc,
@@ -44,15 +58,29 @@ export const BookCreateUpdateForm = ({className, title, toastMessage} : IBookCre
       libraryId: library?.library._id,
     };
 
-    await axios
-      .post("/api/book", book)
-      .then(() => {
-        toast(toastMessage);
-      })
-      .then(() => {
-        reset();
-      })
-      .catch(() => toast("Niečo sa pokazilo :("));
+    if (book) {
+      await axios
+        .put("/api/book/"+book?._id, bookData)
+        .then(() => {
+          toast(toastMessage);
+        })
+        .then(() => {
+          history.push(`/kniznica/${library?.library?.slug}/knihy`);
+        })
+        .catch(() => toast("Niečo sa pokazilo :("));
+    }
+
+    if (!book) {
+      await axios
+        .post("/api/book/", bookData)
+        .then(() => {
+          toast(toastMessage);
+        })
+        .then(() => {
+          reset();
+        })
+        .catch(() => toast("Niečo sa pokazilo :("));
+    }
     return false;
   };
 
@@ -93,9 +121,7 @@ export const BookCreateUpdateForm = ({className, title, toastMessage} : IBookCre
             placeholder="Pridajte popis knihy..."
           />
 
-          <div className="input-form-error">
-            {errors.desc?.message}
-          </div>
+          <div className="input-form-error">{errors.desc?.message}</div>
         </div>
 
         <div className="flex justify-end mt-5">
@@ -105,4 +131,3 @@ export const BookCreateUpdateForm = ({className, title, toastMessage} : IBookCre
     </div>
   );
 };
-
