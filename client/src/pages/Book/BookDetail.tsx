@@ -62,8 +62,10 @@ const BookDetail = () => {
 
   return (
     <div className="container">
-      <h2 className="text-center">{bookDetail?.title}</h2>
-      <div className="py-5">
+      <header className='pb-10'>
+        <h2 className="text-center">{bookDetail?.title}</h2>
+      </header>
+      <div className="py-10 px-5 border-y-2">
         {bookDetail?.borrowed[0]?.isBorrowed ? (
           <div className="flex justify-between items-center">
             <div>
@@ -98,9 +100,9 @@ const BookDetail = () => {
           </div>
         )}
       </div>
-      <div className="flex gap-x-5 ">
+      <div className="flex gap-x-5 pt-10">
         <aside className="w-2/6 h-96">
-          <img src={'/book.svg'} alt='book' className='w-full h-full'/>
+          <img src={"/book.svg"} alt="book" className="w-full h-full" />
         </aside>
         <article className="w-4/6">
           <h5 className="mb-4">
